@@ -1,2 +1,3 @@
-# v1.4_frontend
-Frontend for WebApp using Angular 11
+# v1.4_WebApp
+Frontend: Angular 11
+Backend: Django 3.1
