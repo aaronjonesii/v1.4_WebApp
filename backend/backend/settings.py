@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
+import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from datetime import timedelta
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -21,12 +23,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '_6^!n9*85txi4i6*$(^y!jsb6xao635xd@d*zp@oox$73_fxrv'
+# TODO: Place in system environment
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# TODO: Place in system environment
 
 ALLOWED_HOSTS = []
+# TODO: Place in system environment
 
+# CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST').split(',')
+CORS_ORIGIN_WHITELIST = ''
+
+AUTH_USER_MODEL = 'blog.User'
+
+AUTHENTICATION_BACKENDS = ['backend.authbackends.EmailorUsernameModelBackend']
 
 # Application definition
 
@@ -37,9 +48,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'blog',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,6 +85,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+ASGI_APPLICATION = 'backend.routing.application'
 
 
 # Database
@@ -75,8 +93,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'backend',
+        'ENGINE': 'mysql.connector.django',
+        'USER': 'anonymous',
+        'PASSWORD': 'anonymous',
+        'OPTIONS': {'autocommit': True, 'charset': 'utf8mb4',},
     }
 }
 
@@ -116,5 +137,32 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+# Django REST Simple JWT
+# https://github.com/davesque/django-rest-framework-simplejwt
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'username',
+    'USER_ID_CLAIM': 'username',
+
+}
+
+# import sentry_sdk
+# from sentry_sdk.integrations.django import DjangoIntegration
+
+# sentry_sdk.init(
+#     dsn=os.environ.get('SENTRY_URL', ''),
+#     integrations=[DjangoIntegration()]
+# )
