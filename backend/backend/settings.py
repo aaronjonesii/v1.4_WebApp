@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 # TODO: Place in system environment
 
 # CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST').split(',')
-CORS_ORIGIN_WHITELIST = ''
+CORS_ORIGIN_WHITELIST = ['http://localhost:4200']
 
 AUTH_USER_MODEL = 'blog.User'
 
