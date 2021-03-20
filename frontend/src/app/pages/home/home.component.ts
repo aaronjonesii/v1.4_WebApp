@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BlogService } from '../../shared/utils/blog/blog.service';
 import { Subscription } from 'rxjs';
 import { Blog } from '../../shared/utils/blog/blog';
+import { AuthService } from "@auth0/auth0-angular";
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private blogService: BlogService,
+    public auth: AuthService,
   ) {
     this.sub = this.blogService.getBlogSubject().subscribe(blogs => this.blogs = blogs);
   }

@@ -18,6 +18,7 @@ import { EditBlogPostComponent } from './pages/blog/edit-blog-post/edit-blog-pos
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from "@angular/common/http";
+import { LoadingComponent } from "./shared/layout/loading/loading.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HttpClientModule } from "@angular/common/http";
     BlogPostComponent,
     BlogComponent,
     EditBlogPostComponent,
+    LoadingComponent,
   ],
   imports: [
     AppRoutingModule,
