@@ -7,14 +7,8 @@ from rest_framework.response import Response
 from .serializers import PostSerializer, TagSerializer, CategorySerializer, UserSerializer, NewsletterSerializer
 from .models import Tag, Post, Category, NewsletterSubscriber
 
-from django.contrib.auth.forms import AuthenticationForm
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import login
 from rest_framework import views, status
-
 from rest_framework import permissions
-from django.contrib.auth import logout
-from rest_framework_simplejwt.exceptions import TokenError
 
 from requests import get # IP
 
@@ -123,85 +117,9 @@ class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
 
-class CustomLoginJWTAuthToken(views.APIView):
-    """
-    API endpoint that takes credentials to return JWT tokens
-    """
-
-    def post(self, request):
-        form = AuthenticationForm(data=request.data)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user=form.get_user())
-
-            refresh = RefreshToken.for_user(request.user)
-            response = {'token': {
-                                'access_token': str(refresh.access_token),
-                                'refresh_token': str(refresh),
-                            }}
-            return Response(response)
-        else:
-            return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class CustomSignUpJWTAuthToken(views.APIView):
-    """
-    API endpoint to create a new user
-    """
-
-    def post(self, request):
-        data = request.data
-        form = UserSerializer(data=data)
-        if form.is_valid():
-            new_user = form.save()
-            login(request, user=new_user)
-
-            refresh = RefreshToken.for_user(request.user)
-            return Response({
-                'token': {
-                    'access_token': str(refresh.access_token),
-                    'refresh_token': str(refresh),
-                },
-        })
-        else:
-            return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class LogOutView(views.APIView):
-    """
-    API endpoint that allows signed in users to Logout
-    """
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def delete(self, *args, **kwargs):
-        logout(self.request)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class CustomRefreshJWTAuthToken(views.APIView):
-    """
-    API endpoint that takes a refresh token to return an access token
-    """
-
-    def post(self, request):
-        import json
-        json_data = json.loads(json.dumps(request.data))
-        if 'payload' in json_data and 'refresh_token' in json_data['payload']:
-            tokens = json_data['payload']
-            try:
-                refresh = RefreshToken(token=tokens['refresh_token'])
-                response = {'token': {
-                    'access_token': str(refresh.access_token),
-                    'refresh_token': str(refresh),
-                }}
-            except TokenError:
-                return Response({"error": "Invalid token!"}, status=status.HTTP_401_UNAUTHORIZED)
-            return Response(response)
-        else:
-            return Response({"error": "Invalid key!"}, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view()
+@permission_classes([AllowAny])
 def weatherView(request):
     ip = get_client_ip(request)
     locationKey = getAccuWeatherLocationKey(ip)
@@ -214,6 +132,7 @@ def weatherView(request):
 
 
 @api_view()
+@permission_classes([AllowAny])
 def forecastWeatherView(request):
     ip = get_client_ip(request)
     locationKey = getAccuWeatherLocationKey(ip)
@@ -271,6 +190,7 @@ def getFiveDayForecast(locationKey):
 
 
 @api_view()
+@permission_classes([AllowAny])
 def ipView(request):
     ''' IP View '''
     ip = get_client_ip(request)
@@ -279,6 +199,7 @@ def ipView(request):
 
 
 @api_view()
+@permission_classes([AllowAny])
 def searchIP(request, query_ip):
     ''' IP Search View '''
     response = ipinfo(query_ip)
@@ -320,6 +241,7 @@ def requires_scope(required_scope):
     def require_scope(f):
         @wraps(f)
         def decorated(*args, **kwargs):
+            print(args)
             token = get_token_auth_header(args[0])
             decoded = jwt.decode(token, verify=False)
             if decoded.get("scope"):

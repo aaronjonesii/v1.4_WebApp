@@ -17,9 +17,7 @@ def jwt_decode_token(token):
     for jwk in jwks['keys']:
         if jwk['kid'] == header['kid']:
             public_key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
-
     if public_key is None:
         raise Exception('Public key not found.')
-
     issuer = 'https://{}/'.format('anonsys.auth0.com')
-    return jwt.decode(token, public_key, audience='YOUR_API_IDENTIFIER', issuer=issuer, algorithms=['RS256'])
+    return jwt.decode(token, public_key, audience='https://api.anonsys.tech', issuer=issuer, algorithms=['RS256'])
