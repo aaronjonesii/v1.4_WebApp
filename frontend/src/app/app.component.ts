@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { filter, mergeMap } from "rxjs/operators";
+import { AuthService } from "@auth0/auth0-angular";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit  {
 
-  constructor() { }
+  constructor(
+    private auth: AuthService,
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.auth.error$.pipe(
+      filter(e => e.message === 'Login required'),
+      mergeMap(() => this.auth.loginWithRedirect())
+    ).subscribe();
+  }
 }

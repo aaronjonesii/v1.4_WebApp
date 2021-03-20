@@ -1,2 +1,8 @@
+<div class="container" *ngIf="auth.isLoading$ | async; else loaded">
+  <anon-loading></anon-loading>
+</div>
+
+<ng-template #loaded>
 <div class="display-1 text-center"> Blog </div>
 <anon-blog-list [blogs]="blogs"></anon-blog-list>
+</ng-template>
