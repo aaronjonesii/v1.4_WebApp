@@ -1,0 +1,20 @@
+@import '../../../../themes.scss';
+
+@include nb-install-component() {
+  .row {
+      margin-bottom: 2rem;
+  }
+
+  .blog-info, .blog-content {
+    width: 35%!important;
+  }
+
+  .blog-post-content {
+    font-size: 1.4rem;
+    line-height: 1.6;
+  }
+
+  .icon-size {
+    font-size: 1.5rem;
+  }
+}
