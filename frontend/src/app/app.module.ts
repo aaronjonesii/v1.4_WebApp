@@ -17,7 +17,10 @@ import { EditBlogPostComponent } from './pages/blog/edit-blog-post/edit-blog-pos
 
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
+// Import the HTTP interceptor from the Auth0 Angular SDK
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { LoadingComponent } from "./shared/layout/loading/loading.component";
 
 @NgModule({
@@ -45,10 +48,26 @@ import { LoadingComponent } from "./shared/layout/loading/loading.component";
 
     AuthModule.forRoot({
       domain: environment.Auth0_domain,
-      clientId: environment.Auth0_clientID
+      clientId: environment.Auth0_clientID,
+      audience: environment.Auth0_audience,
+      // scope: 'read:current_user', // Request this scope at user authentication time
+      httpInterceptor: { // Specify configuration for the interceptor
+        allowedList: [
+          {
+            // Match any request that starts with (note the asterisk)
+            uri: environment.apiURL + '*',
+            tokenOptions: {
+              audience: environment.Auth0_audience, // The attached token should target this audience
+              // scope: 'read:current_user' // The attached token should have these scopes
+            }
+          }
+        ]
+      }
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
