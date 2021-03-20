@@ -63,6 +63,10 @@ ipv6pattern = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('api/public', views.public),
+    path('api/private', views.private),
+    path('api/private-scoped', views.private_scoped),
+
     path('blog/', blog_list, name='post_list'),
     path('blog/<int:pk>/', blog_detail, name='post_detail'),
     path('blog/<int:pk>/related_posts/', related_post, name='related_post'),
