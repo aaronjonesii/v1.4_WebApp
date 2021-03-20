@@ -1,0 +1,7 @@
+@import '../../../themes.scss';
+
+@include nb-install-component() {
+    .huge-header {
+        font-family: 'Zilla Slab Highlight', 'Open Sans';
+    }
+}

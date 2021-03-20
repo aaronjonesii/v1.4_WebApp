@@ -1,0 +1,19 @@
+@import '../../../../themes.scss';
+
+@include nb-install-component() {
+
+  .blog-titles, .blog-content {
+    width: 35%!important;
+  }
+
+  .blog-content {
+    font-size: 1.4rem;
+    line-height: 1.6;
+  }
+
+//  CKEditor5 Styling
+  ::ng-deep .ck-editor__editable_inline {
+    font-size: 1.4rem;
+    line-height: 1.6;
+  }
+}
