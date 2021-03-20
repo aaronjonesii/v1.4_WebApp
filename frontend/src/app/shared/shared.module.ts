@@ -32,7 +32,7 @@ import { BlogPostComponent } from '../pages/blog/blog-post/blog-post.component';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
-const BASE_MODULES = [ CommonModule, HttpClientModule, RouterModule, HighlightModule, CKEditorModule, ];
+const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule, ];
 const NB_MODULES = [
   NbLayoutModule, NbButtonModule, NbCardModule, NbSelectModule, NbIconModule,
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
