@@ -7,17 +7,18 @@ from rest_framework.response import Response
 from .serializers import PostSerializer, TagSerializer, CategorySerializer, UserSerializer, NewsletterSerializer
 from .models import Tag, Post, Category, NewsletterSubscriber
 
-from django.contrib.auth.forms import AuthenticationForm
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import login
 from rest_framework import views, status
-
 from rest_framework import permissions
-from django.contrib.auth import logout
-from rest_framework_simplejwt.exceptions import TokenError
 
 from requests import get # IP
-from rest_framework.decorators import api_view
+
+
+# Used by Auth0
+from functools import wraps
+import jwt
+from django.http import JsonResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 
 
 class NewsletterSubscription(viewsets.ModelViewSet):
@@ -116,85 +117,9 @@ class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
 
-class CustomLoginJWTAuthToken(views.APIView):
-    """
-    API endpoint that takes credentials to return JWT tokens
-    """
-
-    def post(self, request):
-        form = AuthenticationForm(data=request.data)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user=form.get_user())
-
-            refresh = RefreshToken.for_user(request.user)
-            response = {'token': {
-                                'access_token': str(refresh.access_token),
-                                'refresh_token': str(refresh),
-                            }}
-            return Response(response)
-        else:
-            return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class CustomSignUpJWTAuthToken(views.APIView):
-    """
-    API endpoint to create a new user
-    """
-
-    def post(self, request):
-        data = request.data
-        form = UserSerializer(data=data)
-        if form.is_valid():
-            new_user = form.save()
-            login(request, user=new_user)
-
-            refresh = RefreshToken.for_user(request.user)
-            return Response({
-                'token': {
-                    'access_token': str(refresh.access_token),
-                    'refresh_token': str(refresh),
-                },
-        })
-        else:
-            return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class LogOutView(views.APIView):
-    """
-    API endpoint that allows signed in users to Logout
-    """
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def delete(self, *args, **kwargs):
-        logout(self.request)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class CustomRefreshJWTAuthToken(views.APIView):
-    """
-    API endpoint that takes a refresh token to return an access token
-    """
-
-    def post(self, request):
-        import json
-        json_data = json.loads(json.dumps(request.data))
-        if 'payload' in json_data and 'refresh_token' in json_data['payload']:
-            tokens = json_data['payload']
-            try:
-                refresh = RefreshToken(token=tokens['refresh_token'])
-                response = {'token': {
-                    'access_token': str(refresh.access_token),
-                    'refresh_token': str(refresh),
-                }}
-            except TokenError:
-                return Response({"error": "Invalid token!"}, status=status.HTTP_401_UNAUTHORIZED)
-            return Response(response)
-        else:
-            return Response({"error": "Invalid key!"}, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view()
+@permission_classes([AllowAny])
 def weatherView(request):
     ip = get_client_ip(request)
     locationKey = getAccuWeatherLocationKey(ip)
@@ -207,6 +132,7 @@ def weatherView(request):
 
 
 @api_view()
+@permission_classes([AllowAny])
 def forecastWeatherView(request):
     ip = get_client_ip(request)
     locationKey = getAccuWeatherLocationKey(ip)
@@ -264,6 +190,7 @@ def getFiveDayForecast(locationKey):
 
 
 @api_view()
+@permission_classes([AllowAny])
 def ipView(request):
     ''' IP View '''
     ip = get_client_ip(request)
@@ -272,6 +199,7 @@ def ipView(request):
 
 
 @api_view()
+@permission_classes([AllowAny])
 def searchIP(request, query_ip):
     ''' IP Search View '''
     response = ipinfo(query_ip)
@@ -293,3 +221,54 @@ def get_client_ip(request):
     else:
         ip_addr = request.META.get('REMOTE_ADDR')
     return '8.8.8.8' if ip_addr == '127.0.0.1' else ip_addr
+
+
+# Auth0 FUNCTIONS BELOW
+def get_token_auth_header(request):
+    """Obtains the Access Token from the Authorization Header
+    """
+    auth = request.META.get("HTTP_AUTHORIZATION", None)
+    parts = auth.split()
+    token = parts[1]
+    return token
+
+
+def requires_scope(required_scope):
+    """Determines if the required scope is present in the Access Token
+    Args:
+        required_scope (str): The scope required to access the resource
+    """
+    def require_scope(f):
+        @wraps(f)
+        def decorated(*args, **kwargs):
+            print(args)
+            token = get_token_auth_header(args[0])
+            decoded = jwt.decode(token, verify=False)
+            if decoded.get("scope"):
+                token_scopes = decoded["scope"].split()
+                for token_scope in token_scopes:
+                    if token_scope == required_scope:
+                        return f(*args, **kwargs)
+            response = JsonResponse({'message': 'You don\'t have access to this resource, Loser!'})
+            response.status_code = 403
+            return response
+        return decorated
+    return require_scope
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def public(request):
+    return JsonResponse({'message': 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'})
+
+
+@api_view(['GET'])
+def private(request):
+    return JsonResponse({'message': 'Hello from a private endpoint! You need to be authenticated to see this.'})
+
+
+@api_view(['GET'])
+@requires_scope('read:messages')
+def private_scoped(request):
+    return JsonResponse({'message': 'Hello from a private endpoint! You need to be authenticated and have a scope of '
+                                    'read:messages to see this.'})

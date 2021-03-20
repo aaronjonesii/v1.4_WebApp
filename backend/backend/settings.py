@@ -37,7 +37,11 @@ CORS_ORIGIN_WHITELIST = ['http://localhost:4200']
 
 AUTH_USER_MODEL = 'blog.User'
 
-AUTHENTICATION_BACKENDS = ['backend.authbackends.EmailorUsernameModelBackend']
+AUTHENTICATION_BACKENDS = [
+    'backend.authbackends.EmailorUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Used by Auth0
+    'django.contrib.auth.backends.RemoteUserBackend',  # Used by Auth0
+]
 
 # Application definition
 
@@ -61,7 +65,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Used by Auth0
+    'django.contrib.auth.middleware.RemoteUserMiddleware',  # Used by Auth0
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -144,19 +149,35 @@ STATIC_URL = '/static/'
 # https://github.com/davesque/django-rest-framework-simplejwt
 
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',  # Used by Auth0
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',  # Used by Auth0
+        'rest_framework.authentication.SessionAuthentication',  # Used by Auth0
+        'rest_framework.authentication.BasicAuthentication',  # Used by Auth0
     )
 }
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#
+#     'AUTH_HEADER_TYPES': ('Bearer',),
+#     'USER_ID_FIELD': 'username',
+#     'USER_ID_CLAIM': 'username',
+# }
 
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    'USER_ID_FIELD': 'username',
-    'USER_ID_CLAIM': 'username',
-
+JWT_AUTH = {
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
+        'blog.utils.jwt_get_username_from_payload_handler',
+    'JWT_DECODE_HANDLER':
+        'blog.utils.jwt_decode_token',
+    'JWT_ALGORITHM': 'RS256',
+    'JWT_AUDIENCE': 'https://api.anonsys.tech',
+    'JWT_ISSUER': 'https://anonsys.auth0.com/',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
 # import sentry_sdk

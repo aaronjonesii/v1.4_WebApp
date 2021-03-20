@@ -17,11 +17,6 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import routers
 
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
 from blog import views
 
 blog_list = views.PostViewSet.as_view({
@@ -63,6 +58,10 @@ ipv6pattern = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('api/public/', views.public, name='public'),
+    path('api/private/', views.private, name='private'),
+    path('api/private-scoped/', views.private_scoped, name='private-scoped'),
+
     path('blog/', blog_list, name='post_list'),
     path('blog/<int:pk>/', blog_detail, name='post_detail'),
     path('blog/<int:pk>/related_posts/', related_post, name='related_post'),
@@ -78,11 +77,6 @@ urlpatterns = [
     path('ip/', views.ipView, name='ip'),  # Get IP info from requester
     re_path(rf'^ip/(?P<query_ip>{ipv4pattern}))/$', views.searchIP, name='search_ip'),  # Get IPv4 info from query_ip
     re_path(rf'^ip/(?P<query_ip>{ipv6pattern})/$', views.searchIP, name='search_ip'),  # Get IPv6 info from query_ip
-
-    path('jwt-login/', views.CustomLoginJWTAuthToken.as_view(), name='login'),
-    path('jwt-logout/', views.LogOutView.as_view(), name='logout'),
-    path('user-signup/', views.CustomSignUpJWTAuthToken.as_view(), name='signup'),
-    path('jwt-refresh/', views.CustomRefreshJWTAuthToken.as_view(), name='token_refresh'),
 
     path('', include(router.urls)),
 ]
