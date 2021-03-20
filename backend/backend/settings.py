@@ -149,8 +149,14 @@ STATIC_URL = '/static/'
 # https://github.com/davesque/django-rest-framework-simplejwt
 
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',  # Used by Auth0
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',  # Used by Auth0
+        'rest_framework.authentication.SessionAuthentication',  # Used by Auth0
+        'rest_framework.authentication.BasicAuthentication',  # Used by Auth0
     )
 }
 
@@ -161,7 +167,17 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'username',
     'USER_ID_CLAIM': 'username',
+}
 
+JWT_AUTH = {
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
+        'auth0authorization.utils.jwt_get_username_from_payload_handler',
+    'JWT_DECODE_HANDLER':
+        'auth0authorization.utils.jwt_decode_token',
+    'JWT_ALGORITHM': 'RS256',
+    'JWT_AUDIENCE': 'https://api.anonsys.tech',
+    'JWT_ISSUER': 'https://anonsys.auth0.com/',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
 # import sentry_sdk
