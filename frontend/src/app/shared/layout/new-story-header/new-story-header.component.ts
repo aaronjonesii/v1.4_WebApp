@@ -1,20 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from "@auth0/auth0-angular";
 import { NbMenuService } from "@nebular/theme";
 import { BlogService } from "../../utils/blog/blog.service";
 import { Post } from "../../utils/blog/models/post";
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
 
 @Component({
   selector: 'anon-new-story-header',
   templateUrl: './new-story-header.component.html',
   styleUrls: ['./new-story-header.component.scss'],
 })
-export class NewStoryHeaderComponent implements OnInit {
+export class NewStoryHeaderComponent implements OnInit, OnDestroy {
+  private unsub$: Subject<any> = new Subject<any>();
   user_context_items = [
-    { title: 'Profile', link: '/profile' },
-    { title: 'Write a story', link: '/new-story' },
-    { title: 'Log Out' }
+    { title: 'Profile', link: '/profile', icon: 'person-outline' },
+    { title: 'Write a story', link: '/new-story', icon: 'plus-outline' },
+    { title: 'Stories', link: '/stories', icon: 'file-text-outline' },
+    { title: 'Log Out', icon: 'unlock-outline' }
   ];
+
   story_context_items = [
     { title: 'Change featured image' },
     { title: 'Change display title / subtitle' },
@@ -35,16 +40,21 @@ export class NewStoryHeaderComponent implements OnInit {
     public auth: AuthService,
     private menuService: NbMenuService,
     private blogService: BlogService,
-  ) {
-    blogService.sharedNewStory.subscribe(
-      post => this.post = post
-    );
-  }
+  ) { }
 
-  ngOnInit(): void {
-    this.menuService.onItemClick().subscribe((event) => {
+  ngOnInit() {
+    this.menuService.onItemClick().pipe(
+      takeUntil(this.unsub$)
+    ).subscribe((event) => {
       if (event.item.title === 'Log Out') { this.auth.logout() }
     });
+    this.blogService.sharedNewStory.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(post => this.post = post );
+  }
+  ngOnDestroy() {
+    this.unsub$.next();
+    this.unsub$.complete();
   }
 
   publish(post: Post) {

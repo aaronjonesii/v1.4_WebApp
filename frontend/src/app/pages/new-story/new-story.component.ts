@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as BalloonEditor from '../../shared/utils/blog/ckeditor';
 import { ChangeEvent } from "@ckeditor/ckeditor5-angular";
 import { BlogService } from "../../shared/utils/blog/blog.service";
@@ -11,7 +11,7 @@ import { AuthService } from "@auth0/auth0-angular";
   templateUrl: './new-story.component.html',
   styleUrls: ['./new-story.component.scss'],
 })
-export class NewStoryComponent implements OnInit {
+export class NewStoryComponent implements OnInit, OnDestroy {
   post: Post = {
     author: '',
     title: '',
@@ -32,11 +32,10 @@ export class NewStoryComponent implements OnInit {
     public auth: AuthService,
     private blogService: BlogService,
     private slugifyPipe: SlugifyPipe,
-  ) {
-    // blogService.sharedNewStory.subscribe(post => console.log('[1] NewStory Observer: ', post) );
-  }
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit() { }
+  ngOnDestroy() { }
 
   public onChange( { editor }: ChangeEvent ) {
     const htmlString = editor.getData();
