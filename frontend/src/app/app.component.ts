@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { filter, mergeMap } from "rxjs/operators";
 import { AuthService } from "@auth0/auth0-angular";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent implements OnInit  {
 
   constructor(
     private auth: AuthService,
+    public _router: Router,
   ) { }
 
   ngOnInit(): void {

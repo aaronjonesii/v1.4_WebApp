@@ -1,7 +1,8 @@
 <nb-layout>
 
   <nb-layout-header>
-    <anon-header class="w-100"> </anon-header>
+    <anon-header class="w-100" *ngIf="_router.url != '/new-story'"> </anon-header>
+    <anon-new-story-header class="w-100" *ngIf="_router.url == '/new-story'"> </anon-new-story-header>
   </nb-layout-header>
 
   <nb-layout-column class="p-0">

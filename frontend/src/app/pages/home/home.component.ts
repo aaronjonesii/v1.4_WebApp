@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BlogService } from '../../shared/utils/blog/blog.service';
 import { Subscription } from 'rxjs';
-import { Blog } from '../../shared/utils/blog/blog';
+import { Blog } from '../../shared/utils/blog/models/blog';
 import { AuthService } from "@auth0/auth0-angular";
 
 @Component({

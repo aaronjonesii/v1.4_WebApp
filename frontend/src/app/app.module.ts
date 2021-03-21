@@ -22,6 +22,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 // Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { LoadingComponent } from "./shared/layout/loading/loading.component";
+import { NewStoryModule } from "./pages/new-story/new-story.module";
+import { NewStoryComponent } from "./pages/new-story/new-story.component";
+import { NewStoryHeaderComponent } from "./shared/layout/new-story-header/new-story-header.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import { LoadingComponent } from "./shared/layout/loading/loading.component";
     BlogComponent,
     EditBlogPostComponent,
     LoadingComponent,
+    NewStoryComponent,
+    NewStoryHeaderComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -45,6 +50,7 @@ import { LoadingComponent } from "./shared/layout/loading/loading.component";
     HomeModule,
     ProfileModule,
     BlogModule,
+    NewStoryModule,
 
     AuthModule.forRoot({
       domain: environment.Auth0_domain,
