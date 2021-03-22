@@ -25,10 +25,11 @@ export class BlogService {
 
   private newStory = new BehaviorSubject<any>(this.post); // Subject Observer
   sharedNewStory = this.newStory.asObservable();
-  // newStory$ = this.newStorySubject.asObservable(); // Observable stream
 
 
-  constructor( private http: HttpClient ) { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   nextNewStory(post: any) { // Feed new value to Subject
     // console.log('blogService to Subject...', post);
@@ -48,8 +49,8 @@ export class BlogService {
     return of(BLOGS.find(blog => blog.id === id)!);
   }
 
-  getOnePost(postID: number): Observable<Post> {
-    return this.http.get<Post>(`${environment.apiURL}/${postID}/`, {headers: this.httpHeaders});
+  getOnePost(postID: string): Observable<Post> {
+    return this.http.get<Post>(`${environment.apiURL}/blog/${postID}/`, {headers: this.httpHeaders});
   }
 
   createPost(post: Post): Observable<Post> {
@@ -59,6 +60,5 @@ export class BlogService {
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${environment.apiURL}/blog/`, {headers: this.httpHeaders});
   }
-
 
 }

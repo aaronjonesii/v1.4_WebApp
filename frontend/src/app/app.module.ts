@@ -32,6 +32,7 @@ import { StoriesModule } from "./pages/me/stories/stories.module";
 import { DraftsComponent } from "./pages/me/stories/drafts/drafts.component";
 import { PublicComponent } from "./pages/me/stories/public/public.component";
 import { UnlistedComponent } from "./pages/me/stories/unlisted/unlisted.component";
+import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { UnlistedComponent } from "./pages/me/stories/unlisted/unlisted.componen
     DraftsComponent,
     PublicComponent,
     UnlistedComponent,
+    EditStoryComponent,
   ],
   imports: [
     AppRoutingModule,

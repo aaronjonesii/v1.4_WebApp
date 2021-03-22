@@ -14,6 +14,7 @@ import { Router } from "@angular/router";
 })
 export class NewStoryHeaderComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
+  status = '';
   user_context_items = [
     { title: 'Profile', link: '/profile', icon: 'person-outline' },
     { title: 'Write a story', link: '/new-story', icon: 'plus-outline' },
@@ -62,7 +63,11 @@ export class NewStoryHeaderComponent implements OnInit, OnDestroy {
   publish(post: Post) {
     console.warn(post);
     this.blogService.createPost(post).subscribe(
-      response => { this.router.navigateByUrl('me/stories'); },
+      response => {
+        // this.router.navigateByUrl('me/stories');
+        console.log(response);
+        this.status = 'Saved';
+        },
       error => {
         if (error.status === 400) { console.error('Bad Request: ', error.error);
           if (error.error.hasOwnProperty('title')) { console.error('Error', error.error.title);

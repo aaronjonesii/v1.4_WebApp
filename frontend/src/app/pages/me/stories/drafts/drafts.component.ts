@@ -37,6 +37,7 @@ export class DraftsComponent implements OnInit, OnDestroy {
   complete() {
     this.pageLoaded = true; // Update page loading status
     this.filterStories(this.stories);
+    console.log(this.stories);
   }
 
   filterStories(stories: Post[]) {
