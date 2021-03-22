@@ -12,12 +12,14 @@ import { takeUntil } from "rxjs/operators";
 export class DraftsComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   stories: Post[] = [];
+  drafts: Post[] = [];
   pageLoaded = false;
 
   constructor(private blogService: BlogService) { }
 
   ngOnInit() {
     this.getStories();
+    this.filterStories(this.stories);
   }
   ngOnDestroy() {
     this.unsub$.next();
@@ -28,8 +30,19 @@ export class DraftsComponent implements OnInit, OnDestroy {
     this.blogService.getPosts().pipe(takeUntil(this.unsub$)).subscribe(
       response => this.stories = response,
       error => console.error(error),
-      () => this.pageLoaded = true, // Update page loading status
+      () => this.complete(),
     );
+  }
+
+  complete() {
+    this.pageLoaded = true; // Update page loading status
+    this.filterStories(this.stories);
+  }
+
+  filterStories(stories: Post[]) {
+    for (let story of stories) {
+      if( story.status == 1 ) {this.drafts.push(story)}
+    }
   }
 
 }

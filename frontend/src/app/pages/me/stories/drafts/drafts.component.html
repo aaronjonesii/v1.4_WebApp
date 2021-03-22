@@ -4,9 +4,9 @@
 
 <ng-template #loaded>
 
-<ng-container *ngIf="stories.length > 0 else empty">
+<ng-container *ngIf="drafts.length > 0 else empty">
   <nb-list>
-    <nb-list-item *ngFor="let story of stories">
+    <nb-list-item *ngFor="let story of drafts">
       <h1 class="">{{ story.title }}</h1>
     </nb-list-item>
   </nb-list>
