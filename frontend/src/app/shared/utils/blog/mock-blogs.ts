@@ -1,4 +1,4 @@
-import {Blog} from './blog';
+import {Blog} from './models/blog';
 
 export const BLOGS: Blog[] = [
   { id: 0,

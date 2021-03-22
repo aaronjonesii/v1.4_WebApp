@@ -17,7 +17,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [BlogListComponent],
     exports: [
-        BlogListComponent
+        BlogListComponent,
     ],
     imports: [
         CommonModule,

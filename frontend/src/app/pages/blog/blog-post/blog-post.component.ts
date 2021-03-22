@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Blog } from '../../../shared/utils/blog/blog';
+import { Blog } from '../../../shared/utils/blog/models/blog';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../../../shared/utils/blog/blog.service';
 import { Location } from '@angular/common';

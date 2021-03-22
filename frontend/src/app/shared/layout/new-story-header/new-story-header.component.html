@@ -1,0 +1,18 @@
+<div class="container-fluid row" id="">
+  <div class="d-flex col justify-content-start align-items-center">
+    <a class="text-decoration-none align-center p-1 mr-2" routerLink="/"> <img class="logo" src="/assets/favicon.png"> </a>
+    <span class="font-weight-lighter"> Draft in Anonymous Systems </span>
+  </div>
+  <div class="d-flex col justify-content-center align-items-center lead"> <span class=""> Status: Draft/Saved </span> </div>
+  <div class="d-flex col justify-content-end m-3 align-items-center">
+    <button (click)="publish(this.post)" class="p-1 mr-3" status="success" size="tiny" nbButton outline> Publish </button>
+    <nb-icon class="mr-3" icon="more-horizontal" [nbContextMenu]="story_context_items"></nb-icon>
+    <nb-icon class="mr-3" icon="bell-outline" nbPopover="No Notifications!" nbPopoverPlacement="bottom" nbButton></nb-icon>
+    <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+      <nb-user *ngIf="auth.user$ | async as user" [name]="user.name" [title]="user.nickname" [picture]='user.picture' [nbContextMenu]="user_context_items" onlyPicture> </nb-user>
+    </ng-container>
+    <ng-template #loggedOut>
+      <button class="p-2 mr-3" status="success" (click)="auth.loginWithRedirect()" hero nbButton>Log In</button>
+    </ng-template>
+  </div>
+</div>

@@ -2,8 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../../../shared/utils/blog/blog.service';
 import { Location } from '@angular/common';
-import { Blog } from '../../../shared/utils/blog/blog';
-import * as BalloonEditor from '@ckeditor/ckeditor5-build-balloon-block';
+import { Blog } from '../../../shared/utils/blog/models/blog';
+// import * as BalloonEditor from '@ckeditor/ckeditor5-build-balloon-block';
+import * as BalloonEditor from '../../../shared/utils/blog/ckeditor';
 
 @Component({
   selector: 'anon-edit-blog-post',

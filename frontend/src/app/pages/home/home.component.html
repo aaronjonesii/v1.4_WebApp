@@ -1,3 +1,8 @@
+<div class="container" *ngIf="auth.isLoading$ | async; else loaded">
+  <anon-loading></anon-loading>
+</div>
+
+<ng-template #loaded>
 <!-- Useful Links -->
 <div class="container">
     <div class="row justify-content-between">
@@ -29,3 +34,4 @@
 </div>
 
 <anon-blog-list [blogs]="blogs"></anon-blog-list>
+</ng-template>

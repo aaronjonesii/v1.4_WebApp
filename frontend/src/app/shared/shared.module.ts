@@ -20,7 +20,7 @@ import {
   NbUserModule,
   NbContextMenuModule,
   NbInputModule,
-  NbFormFieldModule
+  NbFormFieldModule, NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule
 } from '@nebular/theme';
 import { HeaderComponent } from './layout/header/header.component';
 import { RouterModule } from '@angular/router';
@@ -31,16 +31,18 @@ import { HomeComponent } from '../pages/home/home.component';
 import { BlogPostComponent } from '../pages/blog/blog-post/blog-post.component';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { SlugifyPipe } from "./utils/blog/slugify.pipe";
 
-const BASE_MODULES = [ CommonModule, HttpClientModule, RouterModule, HighlightModule, CKEditorModule, ];
+const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule, ];
 const NB_MODULES = [
   NbLayoutModule, NbButtonModule, NbCardModule, NbSelectModule, NbIconModule,
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
+  NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule,
 ];
 const MAT_MODULES = []!;
 const COMPONENTS = []!;
 const ENTRY_COMPONENTS = []!;
-const PIPES = []!;
+const PIPES = [SlugifyPipe];
 
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
@@ -64,6 +66,6 @@ const NB_THEME_PROVIDERS = [
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {
-    return { ngModule: SharedModule, providers: [...NB_THEME_PROVIDERS] };
+    return { ngModule: SharedModule, providers: [...NB_THEME_PROVIDERS, SlugifyPipe] };
   }
 }

@@ -1,5 +1,7 @@
 @import '../themes.scss';
 
 @include nb-install-component() {
-
+  ::ng-deep nb-layout-header nav {
+    height: 3.5rem!important;
+  }
 }

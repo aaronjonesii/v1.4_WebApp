@@ -1,0 +1,8 @@
+@import '../../../../../themes.scss';
+
+@include nb-install-component() {
+  .empty {
+    margin: 100px 0 0 0;
+    text-align: center;
+  }
+}

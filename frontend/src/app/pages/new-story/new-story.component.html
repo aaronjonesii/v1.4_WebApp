@@ -1,0 +1,16 @@
+<div class="container" *ngIf="auth.isLoading$ | async; else loaded">
+  <anon-loading></anon-loading>
+</div>
+
+<ng-template #loaded>
+  <article class="">
+    <section class="mt-1">
+
+      <div class="section-content w-100">
+        <div class="section-inner">
+          <ckeditor [editor]="Editor" (change)="onChange($event)" [config]="editorConfig"></ckeditor>
+        </div>
+      </div>
+    </section>
+  </article>
+</ng-template>

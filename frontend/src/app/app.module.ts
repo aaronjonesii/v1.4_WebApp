@@ -17,6 +17,21 @@ import { EditBlogPostComponent } from './pages/blog/edit-blog-post/edit-blog-pos
 
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
+// Import the HTTP interceptor from the Auth0 Angular SDK
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { LoadingComponent } from "./shared/layout/loading/loading.component";
+import { NewStoryModule } from "./pages/new-story/new-story.module";
+import { NewStoryComponent } from "./pages/new-story/new-story.component";
+import { NewStoryHeaderComponent } from "./shared/layout/new-story-header/new-story-header.component";
+import { MeModule } from "./pages/me/me.module";
+import { MeComponent } from "./pages/me/me.component";
+import { StoriesComponent } from "./pages/me/stories/stories.component";
+import { StoriesModule } from "./pages/me/stories/stories.module";
+import { DraftsComponent } from "./pages/me/stories/drafts/drafts.component";
+import { PublicComponent } from "./pages/me/stories/public/public.component";
+import { UnlistedComponent } from "./pages/me/stories/unlisted/unlisted.component";
 
 @NgModule({
   declarations: [
@@ -28,23 +43,51 @@ import { environment } from 'src/environments/environment';
     BlogPostComponent,
     BlogComponent,
     EditBlogPostComponent,
+    LoadingComponent,
+    NewStoryComponent,
+    NewStoryHeaderComponent,
+    MeComponent,
+    StoriesComponent,
+    DraftsComponent,
+    PublicComponent,
+    UnlistedComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
     NbEvaIconsModule,
+    HttpClientModule,
 
     HomeModule,
     ProfileModule,
     BlogModule,
+    NewStoryModule,
+    MeModule,
+    StoriesModule,
 
     AuthModule.forRoot({
       domain: environment.Auth0_domain,
-      clientId: environment.Auth0_clientID
+      clientId: environment.Auth0_clientID,
+      audience: environment.Auth0_audience,
+      // scope: 'read:current_user', // Request this scope at user authentication time
+      httpInterceptor: { // Specify configuration for the interceptor
+        allowedList: [
+          {
+            // Match any request that starts with (note the asterisk)
+            uri: environment.apiURL + '*',
+            tokenOptions: {
+              audience: environment.Auth0_audience, // The attached token should target this audience
+              // scope: 'read:current_user' // The attached token should have these scopes
+            }
+          }
+        ]
+      }
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

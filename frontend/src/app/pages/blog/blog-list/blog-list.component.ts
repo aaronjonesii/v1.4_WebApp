@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Blog } from '../../../shared/utils/blog/blog';
+import { Blog } from '../../../shared/utils/blog/models/blog';
 
 @Component({
   selector: 'anon-blog-list',
