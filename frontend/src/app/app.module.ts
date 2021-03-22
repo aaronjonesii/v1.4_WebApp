@@ -25,6 +25,13 @@ import { LoadingComponent } from "./shared/layout/loading/loading.component";
 import { NewStoryModule } from "./pages/new-story/new-story.module";
 import { NewStoryComponent } from "./pages/new-story/new-story.component";
 import { NewStoryHeaderComponent } from "./shared/layout/new-story-header/new-story-header.component";
+import { MeModule } from "./pages/me/me.module";
+import { MeComponent } from "./pages/me/me.component";
+import { StoriesComponent } from "./pages/me/stories/stories.component";
+import { StoriesModule } from "./pages/me/stories/stories.module";
+import { DraftsComponent } from "./pages/me/stories/drafts/drafts.component";
+import { PublicComponent } from "./pages/me/stories/public/public.component";
+import { UnlistedComponent } from "./pages/me/stories/unlisted/unlisted.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +46,11 @@ import { NewStoryHeaderComponent } from "./shared/layout/new-story-header/new-st
     LoadingComponent,
     NewStoryComponent,
     NewStoryHeaderComponent,
+    MeComponent,
+    StoriesComponent,
+    DraftsComponent,
+    PublicComponent,
+    UnlistedComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -51,6 +63,8 @@ import { NewStoryHeaderComponent } from "./shared/layout/new-story-header/new-st
     ProfileModule,
     BlogModule,
     NewStoryModule,
+    MeModule,
+    StoriesModule,
 
     AuthModule.forRoot({
       domain: environment.Auth0_domain,

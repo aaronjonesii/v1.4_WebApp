@@ -1,0 +1,20 @@
+<div class="container" *ngIf="!pageLoaded; else loaded">
+  <anon-loading></anon-loading>
+</div>
+
+<ng-template #loaded>
+
+<ng-container *ngIf="stories.length > 0 else empty">
+  <nb-list>
+    <nb-list-item *ngFor="let story of stories">
+      <h1 class="">{{ story.title }}</h1>
+    </nb-list-item>
+  </nb-list>
+</ng-container>
+<ng-template #empty>
+  <div class="container empty">
+    You have no drafts
+  </div>
+</ng-template>
+
+</ng-template>

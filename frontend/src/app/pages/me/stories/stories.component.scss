@@ -1,0 +1,7 @@
+@import '../../../../themes.scss';
+
+@include nb-install-component() {
+  .top-section {
+    margin-top: 64px;
+  }
+}

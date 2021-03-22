@@ -42,11 +42,11 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     const domDoc = this.domparser.parseFromString(htmlString, 'text/html')
     this.post.content = htmlString;
     if(domDoc.getElementsByTagName("h1").length > 0) {
-      this.post.title = domDoc.getElementsByTagName("h1")[0].outerHTML;
+      this.post.title = domDoc.getElementsByTagName("h1")[0].innerHTML;
       this.post.slug = this.slugifyPipe.transform(domDoc.getElementsByTagName("h1")[0].innerText);
     }
     if(domDoc.getElementsByClassName('ck-subtitle').length > 0) {
-      this.post.byline = domDoc.getElementsByClassName('ck-subtitle')[0].outerHTML;
+      this.post.byline = domDoc.getElementsByClassName('ck-subtitle')[0].innerHTML;
     }
     this.post.read_time = "0";
     this.post.status = 1;

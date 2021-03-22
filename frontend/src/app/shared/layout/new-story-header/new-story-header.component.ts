@@ -5,6 +5,7 @@ import { BlogService } from "../../utils/blog/blog.service";
 import { Post } from "../../utils/blog/models/post";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'anon-new-story-header',
@@ -16,7 +17,7 @@ export class NewStoryHeaderComponent implements OnInit, OnDestroy {
   user_context_items = [
     { title: 'Profile', link: '/profile', icon: 'person-outline' },
     { title: 'Write a story', link: '/new-story', icon: 'plus-outline' },
-    { title: 'Stories', link: '/stories', icon: 'file-text-outline' },
+    { title: 'Stories', link: '/me/stories', icon: 'file-text-outline' },
     { title: 'Log Out', icon: 'unlock-outline' }
   ];
 
@@ -40,6 +41,7 @@ export class NewStoryHeaderComponent implements OnInit, OnDestroy {
     public auth: AuthService,
     private menuService: NbMenuService,
     private blogService: BlogService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -60,7 +62,7 @@ export class NewStoryHeaderComponent implements OnInit, OnDestroy {
   publish(post: Post) {
     console.warn(post);
     this.blogService.createPost(post).subscribe(
-      response => { console.log('Creation response: ', response) },
+      response => { this.router.navigateByUrl('me/stories'); },
       error => {
         if (error.status === 400) { console.error('Bad Request: ', error.error);
           if (error.error.hasOwnProperty('title')) { console.error('Error', error.error.title);

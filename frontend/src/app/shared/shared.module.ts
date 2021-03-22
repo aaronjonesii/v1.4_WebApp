@@ -20,7 +20,7 @@ import {
   NbUserModule,
   NbContextMenuModule,
   NbInputModule,
-  NbFormFieldModule, NbPopoverModule
+  NbFormFieldModule, NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule
 } from '@nebular/theme';
 import { HeaderComponent } from './layout/header/header.component';
 import { RouterModule } from '@angular/router';
@@ -37,7 +37,7 @@ const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModu
 const NB_MODULES = [
   NbLayoutModule, NbButtonModule, NbCardModule, NbSelectModule, NbIconModule,
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
-  NbPopoverModule,
+  NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule,
 ];
 const MAT_MODULES = []!;
 const COMPONENTS = []!;
