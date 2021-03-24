@@ -13,7 +13,7 @@ export class DraftsComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   stories: Post[] = [];
   drafts: Post[] = [];
-  pageLoaded = false;
+  storyLoaded = false;
 
   constructor(private blogService: BlogService) { }
 
@@ -35,14 +35,14 @@ export class DraftsComponent implements OnInit, OnDestroy {
   }
 
   complete() {
-    this.pageLoaded = true; // Update page loading status
+    this.storyLoaded = true; // Update page loading status
     this.filterStories(this.stories);
     console.log(this.stories);
   }
 
   filterStories(stories: Post[]) {
     for (let story of stories) {
-      if( story.status == 1 ) {this.drafts.push(story)}
+      if( story.status == 2 ) {this.drafts.push(story)}
     }
   }
 

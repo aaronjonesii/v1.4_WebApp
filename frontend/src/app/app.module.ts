@@ -7,7 +7,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PostsHeroComponent } from './pages/blog/posts-hero/posts-hero.component';
 import { HomeComponent } from './pages/home/home.component';
-import { HeaderComponent } from './shared/layout/header/header.component';
+import { MainHeaderComponent } from './shared/layout/main-header/main-header.component';
 import { BlogPostComponent } from './pages/blog/blog-post/blog-post.component';
 import { HomeModule } from './pages/home/home.module';
 import { ProfileModule } from './pages/profile/profile.module';
@@ -24,7 +24,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { LoadingComponent } from "./shared/layout/loading/loading.component";
 import { NewStoryModule } from "./pages/new-story/new-story.module";
 import { NewStoryComponent } from "./pages/new-story/new-story.component";
-import { NewStoryHeaderComponent } from "./shared/layout/new-story-header/new-story-header.component";
+import { StoryHeaderComponent } from "./shared/layout/story-header/story-header.component";
 import { MeModule } from "./pages/me/me.module";
 import { MeComponent } from "./pages/me/me.component";
 import { StoriesComponent } from "./pages/me/stories/stories.component";
@@ -38,7 +38,7 @@ import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
+    MainHeaderComponent,
     PostsHeroComponent,
     ProfileComponent,
     BlogPostComponent,
@@ -46,7 +46,7 @@ import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
     EditBlogPostComponent,
     LoadingComponent,
     NewStoryComponent,
-    NewStoryHeaderComponent,
+    StoryHeaderComponent,
     MeComponent,
     StoriesComponent,
     DraftsComponent,

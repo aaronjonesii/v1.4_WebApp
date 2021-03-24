@@ -6,6 +6,9 @@ import { Post } from "../../shared/utils/blog/models/post";
 import { SlugifyPipe } from "../../shared/utils/blog/slugify.pipe";
 import { AuthService } from "@auth0/auth0-angular";
 import { Router } from "@angular/router";
+import { StoriesService } from "../../shared/utils/stories.service";
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
 
 @Component({
   selector: 'anon-new-story',
@@ -13,7 +16,8 @@ import { Router } from "@angular/router";
   styleUrls: ['./new-story.component.scss'],
 })
 export class NewStoryComponent implements OnInit, OnDestroy {
-  post: Post = {
+  private unsub$: Subject<any> = new Subject<any>();
+  story: Post = {
     author: '',
     title: '',
     slug: '',
@@ -22,51 +26,62 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     created_on: '',
     status: 0,
   };
+  storyLastSavedTimestamp!: number;
   changes = 0
-  status = '';
+  status = 'Not Saved';
   public Editor = BalloonEditor;
   editorConfig = {
     title: { placeholder: 'Title' },
     placeholder: 'Tell your story...',
   };
-  public domparser = new DOMParser();
 
   constructor(
     public auth: AuthService,
     private blogService: BlogService,
     private slugifyPipe: SlugifyPipe,
     private router: Router,
+    private storiesService: StoriesService,
   ) { }
 
-  ngOnInit() { }
-  ngOnDestroy() { }
+  ngOnInit() {
+    // storyLastSavedTimestamp Subscriber
+    this.blogService.sharedStoryLastSavedTimestamp.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(storyLastSavedTimestamp => this.storyLastSavedTimestamp = storyLastSavedTimestamp);
+  }
+  ngOnDestroy() {
+    this.unsub$.next();
+    this.unsub$.complete();
+  }
 
   public onChange( { editor }: ChangeEvent ) {
-    const htmlString = editor.getData();
-    const domDoc = this.domparser.parseFromString(htmlString, 'text/html')
-    this.post.content = htmlString;
-    if(domDoc.getElementsByTagName("h1").length > 0) {
-      this.post.title = domDoc.getElementsByTagName("h1")[0].innerHTML;
-      this.post.slug = this.slugifyPipe.transform(domDoc.getElementsByTagName("h1")[0].innerText);
+    this.story = this.storiesService.parseEditorContent(editor, this.story);
+    // TODO: Caculate read time from word count
+    this.story.read_time = "0";
+    // TODO: Provide options to user for statuses
+    this.story.status = 2;
+    // Update saved story
+    this.blogService.updateSavedNewStory(this.story);
+    // If there have been more than 5 changes and the title is more than 5 characters
+    if ((this.changes >= 5) && (this.story.title.replace('&nbsp;', '').length >= 5)) {
+      if (this.storyLastSavedTimestamp) {
+        const postLastSavedSeconds = this.checkSeconds(this.storyLastSavedTimestamp)
+        // If story has been saved more than 5 seconds ago
+        if (postLastSavedSeconds > 5) {
+          this.publish(this.story);
+        } else { console.info('newStory#onChange story was update within last 5 seconds, autosave will save soon'); }
+      } else { this.publish(this.story); }
     }
-    if(domDoc.getElementsByClassName('ck-subtitle').length > 0) {
-      this.post.byline = domDoc.getElementsByClassName('ck-subtitle')[0].innerHTML;
-    }
-    this.post.read_time = "0";
-    this.post.status = 1;
-    // TODO: Create draft for user with new edits
-    this.blogService.nextNewStory(this.post);
-    // TODO: Find better way to manage multiple posts being create on changes
-    if ((this.changes >= 5) && (this.post.title.replace('&nbsp;', '').length >= 5)) { this.publish(this.post); }
     this.changes++
   }
 
   publish(post: Post) {
-    console.warn(post);
+    this.blogService.updateAutoSaveStatus('AutoSaving...');
+    this.blogService.updateStoryLastSavedTimestamp(new Date().getTime());
     this.blogService.createPost(post).subscribe(
       story => {
         this.router.navigateByUrl(`me/${story.id}/edit`);
-        this.status = 'Saved';
+        this.blogService.updateSavedNewStory(story);
       },
       error => {
         if (error.status === 400) { console.error('Bad Request: ', error.error);
@@ -77,7 +92,13 @@ export class NewStoryComponent implements OnInit, OnDestroy {
         if (error.status === 500) { alert(`Internal Server Error: CreatePost#create\n${error.error}`); }
         // TODO: Create Appealing Error Page
       },
+      () => {this.blogService.updateAutoSaveStatus(`Saved @ ${this.storyLastSavedTimestamp}`);}
     )
+  }
+
+  checkSeconds(storylastSavedTimestamp: any) {
+    const current_time = new Date();
+    return (current_time.getTime() - storylastSavedTimestamp) / 1000
   }
 
 }

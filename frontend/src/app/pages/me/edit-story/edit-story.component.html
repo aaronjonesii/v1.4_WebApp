@@ -8,12 +8,12 @@
 
       <div class="section-content w-100">
         <div class="section-inner">
-          <div class="container" *ngIf="!pageLoaded; else loaded2">
+          <div class="container" *ngIf="!storyLoaded; else loaded2">
             <anon-loading></anon-loading>
           </div>
 
           <ng-template #loaded2>
-            <ckeditor [editor]="Editor" (change)="onChange($event)" [(ngModel)]="post.content"></ckeditor>
+            <ckeditor [editor]="Editor" (change)="onChange($event)" [(ngModel)]="story.content"></ckeditor>
           </ng-template>
         </div>
       </div>

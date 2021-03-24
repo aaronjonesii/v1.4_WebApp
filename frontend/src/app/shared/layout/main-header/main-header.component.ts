@@ -4,10 +4,10 @@ import { NbMenuService } from '@nebular/theme';
 
 @Component({
   selector: 'anon-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  templateUrl: './main-header.component.html',
+  styleUrls: ['./main-header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class MainHeaderComponent implements OnInit {
   context_items = [
     { title: 'Profile', link: '/profile' },
     { title: 'Write a story', link: '/new-story' },

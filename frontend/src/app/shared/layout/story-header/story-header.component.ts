@@ -5,16 +5,17 @@ import { BlogService } from "../../utils/blog/blog.service";
 import { Post } from "../../utils/blog/models/post";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'anon-new-story-header',
-  templateUrl: './new-story-header.component.html',
-  styleUrls: ['./new-story-header.component.scss'],
+  templateUrl: './story-header.component.html',
+  styleUrls: ['./story-header.component.scss'],
 })
-export class NewStoryHeaderComponent implements OnInit, OnDestroy {
+export class StoryHeaderComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
-  status = '';
+  storyLoaded = false;
+  autoSaveStatus = '';
+  // TODO: make public in another file for other files to use one object
   user_context_items = [
     { title: 'Profile', link: '/profile', icon: 'person-outline' },
     { title: 'Write a story', link: '/new-story', icon: 'plus-outline' },
@@ -36,47 +37,67 @@ export class NewStoryHeaderComponent implements OnInit, OnDestroy {
     created_on: '',
     status: 0,
   };
+  storyLastSavedTimestamp!: number;
   public domparser = new DOMParser();
 
   constructor(
     public auth: AuthService,
     private menuService: NbMenuService,
     private blogService: BlogService,
-    private router: Router,
   ) { }
 
   ngOnInit() {
+    // User Context Menu Subscriber
     this.menuService.onItemClick().pipe(
       takeUntil(this.unsub$)
     ).subscribe((event) => {
       if (event.item.title === 'Log Out') { this.auth.logout() }
     });
-    this.blogService.sharedNewStory.pipe(
+    // Story Subscriber
+    this.blogService.sharedSavedNewStory.pipe(
       takeUntil(this.unsub$)
     ).subscribe(post => this.post = post );
+    // AutoSave Status Subscriber
+    this.blogService.sharedAutoSaveStatus.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(autoSaveStatus => this.autoSaveStatus = autoSaveStatus);
+    // storyLoaded Subscriber
+    this.blogService.sharedStoryLoaded.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(isStoryLoaded => this.storyLoaded = isStoryLoaded);
+    // storyLastSavedTimestamp Subscriber
+    this.blogService.sharedStoryLastSavedTimestamp.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(storyLastSavedTimestamp => this.storyLastSavedTimestamp = storyLastSavedTimestamp);
   }
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
   }
 
-  publish(post: Post) {
-    console.warn(post);
-    this.blogService.createPost(post).subscribe(
-      response => {
+  saveStory(story: Post) {
+    this.blogService.updateAutoSaveStatus('Saving...');
+    this.blogService.updateStoryLastSavedTimestamp(new Date().getTime());
+    this.blogService.updatePost(story.id!, story).pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(
+      story => {
         // this.router.navigateByUrl('me/stories');
-        console.log(response);
-        this.status = 'Saved';
+        // console.log('storyHeader#saveStory Story has been saved => ',story);
         },
       error => {
+        // TODO: create handleErrors function in blog.service
+        // TODO: updateAutoSaveStatus('Error saving')
+        // TODO: Create Toastr for error messages
         if (error.status === 400) { console.error('Bad Request: ', error.error);
           if (error.error.hasOwnProperty('title')) { console.error('Error', error.error.title);
-          } else { alert(`Uncaught Exception: CreatePost#create\n${JSON.stringify(error.error)}`); }
+          } else { alert(`Uncaught Exception: newStory#publish\n${JSON.stringify(error.error)}`); }
           // console.error('Error occurred during post creation: ', error);
         }
-        if (error.status === 500) { alert(`Internal Server Error: CreatePost#create\n${error.error}`); }
+        if (error.status === 500) { alert(`Internal Server Error: newStory#publish\n${error.error}`); }
         // TODO: Create Appealing Error Page
       },
+      () => {this.blogService.updateAutoSaveStatus(`Saved @ ${this.storyLastSavedTimestamp}`);},
     )
   }
 

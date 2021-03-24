@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!pageLoaded; else loaded">
+<div class="container" *ngIf="!storyLoaded; else loaded">
   <anon-loading></anon-loading>
 </div>
 
@@ -7,7 +7,7 @@
 <ng-container *ngIf="drafts.length > 0 else empty">
   <nb-list>
     <nb-list-item *ngFor="let story of drafts">
-      <h1 class="">{{ story.title }}</h1>
+      <a routerLink="../../{{story.id}}/edit"> <h1 class="">{{ story.title }}</h1> </a>
     </nb-list-item>
   </nb-list>
 </ng-container>
