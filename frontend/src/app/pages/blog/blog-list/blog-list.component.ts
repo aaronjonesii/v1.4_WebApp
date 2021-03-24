@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Blog } from '../../../shared/utils/blog/models/blog';
+import { Post } from "../../../shared/utils/blog/models/post";
 
 @Component({
   selector: 'anon-blog-list',
@@ -7,11 +7,10 @@ import { Blog } from '../../../shared/utils/blog/models/blog';
   styleUrls: ['./blog-list.component.scss']
 })
 export class BlogListComponent implements OnInit {
-  @Input() stories: Blog[] | undefined;
+  @Input() stories!: Post[];
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
 
 }

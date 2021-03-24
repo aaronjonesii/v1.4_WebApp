@@ -1,12 +1,18 @@
-<ng-container *ngIf="stories.length > 0 else empty">
-  <nb-list>
-    <nb-list-item *ngFor="let story of stories">
-      <h1 class="">{{ story.title }}</h1>
-    </nb-list-item>
-  </nb-list>
-</ng-container>
-<ng-template #empty>
-  <div class="container empty">
-    You haven’t published any unlisted stories yet.
-  </div>
+<div class="container" *ngIf="!storiesLoaded; else loaded">
+  <anon-loading></anon-loading>
+</div>
+
+<ng-template #loaded>
+  <ng-container *ngIf="unlistedStories.length > 0 else empty">
+    <nb-list>
+      <nb-list-item *ngFor="let story of stories">
+        <a class="text-decoration-none" routerLink="../../{{story.id}}/edit"> <h1 class="">{{ story.title }}</h1> </a>
+      </nb-list-item>
+    </nb-list>
+  </ng-container>
+  <ng-template #empty>
+    <div class="container empty">
+      You haven’t published any unlisted stories yet.
+    </div>
+  </ng-template>
 </ng-template>

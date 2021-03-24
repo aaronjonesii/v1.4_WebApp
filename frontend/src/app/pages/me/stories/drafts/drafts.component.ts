@@ -3,6 +3,7 @@ import { Post } from "../../../../shared/utils/blog/models/post";
 import { BlogService } from "../../../../shared/utils/blog/blog.service";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
+import { StoriesService } from "../../../../shared/utils/stories.service";
 
 @Component({
   selector: 'anon-drafts',
@@ -13,14 +14,14 @@ export class DraftsComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   stories: Post[] = [];
   drafts: Post[] = [];
-  storyLoaded = false;
+  storiesLoaded = false;
 
-  constructor(private blogService: BlogService) { }
+  constructor(
+    private blogService: BlogService,
+    private storiesService: StoriesService,
+  ) { this.getStories(); }
 
-  ngOnInit() {
-    this.getStories();
-    this.filterStories(this.stories);
-  }
+  ngOnInit() { }
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
@@ -28,22 +29,17 @@ export class DraftsComponent implements OnInit, OnDestroy {
 
   getStories() {
     this.blogService.getPosts().pipe(takeUntil(this.unsub$)).subscribe(
-      response => this.stories = response,
+      stories => this.stories = stories,
       error => console.error(error),
       () => this.complete(),
     );
   }
 
   complete() {
-    this.storyLoaded = true; // Update page loading status
-    this.filterStories(this.stories);
-    console.log(this.stories);
+    this.storiesLoaded = true; // Update page loading status
+    this.drafts = this.storiesService.filterStoriesByStatus(2, this.stories);
   }
 
-  filterStories(stories: Post[]) {
-    for (let story of stories) {
-      if( story.status == 2 ) {this.drafts.push(story)}
-    }
-  }
+
 
 }

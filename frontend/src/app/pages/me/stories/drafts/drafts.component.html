@@ -1,20 +1,20 @@
-<div class="container" *ngIf="!storyLoaded; else loaded">
+<div class="container" *ngIf="!storiesLoaded; else loaded">
   <anon-loading></anon-loading>
 </div>
 
 <ng-template #loaded>
 
-<ng-container *ngIf="drafts.length > 0 else empty">
-  <nb-list>
-    <nb-list-item *ngFor="let story of drafts">
-      <a routerLink="../../{{story.id}}/edit"> <h1 class="">{{ story.title }}</h1> </a>
-    </nb-list-item>
-  </nb-list>
-</ng-container>
-<ng-template #empty>
-  <div class="container empty">
-    You have no drafts
-  </div>
-</ng-template>
+  <ng-container *ngIf="drafts.length > 0 else empty">
+    <nb-list>
+      <nb-list-item *ngFor="let story of drafts">
+        <a class="text-decoration-none" routerLink="../../{{story.id}}/edit"> <h1 class="">{{ story.title }}</h1> </a>
+      </nb-list-item>
+    </nb-list>
+  </ng-container>
+  <ng-template #empty>
+    <div class="container empty">
+      You have no drafts
+    </div>
+  </ng-template>
 
 </ng-template>

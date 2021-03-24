@@ -44,13 +44,4 @@ export class AppComponent implements OnInit  {
     return (newStoryURL || editStoryURL);
   }
 
-  // Checking for /me/:post_id/edit
-  private isEditStoryUrl(router: any) {
-    let ret = false;
-    const paths = router.url.split('/')
-    if(paths.length == 4) { if(paths[1] === 'me') { if(paths[3] === 'edit') { ret = true; } } }
-    if(paths.length == 4) { if(paths[1] === 'me') { if(paths[3] === 'edit') { ret = true; } } }
-    return ret;
-  }
-
 }

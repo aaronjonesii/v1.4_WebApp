@@ -90,7 +90,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
         this.blogService.updateLastSavedStory(story);
         },
       error => {
-        // TODO: create handleErrors function in blog.service 
+        // TODO: create handleErrors function in blog.service
         // TODO: updateAutoSaveStatus('Error saving')
         // TODO: Create Toastr for error messages
         if (error.status === 400) { console.error('Bad Request: ', error.error);

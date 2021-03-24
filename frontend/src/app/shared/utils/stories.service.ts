@@ -8,7 +8,7 @@ export class StoriesService {
 
   constructor( private slugifyPipe: SlugifyPipe ) { }
 
-  parseEditorContent(editor: any, story: Post) {
+  public parseEditorContent(editor: any, story: Post) {
     const htmlString = editor.getData();
     const domDoc = this.domparser.parseFromString(htmlString, 'text/html')
     story.content = htmlString;
@@ -27,6 +27,21 @@ export class StoriesService {
     // TODO: Provide options to user for statuses
     story.status = 2; // TODO: Draft status
     return story;
+  }
+
+  public filterStoriesByStatus(status: number, stories: Post[]) {
+    // const statuses = [
+    //   'Trash',
+    //   'Draft',
+    //   'Pending',
+    //   'Review',
+    //   'Publish',
+    //   'Future',
+    //   'Private',
+    // ]
+    let filteredStories = [];
+    for (let story of stories) { if( story.status == status ) {filteredStories.push(story)} }
+    return filteredStories;
   }
 
 }
