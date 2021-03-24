@@ -73,10 +73,11 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     this.changes++
   }
 
-  publish(post: Post) {
+  publish(story: Post) {
     this.blogService.updateAutoSaveStatus('AutoSaving...');
     this.blogService.updateStoryLastSavedTimestamp(new Date().getTime());
-    this.blogService.createPost(post).subscribe(
+    story.status = 2 // Set Status to Draft
+    this.blogService.createPost(story).subscribe(
       story => {
         this.router.navigateByUrl(`me/${story.id}/edit`);
         this.blogService.updateLastSavedStory(story);
@@ -85,7 +86,7 @@ export class NewStoryComponent implements OnInit, OnDestroy {
         if (error.status === 400) { console.error('Bad Request: ', error.error);
           if (error.error.hasOwnProperty('title')) { console.error('Error', error.error.title);
           } else { alert(`Uncaught Exception: CreatePost#create\n${JSON.stringify(error.error)}`); }
-          // console.error('Error occurred during post creation: ', error);
+          // console.error('Error occurred during story creation: ', error);
         }
         if (error.status === 500) { alert(`Internal Server Error: CreatePost#create\n${error.error}`); }
         // TODO: Create Appealing Error Page

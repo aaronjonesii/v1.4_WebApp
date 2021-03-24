@@ -5,16 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { PostsHeroComponent } from './pages/blog/posts-hero/posts-hero.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MainHeaderComponent } from './shared/layout/main-header/main-header.component';
-import { BlogPostComponent } from './pages/blog/blog-post/blog-post.component';
+import { StoryPageComponent } from './pages/me/stories/story-page/story-page.component';
 import { HomeModule } from './pages/home/home.module';
 import { ProfileModule } from './pages/profile/profile.module';
-import { BlogModule } from './pages/blog/blog.module';
-import { BlogComponent } from './pages/blog/blog.component';
-import { EditBlogPostComponent } from './pages/blog/edit-blog-post/edit-blog-post.component';
-
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -39,11 +34,8 @@ import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
     AppComponent,
     HomeComponent,
     MainHeaderComponent,
-    PostsHeroComponent,
     ProfileComponent,
-    BlogPostComponent,
-    BlogComponent,
-    EditBlogPostComponent,
+    StoryPageComponent,
     LoadingComponent,
     NewStoryComponent,
     StoryHeaderComponent,
@@ -63,7 +55,6 @@ import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
 
     HomeModule,
     ProfileModule,
-    BlogModule,
     NewStoryModule,
     MeModule,
     StoriesModule,

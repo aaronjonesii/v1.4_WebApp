@@ -128,10 +128,6 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
 
   onChange( { editor }: ChangeEvent ) {
     this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story));
-    // TODO: Calculate read time from word count
-    // this.post.read_time = "0";
-    // TODO: Build UI for statuses
-    // this.post.status = 1;
     // If story has already been saved
     if (this.storyLastSavedTimestamp) {
       const postLastSavedSeconds = this.checkSeconds(this.storyLastSavedTimestamp)
