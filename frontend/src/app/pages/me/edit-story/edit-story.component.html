@@ -13,7 +13,7 @@
           </div>
 
           <ng-template #loaded2>
-            <ckeditor [editor]="Editor" (change)="onChange($event)" [(ngModel)]="story.content"></ckeditor>
+            <ckeditor [editor]="Editor" (change)="onChange($event)" [(ngModel)]="this.story.content"></ckeditor>
           </ng-template>
         </div>
       </div>

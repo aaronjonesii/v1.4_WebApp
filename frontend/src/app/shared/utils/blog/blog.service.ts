@@ -23,11 +23,14 @@ export class BlogService {
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   private subject = new Subject<any>(); // Observable source
 
-  private savedNewStory = new BehaviorSubject<any>(this.post);
+  private liveStory = new BehaviorSubject<any>(this.post);
+  private lastSavedStory = new BehaviorSubject<any>(this.post);
   private autoSaveStatus = new BehaviorSubject<any>('');
   private storyLoaded = new BehaviorSubject<any>('');
   private storyLastSavedTimestamp = new BehaviorSubject<any>('');
-  sharedSavedNewStory = this.savedNewStory.asObservable();
+
+  sharedLiveStory = this.liveStory.asObservable();
+  sharedLastSavedStory = this.lastSavedStory.asObservable();
   sharedAutoSaveStatus = this.autoSaveStatus.asObservable();
   sharedStoryLoaded = this.storyLoaded.asObservable();
   sharedStoryLastSavedTimestamp = this.storyLastSavedTimestamp.asObservable();
@@ -37,7 +40,8 @@ export class BlogService {
     private http: HttpClient,
   ) { }
 
-  updateSavedNewStory(post: any) { this.savedNewStory.next(post); };
+  updateLiveStory(story: any) { this.liveStory.next(story); };
+  updateLastSavedStory(story: any) { this.lastSavedStory.next(story); };
   updateAutoSaveStatus(status: string) { this.autoSaveStatus.next(status); };
   updateStoryLoaded(isStoryLoaded: boolean) { this.storyLoaded.next(isStoryLoaded); };
   updateStoryLastSavedTimestamp(storyLastSavedTimestamp: number) {

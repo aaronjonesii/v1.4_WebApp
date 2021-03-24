@@ -1,5 +1,7 @@
 @import '../../../../themes.scss';
 
 @include nb-install-component() {
-    
+    ::ng-deep [nbButton].appearance-ghost.status-basic:hover {
+      background-color: transparent!important;
+    }
 }

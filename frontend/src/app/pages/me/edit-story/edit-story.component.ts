@@ -43,10 +43,14 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     private router: Router,
     private storiesService: StoriesService,
   ) {
-    // Story Subscriber
-    this.blogService.sharedSavedNewStory.pipe(
+    // liveStory Subscriber
+    this.blogService.sharedLiveStory.pipe(
       takeUntil(this.unsub$)
-    ).subscribe(post => this.story = post );
+    ).subscribe(liveStory => this.story = liveStory );
+    // lastSavedStory Subscriber
+    this.blogService.sharedLastSavedStory.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(lastSavedStory => this.lastSavedStory = lastSavedStory );
     // Get Story ID from URL
     this.activatedRoute.params.pipe(
       takeUntil(this.unsub$)
@@ -54,9 +58,6 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
       routeParams => this.story.id = routeParams.post_id,
       error => console.error(error),
     );
-  }
-
-  ngOnInit() {
     // URL Service Subscriber
     this.urlService.previousUrl$.pipe(
       takeUntil(this.unsub$)
@@ -65,12 +66,13 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     this.blogService.sharedStoryLoaded.pipe(
       takeUntil(this.unsub$)
     ).subscribe(isStoryLoaded => this.storyLoaded = isStoryLoaded);
-    this.getPost(<string>this.story.id);
     // storyLastSavedTimestamp Subscriber
     this.blogService.sharedStoryLastSavedTimestamp.pipe(
       takeUntil(this.unsub$)
     ).subscribe(storyLastSavedTimestamp => this.storyLastSavedTimestamp = storyLastSavedTimestamp);
   }
+
+  ngOnInit() { this.getPost(<string>this.story.id); }
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
@@ -81,8 +83,8 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     // insert logic to check if there are pending changes here;
     let ret = false;
     // If story has not been saved yet this session
-    if (this.lastSavedStory == undefined) { ret = true; } else {
-      if (this.lastSavedStory.content == this.story.content) {ret = true}
+    if (!this.lastSavedStory.content) { ret = true; } else {
+      if (this.lastSavedStory.content === this.story.content) {ret = true}
     }
     // returning true will navigate without confirmation
     // returning false will show a confirm dialog before navigating away
@@ -103,7 +105,7 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
             this.updateStory(story)
           }
         }
-        this.blogService.updateSavedNewStory(story)
+        this.blogService.updateLiveStory(story);
       },
       error => console.error(error),
       () => {this.blogService.updateStoryLoaded(true)},
@@ -116,14 +118,16 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     this.blogService.updatePost(story.id!, story).pipe(
       takeUntil(this.unsub$)
     ).subscribe(
-      story => this.lastSavedStory = story,
+      story => {
+        this.blogService.updateLastSavedStory(story);
+      },
       error => console.error(error),
-      () => {this.blogService.updateAutoSaveStatus(`Saved @ ${this.storyLastSavedTimestamp}`);}
+      () => {this.blogService.updateAutoSaveStatus(`Saved @`);}
     );
   }
 
   onChange( { editor }: ChangeEvent ) {
-    this.story = this.storiesService.parseEditorContent(editor, this.story);
+    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story));
     // TODO: Calculate read time from word count
     // this.post.read_time = "0";
     // TODO: Build UI for statuses

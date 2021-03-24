@@ -44,6 +44,10 @@ export class NewStoryComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    // liveStory Subscriber
+    this.blogService.sharedLiveStory.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(liveStory => this.story = liveStory );
     // storyLastSavedTimestamp Subscriber
     this.blogService.sharedStoryLastSavedTimestamp.pipe(
       takeUntil(this.unsub$)
@@ -55,13 +59,7 @@ export class NewStoryComponent implements OnInit, OnDestroy {
   }
 
   public onChange( { editor }: ChangeEvent ) {
-    this.story = this.storiesService.parseEditorContent(editor, this.story);
-    // TODO: Caculate read time from word count
-    this.story.read_time = "0";
-    // TODO: Provide options to user for statuses
-    this.story.status = 2;
-    // Update saved story
-    this.blogService.updateSavedNewStory(this.story);
+    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story));
     // If there have been more than 5 changes and the title is more than 5 characters
     if ((this.changes >= 5) && (this.story.title.replace('&nbsp;', '').length >= 5)) {
       if (this.storyLastSavedTimestamp) {
@@ -81,7 +79,7 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     this.blogService.createPost(post).subscribe(
       story => {
         this.router.navigateByUrl(`me/${story.id}/edit`);
-        this.blogService.updateSavedNewStory(story);
+        this.blogService.updateLastSavedStory(story);
       },
       error => {
         if (error.status === 400) { console.error('Bad Request: ', error.error);

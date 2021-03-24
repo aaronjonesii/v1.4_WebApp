@@ -22,6 +22,10 @@ export class StoriesService {
     if(domDoc.getElementsByClassName('ck-subtitle').length > 0) {
       story.byline = domDoc.getElementsByClassName('ck-subtitle')[0].innerHTML;
     }
+    // TODO: Caculate read time from word count
+    story.read_time = "0";
+    // TODO: Provide options to user for statuses
+    story.status = 2; // TODO: Draft status
     return story;
   }
 

@@ -7,7 +7,7 @@ import { Blog } from '../../../shared/utils/blog/models/blog';
   styleUrls: ['./blog-list.component.scss']
 })
 export class BlogListComponent implements OnInit {
-  @Input() blogs: Blog[] | undefined;
+  @Input() stories: Blog[] | undefined;
 
   constructor() { }
 

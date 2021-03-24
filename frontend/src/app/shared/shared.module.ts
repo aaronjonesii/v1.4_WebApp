@@ -20,7 +20,7 @@ import {
   NbUserModule,
   NbContextMenuModule,
   NbInputModule,
-  NbFormFieldModule, NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule
+  NbFormFieldModule, NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule, NbSearchModule
 } from '@nebular/theme';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
 import { RouterModule } from '@angular/router';
@@ -35,18 +35,20 @@ import { SlugifyPipe } from "./utils/blog/slugify.pipe";
 import { UrlService } from "./utils/url.service";
 import { StoriesService } from "./utils/stories.service";
 import { PendingChangesGuard } from "./utils/pending-changes.guard";
+import { DateAgoPipe } from "./utils/blog/date-ago.pipe";
 
 const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule, ];
 const NB_MODULES = [
   NbLayoutModule, NbButtonModule, NbCardModule, NbSelectModule, NbIconModule,
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
-  NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule,
+  NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule,
+  NbSearchModule,
 ];
 const MAT_MODULES = []!;
 const COMPONENTS = []!;
 const ENTRY_COMPONENTS = []!;
-const PIPES = [SlugifyPipe];
-const PROVIDERS = [SlugifyPipe, UrlService, StoriesService, PendingChangesGuard];
+const PIPES = [SlugifyPipe, DateAgoPipe];
+const PROVIDERS = [SlugifyPipe, UrlService, StoriesService, PendingChangesGuard, DateAgoPipe];
 
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(

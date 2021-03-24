@@ -28,7 +28,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
     { title: 'Change display title / subtitle' },
     { title: 'Change tags', },
   ];
-  post: Post = {
+  story: Post = {
     author: '',
     title: '',
     slug: '',
@@ -37,6 +37,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
     created_on: '',
     status: 0,
   };
+  lastSavedStory!: Post;
   storyLastSavedTimestamp!: number;
   public domparser = new DOMParser();
 
@@ -53,10 +54,14 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
     ).subscribe((event) => {
       if (event.item.title === 'Log Out') { this.auth.logout() }
     });
-    // Story Subscriber
-    this.blogService.sharedSavedNewStory.pipe(
+    // liveStory Subscriber
+    this.blogService.sharedLiveStory.pipe(
       takeUntil(this.unsub$)
-    ).subscribe(post => this.post = post );
+    ).subscribe(liveStory => this.story = liveStory );
+    // lastSavedStory Subscriber
+    this.blogService.sharedLastSavedStory.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(lastSavedStory => this.lastSavedStory = lastSavedStory );
     // AutoSave Status Subscriber
     this.blogService.sharedAutoSaveStatus.pipe(
       takeUntil(this.unsub$)
@@ -82,11 +87,10 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
       takeUntil(this.unsub$)
     ).subscribe(
       story => {
-        // this.router.navigateByUrl('me/stories');
-        // console.log('storyHeader#saveStory Story has been saved => ',story);
+        this.blogService.updateLastSavedStory(story);
         },
       error => {
-        // TODO: create handleErrors function in blog.service
+        // TODO: create handleErrors function in blog.service 
         // TODO: updateAutoSaveStatus('Error saving')
         // TODO: Create Toastr for error messages
         if (error.status === 400) { console.error('Bad Request: ', error.error);
@@ -97,7 +101,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
         if (error.status === 500) { alert(`Internal Server Error: newStory#publish\n${error.error}`); }
         // TODO: Create Appealing Error Page
       },
-      () => {this.blogService.updateAutoSaveStatus(`Saved @ ${this.storyLastSavedTimestamp}`);},
+      () => {this.blogService.updateAutoSaveStatus('Saved @');},
     )
   }
 
