@@ -2,9 +2,11 @@ from django.conf import settings
 from django.db import models
 from .status import Status
 from .category import Category
+import uuid
 
 
 class Post(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.PROTECT,
                                help_text="User who created the Blog Post.")
@@ -21,7 +23,10 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)                                        # REQUIRED
     created_on = models.DateTimeField(auto_now_add=True)                                    # REQUIRED
     publish_on = models.DateField(null=True, blank=True)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE, related_name='status')     # REQUIRED
+    status = models.ForeignKey(Status,
+                               on_delete=models.CASCADE,
+                               related_name='status',
+                               help_text="Trash, Draft, Pending, Review, Publish, Future, Private")  # REQUIRED
 
     class Meta:
         verbose_name = "Post"

@@ -63,10 +63,10 @@ urlpatterns = [
     path('api/private-scoped/', views.private_scoped, name='private-scoped'),
 
     path('blog/', blog_list, name='post_list'),
-    path('blog/<int:pk>/', blog_detail, name='post_detail'),
-    path('blog/<int:pk>/related_posts/', related_post, name='related_post'),
-    path('blog/<int:pk>/byline/', post_byline, name='post_byline'),
-    path('blog/<int:pk>/tags/', post_tags, name='post_tags'),
+    path('blog/<uuid:pk>/', blog_detail, name='post_detail'),
+    path('blog/<uuid:pk>/related_posts/', related_post, name='related_post'),
+    path('blog/<uuid:pk>/byline/', post_byline, name='post_byline'),
+    path('blog/<uuid:pk>/tags/', post_tags, name='post_tags'),
 
     path('weather/', views.weatherView, name='weather'),  # Get Current Weather Conditions from requester
     path('weather/forecast/', views.forecastWeatherView, name='forecast'),  # Get 5 day forecast from requester
