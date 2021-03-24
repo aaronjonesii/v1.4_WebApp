@@ -23,17 +23,30 @@ export class BlogService {
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   private subject = new Subject<any>(); // Observable source
 
-  private newStory = new BehaviorSubject<any>(this.post); // Subject Observer
-  sharedNewStory = this.newStory.asObservable();
-  // newStory$ = this.newStorySubject.asObservable(); // Observable stream
+  private liveStory = new BehaviorSubject<any>(this.post);
+  private lastSavedStory = new BehaviorSubject<any>(this.post);
+  private autoSaveStatus = new BehaviorSubject<any>('');
+  private storyLoaded = new BehaviorSubject<any>('');
+  private storyLastSavedTimestamp = new BehaviorSubject<any>('');
+
+  sharedLiveStory = this.liveStory.asObservable();
+  sharedLastSavedStory = this.lastSavedStory.asObservable();
+  sharedAutoSaveStatus = this.autoSaveStatus.asObservable();
+  sharedStoryLoaded = this.storyLoaded.asObservable();
+  sharedStoryLastSavedTimestamp = this.storyLastSavedTimestamp.asObservable();
 
 
-  constructor( private http: HttpClient ) { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
-  nextNewStory(post: any) { // Feed new value to Subject
-    // console.log('blogService to Subject...', post);
-    this.newStory.next(post);
-  }
+  updateLiveStory(story: any) { this.liveStory.next(story); };
+  updateLastSavedStory(story: any) { this.lastSavedStory.next(story); };
+  updateAutoSaveStatus(status: string) { this.autoSaveStatus.next(status); };
+  updateStoryLoaded(isStoryLoaded: boolean) { this.storyLoaded.next(isStoryLoaded); };
+  updateStoryLastSavedTimestamp(storyLastSavedTimestamp: number) {
+    this.storyLastSavedTimestamp.next(storyLastSavedTimestamp);
+  };
 
   getBlogSubject(): Observable<any> {
     return this.subject.asObservable();
@@ -41,15 +54,14 @@ export class BlogService {
 
   updateBlogSubject() {
     this.subject.next(BLOGS);
-    // console.log('UPDATE Blog Subject was called!');
   };
 
   getPost(id: number): Observable<Blog> {
     return of(BLOGS.find(blog => blog.id === id)!);
   }
-
-  getOnePost(postID: number): Observable<Post> {
-    return this.http.get<Post>(`${environment.apiURL}/${postID}/`, {headers: this.httpHeaders});
+  // API Methods
+  getOnePost(postID: string): Observable<Post> {
+    return this.http.get<Post>(`${environment.apiURL}/blog/${postID}/`, {headers: this.httpHeaders});
   }
 
   createPost(post: Post): Observable<Post> {
@@ -60,5 +72,8 @@ export class BlogService {
     return this.http.get<Post[]>(`${environment.apiURL}/blog/`, {headers: this.httpHeaders});
   }
 
+  updatePost(postID: string, post: Post): Observable<Post> {
+    return this.http.put<Post>(`${environment.apiURL}/blog/${postID}/`, post, {headers: this.httpHeaders});
+  }
 
 }

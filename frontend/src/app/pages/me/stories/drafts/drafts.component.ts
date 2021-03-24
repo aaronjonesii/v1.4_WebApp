@@ -3,6 +3,7 @@ import { Post } from "../../../../shared/utils/blog/models/post";
 import { BlogService } from "../../../../shared/utils/blog/blog.service";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
+import { StoriesService } from "../../../../shared/utils/stories.service";
 
 @Component({
   selector: 'anon-drafts',
@@ -12,13 +13,15 @@ import { takeUntil } from "rxjs/operators";
 export class DraftsComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   stories: Post[] = [];
-  pageLoaded = false;
+  drafts: Post[] = [];
+  storiesLoaded = false;
 
-  constructor(private blogService: BlogService) { }
+  constructor(
+    private blogService: BlogService,
+    private storiesService: StoriesService,
+  ) { this.getStories(); }
 
-  ngOnInit() {
-    this.getStories();
-  }
+  ngOnInit() { }
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
@@ -26,10 +29,17 @@ export class DraftsComponent implements OnInit, OnDestroy {
 
   getStories() {
     this.blogService.getPosts().pipe(takeUntil(this.unsub$)).subscribe(
-      response => this.stories = response,
+      stories => this.stories = stories,
       error => console.error(error),
-      () => this.pageLoaded = true, // Update page loading status
+      () => this.complete(),
     );
   }
+
+  complete() {
+    this.storiesLoaded = true; // Update page loading status
+    this.drafts = this.storiesService.filterStoriesByStatus(2, this.stories);
+  }
+
+
 
 }

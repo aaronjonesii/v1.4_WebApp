@@ -5,16 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { PostsHeroComponent } from './pages/blog/posts-hero/posts-hero.component';
 import { HomeComponent } from './pages/home/home.component';
-import { HeaderComponent } from './shared/layout/header/header.component';
-import { BlogPostComponent } from './pages/blog/blog-post/blog-post.component';
+import { MainHeaderComponent } from './shared/layout/main-header/main-header.component';
+import { StoryPageComponent } from './pages/me/stories/story-page/story-page.component';
 import { HomeModule } from './pages/home/home.module';
 import { ProfileModule } from './pages/profile/profile.module';
-import { BlogModule } from './pages/blog/blog.module';
-import { BlogComponent } from './pages/blog/blog.component';
-import { EditBlogPostComponent } from './pages/blog/edit-blog-post/edit-blog-post.component';
-
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -24,7 +19,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { LoadingComponent } from "./shared/layout/loading/loading.component";
 import { NewStoryModule } from "./pages/new-story/new-story.module";
 import { NewStoryComponent } from "./pages/new-story/new-story.component";
-import { NewStoryHeaderComponent } from "./shared/layout/new-story-header/new-story-header.component";
+import { StoryHeaderComponent } from "./shared/layout/story-header/story-header.component";
 import { MeModule } from "./pages/me/me.module";
 import { MeComponent } from "./pages/me/me.component";
 import { StoriesComponent } from "./pages/me/stories/stories.component";
@@ -32,25 +27,24 @@ import { StoriesModule } from "./pages/me/stories/stories.module";
 import { DraftsComponent } from "./pages/me/stories/drafts/drafts.component";
 import { PublicComponent } from "./pages/me/stories/public/public.component";
 import { UnlistedComponent } from "./pages/me/stories/unlisted/unlisted.component";
+import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
-    PostsHeroComponent,
+    MainHeaderComponent,
     ProfileComponent,
-    BlogPostComponent,
-    BlogComponent,
-    EditBlogPostComponent,
+    StoryPageComponent,
     LoadingComponent,
     NewStoryComponent,
-    NewStoryHeaderComponent,
+    StoryHeaderComponent,
     MeComponent,
     StoriesComponent,
     DraftsComponent,
     PublicComponent,
     UnlistedComponent,
+    EditStoryComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -61,7 +55,6 @@ import { UnlistedComponent } from "./pages/me/stories/unlisted/unlisted.componen
 
     HomeModule,
     ProfileModule,
-    BlogModule,
     NewStoryModule,
     MeModule,
     StoriesModule,

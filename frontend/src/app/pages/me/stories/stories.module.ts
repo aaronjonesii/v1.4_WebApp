@@ -6,6 +6,7 @@ import { DraftsComponent } from "./drafts/drafts.component";
 import { SharedModule } from "../../../shared/shared.module";
 import { UnlistedComponent } from "./unlisted/unlisted.component";
 import { PublicComponent } from "./public/public.component";
+import { ListStoriesComponent } from "./list-stories/list-stories.component";
 
 const routes: Routes = [
   { path: '', component: StoriesComponent, children: [
@@ -17,7 +18,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [ListStoriesComponent],
+  exports: [ListStoriesComponent],
   imports: [
     CommonModule,
     SharedModule,

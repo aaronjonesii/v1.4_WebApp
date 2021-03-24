@@ -3,11 +3,17 @@ import { CommonModule } from '@angular/common';
 import { MeComponent } from './me.component';
 import { RouterModule, Routes } from "@angular/router";
 import { SharedModule } from "../../shared/shared.module";
+import { EditStoryComponent } from "./edit-story/edit-story.component";
+import { PendingChangesGuard } from "../../shared/utils/pending-changes.guard";
+import { StoryPageComponent } from "./stories/story-page/story-page.component";
+
 
 
 const routes: Routes = [
   { path: '', component: MeComponent, pathMatch: 'full' },
   { path: 'stories', loadChildren: () => import('./stories/stories.module').then(m => m.StoriesModule) },
+  { path: ':post_id', component: StoryPageComponent },
+  { path: ':post_id/edit', component: EditStoryComponent, canDeactivate: [PendingChangesGuard] },
 ];
 
 @NgModule({
