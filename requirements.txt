@@ -8,3 +8,4 @@ mysql-connector-python
 cryptography
 drf-jwt
 pyjwt
+python-memcached

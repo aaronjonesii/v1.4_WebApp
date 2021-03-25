@@ -188,3 +188,10 @@ sentry_sdk.init(
     dsn="https://0f07ef4a0dc241bebe70c88f871a49a7@o214341.ingest.sentry.io/1810585",
     integrations=[DjangoIntegration()]
 )
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'backend_cache',
+    }
+}
