@@ -107,7 +107,7 @@ class PostSerializer(serializers.ModelSerializer):
                 category = validated_data.pop('category')
                 category_exists = True
         if 'author' in validated_data:
-            user = get_user(str(validated_data.get('author')))
+            user = get_user(validated_data.get('author'))
             author_name = user.get('name')
             author_nickname = user.get('nickname')
             validated_data['author_name'] = author_name
@@ -118,6 +118,14 @@ class PostSerializer(serializers.ModelSerializer):
         return post
 
     def update(self, instance, validated_data):
+        author_id = instance.author
+        user = get_user(author_id)
+        author_name = user.get('name')
+        author_nickname = user.get('nickname')
+        if validated_data['author_name'] != author_name:
+            validated_data['author_name'] = author_name
+        if validated_data['author_nickname'] != author_nickname:
+            validated_data['author_nickname'] = author_nickname
         new_post_tags = validated_data.pop('tags')
         new_post_category = validated_data.pop('category')
         update_post_fields(validated_data, instance)
@@ -130,6 +138,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 def get_user(author_id):
+    author_id = str(author_id)
     token = cache.get('Auth0_MGMT_API_JWT')
     if token is None:
         refresh_auth0_token()
