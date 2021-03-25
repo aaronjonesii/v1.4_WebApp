@@ -10,6 +10,8 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.PROTECT,
                                help_text="User who created the Blog Post.")
+    author_name = models.CharField(max_length=420, blank=True)
+    author_nickname = models.CharField(max_length=420, blank=True)
     category = models.ForeignKey(Category,
                                  on_delete=models.CASCADE,
                                  blank=True, null=True)

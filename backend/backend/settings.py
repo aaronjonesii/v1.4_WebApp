@@ -188,3 +188,18 @@ sentry_sdk.init(
     dsn="https://0f07ef4a0dc241bebe70c88f871a49a7@o214341.ingest.sentry.io/1810585",
     integrations=[DjangoIntegration()]
 )
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'backend_cache',
+    }
+}
+
+# TODO: Place all in system environment
+# Auth0 Management
+AUTH0_DOMAIN = 'https://anonsys.auth0.com'
+AUTH0_AUDIENCE = 'https://anonsys.auth0.com/api/v2'
+AUTH0_CLIENT_ID = 'w6ClmoCh2SALilP7pFppCvEw6nfwoYOY'
+AUTH0_CLIENT_SECRET = 'C_C0FYNu3MlsbZn0pgKp9sy7NwTgcemUBM8yT-aDqwbEPfPsDARkJ3wqAMdSw45e'
+AUTH0_GRANT_TYPE = 'client_credentials'  # OAuth 2.0 flow to use
