@@ -180,10 +180,11 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
-# import sentry_sdk
-# from sentry_sdk.integrations.django import DjangoIntegration
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
-# sentry_sdk.init(
-#     dsn=os.environ.get('SENTRY_URL', ''),
-#     integrations=[DjangoIntegration()]
-# )
+sentry_sdk.init(
+    # dsn=os.environ.get('SENTRY_URL', ''),
+    dsn="https://0f07ef4a0dc241bebe70c88f871a49a7@o214341.ingest.sentry.io/1810585",
+    integrations=[DjangoIntegration()]
+)
