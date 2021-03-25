@@ -195,3 +195,11 @@ CACHES = {
         'LOCATION': 'backend_cache',
     }
 }
+
+# TODO: Place all in system environment
+# Auth0 Management
+AUTH0_DOMAIN = 'https://anonsys.auth0.com/'
+AUTH0_AUDIENCE = 'https://anonsys.auth0.com/api/v2/'
+AUTH0_CLIENT_ID = 'w6ClmoCh2SALilP7pFppCvEw6nfwoYOY'
+AUTH0_CLIENT_SECRET = 'C_C0FYNu3MlsbZn0pgKp9sy7NwTgcemUBM8yT-aDqwbEPfPsDARkJ3wqAMdSw45e'
+AUTH0_GRANT_TYPE = 'client_credentials'  # OAuth 2.0 flow to use
