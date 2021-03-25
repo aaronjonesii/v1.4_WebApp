@@ -15,7 +15,6 @@ export class StoriesService {
     // Set Title
     if(domDoc.getElementsByTagName("h1").length > 0) {
       story.title = domDoc.getElementsByTagName("h1")[0].innerText;
-      console.log('storiesService#parseEditor title to be saved => ', story.title);
       story.slug = this.slugifyPipe.transform(domDoc.getElementsByTagName("h1")[0].innerText);
     }
     // Set Subtitle(Byline)
