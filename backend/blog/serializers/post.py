@@ -5,6 +5,9 @@ from .status import StatusSerializer
 from .category import CategorySerializer
 from ..models import Post, Tag, Category
 
+from django.core.cache import cache
+from ..utils import refresh_auth0_token, is_auth0_token_valid, get_user_by_id
+
 
 def create_tags(tags, post_instance):
     """
@@ -100,8 +103,15 @@ class PostSerializer(serializers.ModelSerializer):
             tags = validated_data.pop('tags')
             tags_exists = True
         if 'category' in validated_data:
-            category = validated_data.pop('category')
-            category_exists = True
+            if validated_data.get('category') is not None:
+                category = validated_data.pop('category')
+                category_exists = True
+        if 'author' in validated_data:
+            user = get_user(str(validated_data.get('author')))
+            author_name = user.get('name')
+            author_nickname = user.get('nickname')
+            validated_data['author_name'] = author_name
+            validated_data['author_nickname'] = author_nickname
         post = Post.objects.create(**validated_data)
         if tags_exists: create_tags(tags, post)
         if category_exists: create_category(category, post)
@@ -110,7 +120,6 @@ class PostSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         new_post_tags = validated_data.pop('tags')
         new_post_category = validated_data.pop('category')
-
         update_post_fields(validated_data, instance)
 
         update_category(new_post_category, instance)
@@ -118,3 +127,16 @@ class PostSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+
+
+def get_user(author_id):
+    token = cache.get('Auth0_MGMT_API_JWT')
+    if token is None:
+        refresh_auth0_token()
+        return get_user_by_id(author_id)
+    else:
+        if is_auth0_token_valid(token):
+            return get_user_by_id(author_id)
+        else:
+            refresh_auth0_token()
+            return get_user_by_id(author_id)
