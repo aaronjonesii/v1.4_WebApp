@@ -20,6 +20,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
     { title: 'Profile', link: '/profile', icon: 'person-outline' },
     { title: 'Write a story', link: '/new-story', icon: 'plus-outline' },
     { title: 'Stories', link: '/me/stories', icon: 'file-text-outline' },
+    { title: 'Settings', link: '/me/settings', icon: 'settings-2-outline' },
     { title: 'Log Out', icon: 'unlock-outline' }
   ];
 

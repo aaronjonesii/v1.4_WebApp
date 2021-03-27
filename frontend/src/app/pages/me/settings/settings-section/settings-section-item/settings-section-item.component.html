@@ -1,0 +1,20 @@
+<li class="list-item d-flex align-items-center pb-35 pt-30">
+  <div class="mr-10 d-flex w-100 align-items-center">
+    <div class="d-block">
+      <div class="h6 fieldName">{{fieldName}}</div>
+      <div class="w-100">
+        <div class="fieldSection mt-10 flex-column">
+          <input #fieldInput class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent" [(ngModel)]="user[item_key]" [disabled]="!canEdit" />
+          <small class="fieldDescription text-muted" *ngIf="fieldDescription">{{fieldDescription}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="edit-button-section flex-shrink-1 align-self-start">
+    <button #editButtonBtn class="button settingsEditButton" (click)="editButton()">Edit</button>
+    <span #buttonsSpan class="buttonSet row justify-content-between">
+      <button class="button saveButton" (click)="saveButton()">Save</button>
+      <button class="button cancelButton" (click)="cancelButton()">Cancel</button>
+    </span>
+  </div>
+</li>
