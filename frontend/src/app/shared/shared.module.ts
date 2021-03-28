@@ -35,6 +35,8 @@ import { UrlService } from "./utils/url.service";
 import { StoriesService } from "./utils/stories.service";
 import { PendingChangesGuard } from "./utils/pending-changes.guard";
 import { DateAgoPipe } from "./utils/blog/date-ago.pipe";
+import { SettingsService } from "./utils/blog/settings.service";
+import { ExtrasService } from "./utils/extras.service";
 
 const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule, ];
 const NB_MODULES = [
@@ -47,7 +49,11 @@ const MAT_MODULES = []!;
 const COMPONENTS = []!;
 const ENTRY_COMPONENTS = []!;
 const PIPES = [SlugifyPipe, DateAgoPipe];
-const PROVIDERS = [SlugifyPipe, UrlService, StoriesService, PendingChangesGuard, DateAgoPipe];
+const PROVIDERS = [
+  SlugifyPipe, UrlService, StoriesService,
+  PendingChangesGuard, DateAgoPipe, SettingsService,
+  ExtrasService,
+];
 
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(

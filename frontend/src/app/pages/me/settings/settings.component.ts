@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         {
           'item_name': 'Name',
           'item_key': 'name',
-          'item_description': 'Your name appears on your Profile page, as your byline, and in your responses. It is a required field.',
+          'item_description': 'Your name appears on your Profile page, and in your stories. It is a required field, all stories will be updated instantly.',
         },
         {
           'item_name': 'Nickname',

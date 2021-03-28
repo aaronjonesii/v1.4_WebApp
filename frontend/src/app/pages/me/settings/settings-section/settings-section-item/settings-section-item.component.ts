@@ -1,11 +1,17 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { SettingsService } from "../../../../../shared/utils/blog/settings.service";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { AuthService } from "@auth0/auth0-angular";
+import { ExtrasService } from "../../../../../shared/utils/extras.service";
 
 @Component({
   selector: 'anon-settings-section-item',
   templateUrl: './settings-section-item.component.html',
   styleUrls: ['./settings-section-item.component.scss']
 })
-export class SettingsSectionItemComponent implements OnInit {
+export class SettingsSectionItemComponent implements OnInit, OnDestroy {
+  private unsub$: Subject<any> = new Subject<any>();
   @Input() user: any;
   @Input() fieldName: any;
   @Input() fieldDescription: any;
@@ -16,9 +22,17 @@ export class SettingsSectionItemComponent implements OnInit {
   canEdit: boolean = false;
   fieldSnapshot = '';
 
-  constructor() { }
+  constructor(
+    private settingsService: SettingsService,
+    private auth: AuthService,
+    private extras: ExtrasService,
+  ) { }
 
   ngOnInit() { }
+  ngOnDestroy() {
+    this.unsub$.next();
+    this.unsub$.complete();
+  }
 
   public editButton() {
     this.fieldSnapshot = this.user[this.item_key]
@@ -35,7 +49,8 @@ export class SettingsSectionItemComponent implements OnInit {
     // Check is field was changed
     if (this.fieldSnapshot != this.user[this.item_key]) {
       // Send update to API if changed
-      console.log('Sending updated field to API => ', { [this.item_key]: this.user[this.item_key] });
+      let user_update = { [this.item_key]: this.user[this.item_key] };
+      this.updateUser(user_update);
     }
     // ReHide buttonSet by removing show-element class
     this.buttonsSpan.nativeElement.classList.toggle('show-element');
@@ -54,5 +69,15 @@ export class SettingsSectionItemComponent implements OnInit {
     // Disable editing for field
     this.canEdit = false;
   };
+
+  updateUser(user_update: any) {
+    this.settingsService.updateAuth0User(user_update).pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(
+      user => this.extras.showToast(`${this.fieldName} was successfully updated.`, 'Success', 'success'), // TODO: Need to update user infor with new user dictionary
+      error => this.extras.showToast(JSON.stringify(error), '[!] Error [!]', 'danger'),
+      () => {},
+    );
+  }
 
 }
