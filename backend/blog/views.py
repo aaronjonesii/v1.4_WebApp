@@ -22,6 +22,7 @@ from rest_framework.permissions import AllowAny
 
 from django.core.cache import cache
 from .utils import refresh_auth0_token, is_auth0_token_valid, update_auth0_user
+from django.core import serializers
 import json
 
 
@@ -278,8 +279,10 @@ def auth0_user_update(request):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def public(request):
-    return JsonResponse({'message': 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'})
+def public_stories(request):
+    stories = Post.objects.filter(public=True).all()
+    json_stories = json.loads(json.dumps(PostSerializer(stories, many=True).data))
+    return JsonResponse(json_stories, content_type='application/json', safe=False)
 
 
 @api_view(['GET'])

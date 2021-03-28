@@ -23,6 +23,7 @@ class Post(models.Model):
     read_time = models.IntegerField(null=True)                                              # REQUIRED
     updated_on = models.DateTimeField(auto_now=True)                                        # REQUIRED
     created_on = models.DateTimeField(auto_now_add=True)                                    # REQUIRED
+    public = models.BooleanField(default=False)
     publish_on = models.DateField(null=True, blank=True)
     status = models.ForeignKey(Status,
                                on_delete=models.CASCADE,
