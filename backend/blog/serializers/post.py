@@ -106,6 +106,10 @@ class PostSerializer(serializers.ModelSerializer):
             if validated_data.get('category') is not None:
                 category = validated_data.pop('category')
                 category_exists = True
+        if 'author' in validated_data:
+            user = get_user(validated_data.get('author'))
+            author_name = user.get('name')
+            validated_data['author_name'] = author_name
         post = Post.objects.create(**validated_data)
         if tags_exists: create_tags(tags, post)
         if category_exists: create_category(category, post)
