@@ -8,6 +8,9 @@ from django.core.cache import cache
 import time
 
 from requests.exceptions import RequestException, HTTPError, URLRequired
+from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponseNotFound
+from django.http import JsonResponse
+from .models import User, Post
 
 
 def is_auth0_token_valid(token):
@@ -35,7 +38,7 @@ def refresh_auth0_token():
 
 def get_user_by_id(user_id):
     """
-    :param user_id:
+    :param user_id: string
     :return: user dictionary
     """
     user_id = user_id.replace('.', '|')
@@ -59,6 +62,42 @@ def get_user_by_id(user_id):
     except Exception as e:
         print(f'Generic Exception: {e}')
 
+
+def update_auth0_user(user_id, user_update):
+    """
+    :param user_id: string
+    :param user_update: dictionary
+    :return: Json Response w/updated user dictionary
+    """
+    need_to_update_stories = False
+    headers = {
+        'Authorization': f"Bearer {cache.get('Auth0_MGMT_API_JWT')}",
+        'Content-Type': 'application/json'
+    }
+    try:
+        # If name is in dictionary keys
+        if json.loads(user_update).keys() >= {'name'}:
+            need_to_update_stories = True
+        res = requests.patch(f"{settings.AUTH0_AUDIENCE}/users/{str(user_id).replace('.', '|')}", user_update, headers=headers)
+        updated_user = res.json()
+        if 'statusCode' in updated_user.keys():
+            status_code = updated_user['statusCode']
+            error = updated_user['error']
+            error_message = updated_user['message']
+            return JsonResponse(status=status_code, data={'error': error, 'message': error_message})
+        else:
+            if need_to_update_stories:
+                user = User.objects.filter(username=user_id).first()
+                Post.objects.filter(author=user.id).update(author_name=updated_user['name'])
+            return JsonResponse(updated_user)
+    except HTTPError as e:
+        print(f'HTTPError: {str(e.code)} {str(e.reason)}')
+    except URLRequired as e:
+        print(f'URLRequired: {str(e.reason)}')
+    except RequestException as e:
+        print(f'RequestException: {e}')
+    except Exception as e:
+        print(f'Generic Exception: {e}')
 
 
 def jwt_get_username_from_payload_handler(payload):

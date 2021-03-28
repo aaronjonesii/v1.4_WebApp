@@ -106,26 +106,12 @@ class PostSerializer(serializers.ModelSerializer):
             if validated_data.get('category') is not None:
                 category = validated_data.pop('category')
                 category_exists = True
-        if 'author' in validated_data:
-            user = get_user(validated_data.get('author'))
-            author_name = user.get('name')
-            author_nickname = user.get('nickname')
-            validated_data['author_name'] = author_name
-            validated_data['author_nickname'] = author_nickname
         post = Post.objects.create(**validated_data)
         if tags_exists: create_tags(tags, post)
         if category_exists: create_category(category, post)
         return post
 
     def update(self, instance, validated_data):
-        author_id = instance.author
-        user = get_user(author_id)
-        author_name = user.get('name')
-        author_nickname = user.get('nickname')
-        if validated_data['author_name'] != author_name:
-            validated_data['author_name'] = author_name
-        if validated_data['author_nickname'] != author_nickname:
-            validated_data['author_nickname'] = author_nickname
         new_post_tags = validated_data.pop('tags')
         new_post_category = validated_data.pop('category')
         update_post_fields(validated_data, instance)

@@ -20,6 +20,10 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
+from django.core.cache import cache
+from .utils import refresh_auth0_token, is_auth0_token_valid, update_auth0_user
+import json
+
 
 class NewsletterSubscription(viewsets.ModelViewSet):
     """
@@ -254,6 +258,22 @@ def requires_scope(required_scope):
             return response
         return decorated
     return require_scope
+
+
+@api_view(['POST'])
+def auth0_user_update(request):
+    user_update = request.body.decode('utf-8').replace('\'', '"')
+    user_id = request.user
+    token = cache.get('Auth0_MGMT_API_JWT')
+    if token is None:
+        refresh_auth0_token()
+        return update_auth0_user(user_id, user_update)
+    else:
+        if is_auth0_token_valid(token):
+            return update_auth0_user(user_id, user_update)
+        else:
+            refresh_auth0_token()
+            return update_auth0_user(user_id, user_update)
 
 
 @api_view(['GET'])
