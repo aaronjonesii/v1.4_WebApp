@@ -4,4 +4,10 @@
     .huge-header {
         font-family: 'Zilla Slab Highlight', 'Open Sans';
     }
+  .no-stories {
+    display: flex;
+     min-height: 300px;
+    align-items: center;
+    justify-content: center;
+  }
 }

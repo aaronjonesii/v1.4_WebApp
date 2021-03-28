@@ -62,8 +62,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.stories = stories;
         this.publicStories = this.storiesService.filterStoriesByStatus(5, stories)
       },
-      error => console.error(error),
-      () => {this.complete();},
+      error => {
+        console.error(error);
+        this.storiesLoaded = true;
+      },
+      () => this.complete(),
     );
   }
 

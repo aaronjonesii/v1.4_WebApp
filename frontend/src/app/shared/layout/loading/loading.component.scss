@@ -1,6 +1,10 @@
-.loading {
-  display: flex;
-  min-height: 500px;
-  align-items: center;
-  justify-content: center;
+@import '../../../../themes.scss';
+
+@include nb-install-component() {
+  .loading {
+    display: flex;
+    min-height: 500px;
+    align-items: center;
+    justify-content: center;
+  }
 }
