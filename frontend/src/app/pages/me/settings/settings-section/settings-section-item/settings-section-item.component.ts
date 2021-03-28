@@ -75,7 +75,11 @@ export class SettingsSectionItemComponent implements OnInit, OnDestroy {
       takeUntil(this.unsub$)
     ).subscribe(
       user => this.extras.showToast(`${this.fieldName} was successfully updated.`, 'Success', 'success'), // TODO: Need to update user infor with new user dictionary
-      error => this.extras.showToast(JSON.stringify(error), '[!] Error [!]', 'danger'),
+      error => {
+        this.extras.showToast(JSON.stringify(error.error), '[!] Error [!]', 'danger');
+        // Reset field
+        this.user[this.item_key] = this.fieldSnapshot;
+      },
       () => {},
     );
   }
