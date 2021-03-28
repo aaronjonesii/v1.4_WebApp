@@ -49,10 +49,7 @@ def get_user_by_id(user_id):
     try:
         res = requests.get(f'{settings.AUTH0_AUDIENCE}/users/{user_id}', headers=headers)
         user = res.json()
-        # author_name = user.get('name')
-        # author_nickname = user.get('nickname')
         return user
-        # print('utils#getUserByID => ', author_nickname)
     except HTTPError as e:
         print(f'HTTPError: {str(e.code)} {str(e.reason)}')
     except URLRequired as e:
