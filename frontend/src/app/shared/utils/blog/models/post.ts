@@ -16,6 +16,7 @@ export interface Post {
   created_on: string;
   publish_on?: string;
   status: number;
+  public?: boolean;
 
 }
 
