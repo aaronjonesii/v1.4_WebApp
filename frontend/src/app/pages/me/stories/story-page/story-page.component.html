@@ -4,7 +4,7 @@
     <div class="row"> <span class="lead"> {{ story.byline }} </span> </div>
     <div class="row">
         <div class="col p-0">
-          <nb-user class="" [name]="story.author!"> </nb-user>
+          <nb-user class="" [name]="story.author_name!"> </nb-user>
           <div class="row ml-2 small text-muted"> {{story.created_on}} | {{story.read_time}} min read </div>
         </div>
         <div class="col align-self-center">
@@ -48,7 +48,7 @@
       </div>
       <hr class="w-100" />
       <div class="d-flex row w-100 justify-content-between m-0">
-        <nb-user class="d-flex" size="giant" [name]="story.author!"> </nb-user>
+        <nb-user class="d-flex" size="giant" [name]="story.author_name!"> </nb-user>
         <div class="d-flex align-items-center"> <button class="" shape="semi-round" size="small" status="success" outline nbButton> Follow </button> </div>
       </div>
       <hr class="w-100" />

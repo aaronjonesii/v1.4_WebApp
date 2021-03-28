@@ -13,6 +13,7 @@ export class MainHeaderComponent implements OnInit {
     { title: 'Profile', link: '/profile' },
     { title: 'Write a story', link: '/new-story' },
     { title: 'Stories', link: '/me/stories' },
+    { title: 'Settings', link: '/me/settings' },
     { title: 'Log Out' }
   ];
 

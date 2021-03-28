@@ -28,6 +28,10 @@ import { DraftsComponent } from "./pages/me/stories/drafts/drafts.component";
 import { PublicComponent } from "./pages/me/stories/public/public.component";
 import { UnlistedComponent } from "./pages/me/stories/unlisted/unlisted.component";
 import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
+import { SettingsComponent } from "./pages/me/settings/settings.component";
+import { SettingsSectionComponent } from "./pages/me/settings/settings-section/settings-section.component";
+import { SettingsSectionItemComponent } from "./pages/me/settings/settings-section/settings-section-item/settings-section-item.component";
+import { NbToastrModule } from "@nebular/theme";
 
 @NgModule({
   declarations: [
@@ -45,11 +49,15 @@ import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
     PublicComponent,
     UnlistedComponent,
     EditStoryComponent,
+    SettingsComponent,
+    SettingsSectionComponent,
+    SettingsSectionItemComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
+    NbToastrModule.forRoot(),
     NbEvaIconsModule,
     HttpClientModule,
 
