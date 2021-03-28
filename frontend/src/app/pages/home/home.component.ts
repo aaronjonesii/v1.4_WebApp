@@ -15,7 +15,6 @@ import { StoriesService } from "../../shared/utils/stories.service";
 export class HomeComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   blogs: Blog[] = [];
-  stories!: Post[];
   publicStories!: Post[];
   storiesLoaded = false;
   sub: Subscription;
@@ -57,13 +56,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getPublicStories() {
-    this.blogService.getPosts().pipe(takeUntil(this.unsub$)).subscribe(
+    this.blogService.getPublicPosts().pipe(takeUntil(this.unsub$)).subscribe(
       stories => {
-        this.stories = stories;
-        this.publicStories = this.storiesService.filterStoriesByStatus(5, stories)
+        this.publicStories = stories;
       },
       error => {
+        // TODO: exclude public page request from HTTPINTERCEPTOR
         console.error(error);
+        this.publicStories = [];
         this.storiesLoaded = true;
       },
       () => this.complete(),
@@ -72,7 +72,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   complete() {
     this.storiesLoaded = true;
-    this.publicStories = this.storiesService.filterStoriesByStatus(5, this.stories);
   }
 
 }

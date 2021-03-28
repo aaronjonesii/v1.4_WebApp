@@ -76,4 +76,8 @@ export class BlogService {
     return this.http.put<Post>(`${environment.apiURL}/blog/${postID}/`, post, {headers: this.httpHeaders});
   }
 
+  getPublicPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${environment.apiURL}/blog/public/`, {headers: this.httpHeaders});
+  }
+
 }
