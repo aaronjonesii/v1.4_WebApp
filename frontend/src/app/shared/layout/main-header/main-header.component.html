@@ -7,6 +7,7 @@
         <nb-search class="mr-3" type="rotate-layout"></nb-search>
         <nb-icon class="mr-3" icon="bookmark-outline" [options]="{ fill: '#8f9bb3' }" nbButton></nb-icon>
         <nb-icon class="mr-3" icon="bell-outline" nbPopover="No Notifications!" nbPopoverPlacement="bottom" [options]="{ fill: '#8f9bb3' }" nbButton></nb-icon>
+
         <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
           <button *ngIf="_router.url == '/'" class="p-2 mr-3" size="tiny" status="success" routerLink="/new-story" outline nbButton>Write</button>
           <nb-user *ngIf="auth.user$ | async as user" [name]="user.name" [title]="user.nickname" [picture]='user.picture' [nbContextMenu]="context_items" onlyPicture> </nb-user>
@@ -14,5 +15,6 @@
         <ng-template #loggedOut>
           <button class="p-2 mr-3" status="success" (click)="auth.loginWithRedirect()" hero nbButton>Log In</button>
         </ng-template>
+
       </div>
   </div>
