@@ -24,7 +24,7 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
     created_on: '',
     status: 0,
   };
-  @Input() statusNumber: number;
+  @Input() statusNumber: number = 10000;
 
   constructor(
     private menuService: NbMenuService,
