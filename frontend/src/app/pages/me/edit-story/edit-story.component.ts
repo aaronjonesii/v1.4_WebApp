@@ -11,6 +11,7 @@ import { Observable, Subject } from "rxjs";
 import { UrlService } from "../../../shared/utils/url.service";
 import { StoriesService } from "../../../shared/utils/stories.service";
 import { ComponentCanDeactivate } from "../../../shared/utils/pending-changes.guard";
+import { ExtrasService } from "../../../shared/utils/extras.service";
 
 @Component({
   selector: 'anon-edit-story',
@@ -42,6 +43,7 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     private urlService: UrlService,
     private router: Router,
     private storiesService: StoriesService,
+    private extras: ExtrasService,
   ) {
     // liveStory Subscriber
     this.blogService.sharedLiveStory.pipe(
@@ -107,7 +109,7 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
         }
         this.blogService.updateLiveStory(story);
       },
-      error => console.error(error),
+      error => this.extras.goBack(),
       () => {this.blogService.updateStoryLoaded(true)},
     )
   }
