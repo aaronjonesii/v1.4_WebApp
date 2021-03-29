@@ -123,7 +123,7 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
       story => {
         this.blogService.updateLastSavedStory(story);
       },
-      error => console.error(error),
+      error => console.error(error), // TODO: Handle errors
       () => {this.blogService.updateAutoSaveStatus(`Saved @`);}
     );
   }

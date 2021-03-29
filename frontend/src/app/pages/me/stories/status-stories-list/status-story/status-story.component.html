@@ -6,6 +6,16 @@
   </div>
   <div class="row">
     <p class="font-weight-lighter m-0 text-hint">Last edited {{story.updated_on | dateAgo}}</p>
-    <nb-icon class="ml-2" icon="arrow-ios-downward-outline" [options]="{ fill: '#8f9bb3' }"></nb-icon>
+
+    <div class="dropdown">
+      <button class="btn p-0 ml-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <nb-icon class="" icon="arrow-ios-downward-outline" [options]="{ fill: '#8f9bb3' }"></nb-icon>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item" (click)="editStory(this.story)">Edit Story</button>
+        <button class="dropdown-item" (click)="trashStory(this.story)">Trash Story</button>
+      </div>
+    </div>
+
   </div>
 </div>
