@@ -6,6 +6,7 @@ import { NbContextMenuDirective, NbMenuService } from "@nebular/theme";
 import { ExtrasService } from "../../../../../shared/utils/extras.service";
 import { Router } from "@angular/router";
 import { BlogService } from "../../../../../shared/utils/blog/blog.service";
+import { StoriesService } from "../../../../../shared/utils/stories.service";
 
 @Component({
   selector: 'anon-status-story',
@@ -23,12 +24,14 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
     created_on: '',
     status: 0,
   };
+  @Input() statusNumber: number;
 
   constructor(
     private menuService: NbMenuService,
     private extras: ExtrasService,
     private router: Router,
     private blogService: BlogService,
+    private storiesService: StoriesService,
   ) { }
 
   ngOnInit() {
@@ -47,15 +50,24 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
       )
   }
   trashStory(story: Post) {
+    // Update story status to trash
     this.story.status = 1;
-    console.log(this.story);
+    // Send update to backend
     this.blogService.updatePost(this.story.id!, this.story).pipe(
       takeUntil(this.unsub$)
     ).subscribe(
-      story => {this.extras.showToast(`Successfully moved ${this.story.title} to the trash.`, 'Moved story to trash', 'success')}, // TODO: if successfully alert success for story new status
+      story => {this.extras.showToast(`Successfully moved ${this.story.title} to the trash.`, 'Moved story to trash', 'success')},
       error => {this.extras.showToast(`Something went wrong while trying to move ${this.story.title} to the trash`, 'Error moving story', 'danger')},
-      () => {}, // TODO: Update list of filtered stories
+      () => {this.updateFilteredStories()},
     )
+  }
+
+  updateFilteredStories() {
+    this.blogService.getPosts().pipe(takeUntil(this.unsub$)).subscribe(
+      stories => this.storiesService.updateFilteredStories(this.storiesService.filterStoriesByStatus(this.statusNumber, stories)),
+      error => this.extras.showToast(error, 'Error Getting Stories', 'danger'),
+      () => {},
+    );
   }
 
 }

@@ -1,7 +1,1 @@
-<div class="container" *ngIf="!storiesLoaded; else loaded">
-  <anon-loading></anon-loading>
-</div>
-
-<ng-template #loaded>
-  <anon-status-stories-list [statusNumber]="2"></anon-status-stories-list>
-</ng-template>
+<anon-status-stories-list [statusNumber]="2"></anon-status-stories-list>

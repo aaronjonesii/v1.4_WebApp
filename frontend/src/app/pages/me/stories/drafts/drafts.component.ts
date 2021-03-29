@@ -14,32 +14,16 @@ export class DraftsComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   stories: Post[] = [];
   drafts: Post[] = [];
-  storiesLoaded = false;
 
   constructor(
     private blogService: BlogService,
     private storiesService: StoriesService,
-  ) { this.getStories(); }
+  ) {  }
 
   ngOnInit() { }
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
   }
-
-  getStories() {
-    this.blogService.getPosts().pipe(takeUntil(this.unsub$)).subscribe(
-      stories => this.stories = stories,
-      error => console.error(error),
-      () => this.complete(),
-    );
-  }
-
-  complete() {
-    this.storiesLoaded = true; // Update page loading status
-    this.drafts = this.storiesService.filterStoriesByStatus(2, this.stories);
-  }
-
-
 
 }

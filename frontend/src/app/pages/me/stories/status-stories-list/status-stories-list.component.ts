@@ -33,13 +33,21 @@ export class StatusStoriesListComponent implements OnInit, OnDestroy {
     private blogService: BlogService,
     private storiesService: StoriesService,
     private extras: ExtrasService,
-  ) { this.getStories(); }
+  ) {
+    // filteredStories Subscriber
+    this.storiesService.sharedFilteredStories.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(filteredStories => this.filteredStories = filteredStories );
+    this.getStories();
+  }
 
   ngOnInit() {}
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
   }
+
+  // updateFilteredStories(stories) {}
 
   getStories() {
     this.blogService.getPosts().pipe(takeUntil(this.unsub$)).subscribe(
@@ -51,7 +59,8 @@ export class StatusStoriesListComponent implements OnInit, OnDestroy {
 
   complete() {
     this.storiesLoaded = true; // Update page loading status
-    this.filteredStories = this.storiesService.filterStoriesByStatus(this.statusNumber, this.stories);
+    // this.filteredStories = this.storiesService.filterStoriesByStatus(this.statusNumber, this.stories);
+    this.storiesService.updateFilteredStories(this.storiesService.filterStoriesByStatus(this.statusNumber, this.stories))
   }
 
 }

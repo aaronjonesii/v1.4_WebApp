@@ -3,7 +3,7 @@
   <ng-container *ngIf="filteredStories.length > 0 else empty">
     <nb-list>
       <nb-list-item *ngFor="let story of filteredStories">
-        <anon-status-story [story]="story"></anon-status-story>
+        <anon-status-story [story]="story" [statusNumber]="statusNumber"></anon-status-story>
       </nb-list-item>
     </nb-list>
   </ng-container>

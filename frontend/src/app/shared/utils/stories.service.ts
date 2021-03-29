@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Post } from "./blog/models/post";
 import { SlugifyPipe } from "./blog/slugify.pipe";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable()
 export class StoriesService {
   private domparser = new DOMParser();
 
+  private filteredStories = new BehaviorSubject<any>([]);
+  sharedFilteredStories = this.filteredStories.asObservable();
+
   constructor( private slugifyPipe: SlugifyPipe ) { }
+
+  updateFilteredStories(stories: Post[]) { this.filteredStories.next(stories); };
 
   public parseEditorContent(editor: any, story: Post) {
     const htmlString = editor.getData();
