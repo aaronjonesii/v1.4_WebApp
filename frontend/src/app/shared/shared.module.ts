@@ -1,6 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import {
   NbLayoutModule,
   CORPORATE_THEME,
@@ -22,12 +21,8 @@ import {
   NbInputModule,
   NbFormFieldModule, NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule, NbSearchModule
 } from '@nebular/theme';
-import { MainHeaderComponent } from './layout/main-header/main-header.component';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
-import { ProfileComponent } from '../pages/profile/profile.component';
-import { HomeComponent } from '../pages/home/home.component';
-import { StoryPageComponent } from '../pages/me/stories/story-page/story-page.component';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SlugifyPipe } from "./utils/blog/slugify.pipe";

@@ -4,12 +4,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MainHeaderComponent } from './shared/layout/main-header/main-header.component';
 import { StoryPageComponent } from './pages/me/stories/story-page/story-page.component';
 import { HomeModule } from './pages/home/home.module';
-import { ProfileModule } from './pages/profile/profile.module';
 // Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthHttpInterceptor, AuthModule, HttpMethod } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
@@ -41,7 +39,6 @@ import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/sta
     AppComponent,
     HomeComponent,
     MainHeaderComponent,
-    ProfileComponent,
     StoryPageComponent,
     LoadingComponent,
     NewStoryComponent,
@@ -70,7 +67,6 @@ import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/sta
     HttpClientModule,
 
     HomeModule,
-    ProfileModule,
     NewStoryModule,
     MeModule,
     StoriesModule,
