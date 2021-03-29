@@ -10,7 +10,8 @@ import time
 from requests.exceptions import RequestException, HTTPError, URLRequired
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponseNotFound
 from django.http import JsonResponse
-from .models import User, Post
+from .models import Post
+from django.contrib.auth.models import User
 
 
 def is_auth0_token_valid(token):

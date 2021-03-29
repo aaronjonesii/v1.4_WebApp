@@ -3,11 +3,12 @@ from django.db import models
 from .status import Status
 from .category import Category
 import uuid
+from django.contrib.auth.models import User
 
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+    author = models.ForeignKey(User,
                                on_delete=models.PROTECT,
                                help_text="User who created the Blog Post.")
     author_name = models.CharField(max_length=420, blank=True)
