@@ -1,0 +1,11 @@
+@import '../../../../../themes.scss';
+
+@include nb-install-component() {
+  ::ng-deep nb-list-item {
+    padding: 20px 0;
+  }
+  .empty {
+    margin: 100px 0 0 0;
+    text-align: center;
+  }
+}

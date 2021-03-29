@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row">
+    <a class="text-decoration-none" routerLink="/me/{{story.id}}">
+      <h6 class="">{{ story.title }}</h6>
+    </a>
+  </div>
+  <div class="row">
+    <p class="font-weight-lighter m-0 text-hint">Last edited {{story.updated_on | dateAgo}}</p>
+    <nb-icon class="ml-2" icon="arrow-ios-downward-outline" [options]="{ fill: '#8f9bb3' }"></nb-icon>
+  </div>
+</div>

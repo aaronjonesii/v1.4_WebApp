@@ -3,18 +3,5 @@
 </div>
 
 <ng-template #loaded>
-
-  <ng-container *ngIf="drafts.length > 0 else empty">
-    <nb-list>
-      <nb-list-item *ngFor="let story of drafts">
-        <a class="text-decoration-none" routerLink="../../{{story.id}}"> <h1 class="">{{ story.title }}</h1> </a>
-      </nb-list-item>
-    </nb-list>
-  </ng-container>
-  <ng-template #empty>
-    <div class="container empty">
-      You have no drafts
-    </div>
-  </ng-template>
-
+  <anon-status-stories-list [statusNumber]="2"></anon-status-stories-list>
 </ng-template>

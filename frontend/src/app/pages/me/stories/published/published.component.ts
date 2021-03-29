@@ -7,14 +7,15 @@ import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: 'anon-public',
-  templateUrl: './public.component.html',
-  styleUrls: ['./public.component.scss']
+  templateUrl: './published.component.html',
+  styleUrls: ['./published.component.scss']
 })
-export class PublicComponent implements OnInit, OnDestroy {
+export class PublishedComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   stories: Post[] = [];
   publicStories!: Post[];
   storiesLoaded = false;
+  statusNumber = 5;
 
   constructor(
     private blogService: BlogService,

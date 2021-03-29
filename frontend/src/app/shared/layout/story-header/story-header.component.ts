@@ -15,7 +15,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   storyLoaded = false;
   autoSaveStatus = '';
-  // TODO: make public in another file for other files to use one object
+  // TODO: make published in another file for other files to use one object
   user_context_items = [
     { title: 'Profile', link: '/profile', icon: 'person-outline' },
     { title: 'Write a story', link: '/new-story', icon: 'plus-outline' },

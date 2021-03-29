@@ -1,0 +1,27 @@
+<ng-container class="container" *ngIf="storiesLoaded; else notLoaded">
+
+  <ng-container *ngIf="filteredStories.length > 0 else empty">
+    <nb-list>
+      <nb-list-item *ngFor="let story of filteredStories">
+        <anon-status-story [story]="story"></anon-status-story>
+      </nb-list-item>
+    </nb-list>
+  </ng-container>
+
+  <ng-template #empty>
+    <div class="container empty">
+      <ng-container *ngIf="statusNumber == 1">You have no stories in the trash.</ng-container>
+      <ng-container *ngIf="statusNumber == 2">You have no drafts.</ng-container>
+      <ng-container *ngIf="statusNumber == 3">You have no pending stories.</ng-container>
+      <ng-container *ngIf="statusNumber == 4">You have no stories being reviewed.</ng-container>
+      <ng-container *ngIf="statusNumber == 5">You haven't published any yet.</ng-container>
+      <ng-container *ngIf="statusNumber == 6">You haven't set any stories to be published in the future.</ng-container>
+      <ng-container *ngIf="statusNumber == 7">You haven't published any unlisted stories yet.</ng-container>
+    </div>
+  </ng-template>
+
+</ng-container>
+
+<ng-template #notLoaded>
+  <anon-loading></anon-loading>
+</ng-template>

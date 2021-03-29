@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class StoriesComponent implements OnInit {
   tabs: any[] = [
     { title: 'Draft', route: './drafts' },
-    { title: 'Published', route: './public' },
+    { title: 'Published', route: './published' },
     { title: 'Unlisted', route: './unlisted' },
   ];
 
