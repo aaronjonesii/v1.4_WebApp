@@ -10,7 +10,6 @@ import { Router } from "@angular/router";
 })
 export class MainHeaderComponent implements OnInit {
   context_items = [
-    { title: 'Profile', link: '/profile' },
     { title: 'Write a story', link: '/new-story' },
     { title: 'Stories', link: '/me/stories' },
     { title: 'Settings', link: '/me/settings' },
