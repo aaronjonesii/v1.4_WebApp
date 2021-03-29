@@ -3,6 +3,7 @@ import { filter, mergeMap } from "rxjs/operators";
 import { AuthService } from "@auth0/auth0-angular";
 import { NavigationEnd, Router } from "@angular/router";
 import { UrlService } from "./shared/utils/url.service";
+import { ExtrasService } from "./shared/utils/extras.service";
 
 @Component({
   selector: 'app-root',
@@ -17,16 +18,17 @@ export class AppComponent implements OnInit  {
     private auth: AuthService,
     public _router: Router,
     private urlService: UrlService,
+    private extras: ExtrasService,
   ) { }
 
   ngOnInit(): void {
     // // Check for Authentication errors
-    // this.auth.error$.pipe(
-    //   filter(e => e.message === 'Login required'),
-    //   // mergeMap(() => this.auth.loginWithRedirect())
-    // ).subscribe(
-    //   error => console.log(`appComp#ngOnInit auth error => ${error}`)
-    // );
+    this.auth.error$.pipe(
+      filter(e => e.message === 'Login required'),
+      // mergeMap(() => this.auth.loginWithRedirect())
+    ).subscribe(
+      error => this.extras.showToast(`appComp#ngOnInit auth error => ${error}`, 'Authentication Error', 'danger')
+    );
 
     // Store previousUrl w/URL Service Subscription
     this._router.events.pipe(

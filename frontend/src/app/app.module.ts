@@ -10,12 +10,10 @@ import { MainHeaderComponent } from './shared/layout/main-header/main-header.com
 import { StoryPageComponent } from './pages/me/stories/story-page/story-page.component';
 import { HomeModule } from './pages/home/home.module';
 import { ProfileModule } from './pages/profile/profile.module';
-import { AuthModule } from '@auth0/auth0-angular';
-import { environment } from 'src/environments/environment';
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-
 // Import the HTTP interceptor from the Auth0 Angular SDK
-import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { AuthHttpInterceptor, AuthModule, HttpMethod } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { LoadingComponent } from "./shared/layout/loading/loading.component";
 import { NewStoryModule } from "./pages/new-story/new-story.module";
 import { NewStoryComponent } from "./pages/new-story/new-story.component";
@@ -25,13 +23,16 @@ import { MeComponent } from "./pages/me/me.component";
 import { StoriesComponent } from "./pages/me/stories/stories.component";
 import { StoriesModule } from "./pages/me/stories/stories.module";
 import { DraftsComponent } from "./pages/me/stories/drafts/drafts.component";
-import { PublicComponent } from "./pages/me/stories/public/public.component";
+import { PublishedComponent } from "./pages/me/stories/published/published.component";
 import { UnlistedComponent } from "./pages/me/stories/unlisted/unlisted.component";
 import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
 import { SettingsComponent } from "./pages/me/settings/settings.component";
 import { SettingsSectionComponent } from "./pages/me/settings/settings-section/settings-section.component";
 import { SettingsSectionItemComponent } from "./pages/me/settings/settings-section/settings-section-item/settings-section-item.component";
 import { NbToastrModule } from "@nebular/theme";
+import { PublicStoryPageComponent } from './pages/public-story-page/public-story-page.component';
+import { PublicStoriesListComponent } from "./pages/me/stories/public-stories-list/public-stories-list.component";
+import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-list/status-stories-list.component";
 
 @NgModule({
   declarations: [
@@ -46,12 +47,15 @@ import { NbToastrModule } from "@nebular/theme";
     MeComponent,
     StoriesComponent,
     DraftsComponent,
-    PublicComponent,
+    PublishedComponent,
     UnlistedComponent,
     EditStoryComponent,
     SettingsComponent,
     SettingsSectionComponent,
     SettingsSectionItemComponent,
+    PublicStoryPageComponent,
+    PublicStoriesListComponent,
+    StatusStoriesListComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -74,14 +78,8 @@ import { NbToastrModule } from "@nebular/theme";
       // scope: 'read:current_user', // Request this scope at user authentication time
       httpInterceptor: { // Specify configuration for the interceptor
         allowedList: [
-          {
-            // Match any request that starts with (note the asterisk)
-            uri: environment.apiURL + '*',
-            tokenOptions: {
-              audience: environment.Auth0_audience, // The attached token should target this audience
-              // scope: 'read:current_user' // The attached token should have these scopes
-            }
-          }
+          { uri: environment.apiURL + '/user/update/' },
+          { uri: environment.apiURL + '/blog/*' },
         ]
       }
     }),
