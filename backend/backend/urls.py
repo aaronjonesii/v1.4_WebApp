@@ -24,6 +24,9 @@ blog_list = views.PostViewSet.as_view({
     'post': 'create'
 })
 
+public_blog_list = views.PublicPostViewSet.as_view({'get': 'list'})
+public_blog_detail = views.PublicPostViewSet.as_view({'get': 'retrieve'})
+
 blog_detail = views.PostViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
@@ -60,8 +63,10 @@ urlpatterns = [
 
     path('user/update/', views.auth0_user_update, name='update_user'),
 
+    path('public/', public_blog_list, name='public_post'),
+    path('public/<uuid:pk>/', public_blog_detail, name='public_post_detail'),
+
     path('blog/', blog_list, name='post_list'),
-    path('blog/public/', views.public_stories, name='public_post'),
     path('blog/<uuid:pk>/', blog_detail, name='post_detail'),
     path('blog/<uuid:pk>/related_posts/', related_post, name='related_post'),
     path('blog/<uuid:pk>/byline/', post_byline, name='post_byline'),

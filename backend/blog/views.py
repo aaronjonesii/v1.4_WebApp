@@ -104,6 +104,17 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
+class PublicPostViewSet(viewsets.ModelViewSet):
+    """
+    CRUD endpoint for blogging platform.
+    """
+    serializer_class = PostSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def get_queryset(self):
+        return Post.objects.filter(public=True)
+
+
 class TagViewSet(viewsets.ModelViewSet):
     """
     CRUD endpoint for tags.

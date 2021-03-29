@@ -82,6 +82,7 @@ class Migration(migrations.Migration):
                 ('read_time', models.IntegerField(null=True)),
                 ('updated_on', models.DateTimeField(auto_now=True)),
                 ('created_on', models.DateTimeField(auto_now_add=True)),
+                ('public', models.BooleanField(default=False)),
                 ('publish_on', models.DateField(blank=True, null=True)),
                 ('author', models.ForeignKey(help_text='User who created the Blog Post.', on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
                 ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='blog.category')),
