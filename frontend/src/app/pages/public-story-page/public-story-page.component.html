@@ -1,0 +1,69 @@
+<div class="container" *ngIf="storyLoaded; else notLoaded">
+
+  <div class="container-fluid p-0">
+    <div class="blog-info mx-auto">
+      <h1 class=""> {{ story.title}} </h1>
+      <div class="row"> <span class="lead"> {{ story.byline }} </span> </div>
+      <div class="row">
+        <div class="col p-0">
+          <nb-user class="" [name]="story.author_name!"> </nb-user>
+          <div class="row ml-2 small text-muted"> {{story.created_on}} | {{story.read_time}} min read </div>
+        </div>
+        <div class="col align-self-center">
+          <div class="row"> <button class="" shape="semi-round" size="tiny" status="success" outline nbButton> Follow </button> </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex p-1"> <nb-icon icon="twitter-outline"></nb-icon> </div>
+          <div class="col d-flex p-1"> <nb-icon icon="linkedin-outline"></nb-icon> </div>
+          <div class="col d-flex p-1"> <nb-icon icon="facebook-outline"></nb-icon> </div>
+          <div class="col d-flex p-1"> <nb-icon icon="bookmark-outline"></nb-icon> </div>
+          <div class="col d-flex p-1"> <nb-icon icon="more-horizontal-outline" [nbContextMenu]="menu_items"></nb-icon> </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.story.background_image == ''; else storyImage" class="">
+      <img class="img-fluid mx-auto" src="https://picsum.photos/3000/1500" />
+    </div>
+    <ng-template #storyImage>
+      <div class="row w-100 m-0"> <img class="img-fluid mx-auto" [src]="story.background_image" /> </div>
+    </ng-template>
+    <div class="mt-5 blog-content mx-auto row">
+
+      <div class="row w-100">
+        <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkUp"></ckeditor>
+      </div>
+      <div class="row w-100">
+        <div class="d-inline-flex pr-3 m-1 p1 h5 text-muted" style="height: 42px; line-height: 38px; background-color: rgba(0, 0, 0, 0.05); border-radius: 99em;">
+          <div class="d-flex align-self-center mx-1 p-1 rounded-circle bg-dark text-white" style="height: fit-content; box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.2);"> <nb-icon icon="hash-outline"></nb-icon> </div>
+          AnonymousTag
+        </div>
+      </div>
+      <div class="d-flex row w-100 justify-content-between m-0">
+        <div class="d-flex align-self-center"> <span class="border rounded-circle p-2 mx-2"> <nb-icon class="icon-size" icon="bell-outline"></nb-icon> </span> <span class="align-self-center">0 Bells Rung</span> </div>
+        <div class="d-flex">
+          <div class="col d-flex p-1"> <nb-icon icon="twitter-outline"></nb-icon> </div>
+          <div class="col d-flex p-1"> <nb-icon icon="linkedin-outline"></nb-icon> </div>
+          <div class="col d-flex p-1"> <nb-icon icon="facebook-outline"></nb-icon> </div>
+          <div class="col d-flex p-1"> <nb-icon icon="bookmark-outline"></nb-icon> </div>
+          <div class="col d-flex p-1"> <nb-icon icon="more-horizontal-outline"></nb-icon> </div>
+        </div>
+      </div>
+      <hr class="w-100" />
+      <div class="d-flex row w-100 justify-content-between m-0">
+        <nb-user class="d-flex" size="giant" [name]="story.author_name!"> </nb-user>
+        <div class="d-flex align-items-center"> <button class="" shape="semi-round" size="small" status="success" outline nbButton> Follow </button> </div>
+      </div>
+      <hr class="w-100" />
+      <div class="row w-100">
+        <button class="w-100" size="medium" nbButton outline status="success"> See responses (0) </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<ng-template #notLoaded>
+  <anon-loading></anon-loading>
+</ng-template>

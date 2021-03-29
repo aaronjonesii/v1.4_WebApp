@@ -1,0 +1,20 @@
+@import '../../../themes';
+
+@include nb-install-component() {
+  .row {
+    margin-bottom: 2rem;
+  }
+
+  .blog-info, .blog-content {
+    max-width: 680px!important;
+  }
+
+  .blog-post-content {
+    font-size: 1.4rem;
+    line-height: 1.6;
+  }
+
+  .icon-size {
+    font-size: 1.5rem;
+  }
+}

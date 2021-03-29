@@ -67,7 +67,7 @@ export class NewStoryComponent implements OnInit, OnDestroy {
         // If story has been saved more than 5 seconds ago
         if (postLastSavedSeconds > 5) {
           this.publish(this.story);
-        } else { console.info('newStory#onChange story was update within last 5 seconds, autosave will save soon'); }
+        } else { return; }
       } else { this.publish(this.story); }
     }
     this.changes++
