@@ -10,6 +10,7 @@ export class StoriesComponent implements OnInit {
     { title: 'Draft', route: './drafts' },
     { title: 'Published', route: './published' },
     { title: 'Unlisted', route: './unlisted' },
+    { title: 'Trash', route: './trash' },
   ];
 
   constructor() { }

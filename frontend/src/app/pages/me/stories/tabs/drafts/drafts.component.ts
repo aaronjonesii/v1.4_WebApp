@@ -12,13 +12,8 @@ import { StoriesService } from "../../../../../shared/utils/stories.service";
 })
 export class DraftsComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
-  stories: Post[] = [];
-  drafts: Post[] = [];
 
-  constructor(
-    private blogService: BlogService,
-    private storiesService: StoriesService,
-  ) {  }
+  constructor() { }
 
   ngOnInit() { }
   ngOnDestroy() {

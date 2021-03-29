@@ -33,6 +33,8 @@ import { NbToastrModule } from "@nebular/theme";
 import { PublicStoryPageComponent } from './pages/public-story-page/public-story-page.component';
 import { PublicStoriesListComponent } from "./pages/me/stories/public-stories-list/public-stories-list.component";
 import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-list/status-stories-list.component";
+import { TrashComponent } from "./pages/me/stories/tabs/trash/trash.component";
+import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/status-story/status-story.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-li
     PublicStoryPageComponent,
     PublicStoriesListComponent,
     StatusStoriesListComponent,
+    StatusStoryComponent,
+    TrashComponent,
   ],
   imports: [
     AppRoutingModule,

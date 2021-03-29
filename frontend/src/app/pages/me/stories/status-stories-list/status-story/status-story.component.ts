@@ -43,21 +43,34 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
   }
 
   editStory(story: Post) {
-    this.router.navigateByUrl(`/me/${this.story.id}/edit`)
+    this.router.navigateByUrl(`/me/${story.id}/edit`)
       .then(True => { if (!True) {
         this.extras.showToast('Sorry, something went wrong, redirecting you to previous page.', 'Error', 'danger');
         } }
       )
   }
+
   trashStory(story: Post) {
     // Update story status to trash
-    this.story.status = 1;
+    story.status = 1;
     // Send update to backend
-    this.blogService.updatePost(this.story.id!, this.story).pipe(
+    this.blogService.updatePost(this.story.id!, story).pipe(
       takeUntil(this.unsub$)
     ).subscribe(
-      story => {this.extras.showToast(`Successfully moved ${this.story.title} to the trash.`, 'Moved story to trash', 'success')},
-      error => {this.extras.showToast(`Something went wrong while trying to move ${this.story.title} to the trash`, 'Error moving story', 'danger')},
+      story => {this.extras.showToast(`Successfully moved ${story.title} to the trash.`, 'Moved story to trash', 'success')},
+      error => {this.extras.showToast(`Something went wrong while trying to move ${story.title} to the trash`, 'Error moving story', 'danger')},
+      () => {this.updateFilteredStories()},
+    )
+  }
+
+  moveToDrafts(story: Post) {
+    story.status = 2;
+    // Send update to backend
+    this.blogService.updatePost(this.story.id!, story).pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(
+      story => {this.extras.showToast(`Successfully moved ${story.title} to drafts.`, 'Moved story to drafts', 'success')},
+      error => {this.extras.showToast(`Something went wrong while trying to move ${story.title} to drafts`, 'Error moving story', 'danger')},
       () => {this.updateFilteredStories()},
     )
   }

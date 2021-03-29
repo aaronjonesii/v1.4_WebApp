@@ -13,7 +13,12 @@
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <button class="dropdown-item" (click)="editStory(this.story)">Edit Story</button>
-        <button class="dropdown-item" (click)="trashStory(this.story)">Trash Story</button>
+        <ng-container *ngIf="statusNumber == 1">
+          <button class="dropdown-item" (click)="moveToDrafts(this.story)">Move to Drafts</button>
+        </ng-container>
+        <ng-container *ngIf="(statusNumber < 8) && (statusNumber > 1)">
+          <button class="dropdown-item" (click)="trashStory(this.story)">Trash Story</button>
+        </ng-container>
       </div>
     </div>
 
