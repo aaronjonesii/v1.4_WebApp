@@ -39,6 +39,7 @@ import { PendingChangesGuard } from "./utils/pending-changes.guard";
 import { DateAgoPipe } from "./utils/blog/date-ago.pipe";
 import { SettingsService } from "./utils/blog/settings.service";
 import { ExtrasService } from "./utils/extras.service";
+import { ShowStoryStatusComponent } from './layout/headers/story-header/show-story-status/show-story-status.component';
 
 const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule, ];
 const NB_MODULES = [
@@ -73,7 +74,7 @@ const NB_THEME_PROVIDERS = [
 
 @NgModule({
   imports: [ ...BASE_MODULES, ...NB_MODULES, ...MAT_MODULES ],
-  exports: [ ...BASE_MODULES, ...NB_MODULES, ...MAT_MODULES, ...COMPONENTS, ...PIPES ],
+  exports: [...BASE_MODULES, ...NB_MODULES, ...MAT_MODULES, ...COMPONENTS, ...PIPES],
   declarations: [ ...PIPES, ...COMPONENTS ],
   entryComponents: [...ENTRY_COMPONENTS],
 })

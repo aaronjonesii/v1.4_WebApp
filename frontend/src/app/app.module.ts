@@ -34,6 +34,7 @@ import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-li
 import { TrashComponent } from "./pages/me/stories/tabs/trash/trash.component";
 import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/status-story/status-story.component";
 import { UserHeaderComponent } from "./shared/layout/headers/user-header/user-header.component";
+import { ShowStoryStatusComponent } from "./shared/layout/headers/story-header/show-story-status/show-story-status.component";
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { UserHeaderComponent } from "./shared/layout/headers/user-header/user-he
     StatusStoryComponent,
     TrashComponent,
     UserHeaderComponent,
+    ShowStoryStatusComponent,
   ],
   imports: [
     AppRoutingModule,
