@@ -3,6 +3,7 @@ import { BlogService } from "../../../utils/blog/blog.service";
 import { Post } from "../../../utils/blog/models/post";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
+import { ExtrasService } from "../../../utils/extras.service";
 
 @Component({
   selector: 'anon-new-story-header',
@@ -33,6 +34,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private blogService: BlogService,
+    private extras: ExtrasService,
   ) { }
 
   ngOnInit() {
@@ -75,9 +77,9 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
         // TODO: create handleErrors function in blog.service
         // TODO: updateAutoSaveStatus('Error saving')
         // TODO: Create Toastr for error messages
-        if (error.status === 400) { console.error('Bad Request: ', error.error);
-          if (error.error.hasOwnProperty('title')) { console.error('Error', error.error.title);
-          } else { alert(`Uncaught Exception: newStory#publish\n${JSON.stringify(error.error)}`); }
+        if (error.status === 400) {
+          if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose another title.`, `${error.error.title}`, 'danger');
+          } else { this.extras.showToast(`Uncaught Exception: newStory#publish\n${JSON.stringify(error.error)}`, 'Please report this error', 'danger'); }
           // console.error('Error occurred during post creation: ', error);
         }
         if (error.status === 500) { alert(`Internal Server Error: newStory#publish\n${error.error}`); }
