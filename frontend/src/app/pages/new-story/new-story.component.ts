@@ -41,7 +41,12 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     private slugifyPipe: SlugifyPipe,
     private router: Router,
     private storiesService: StoriesService,
-  ) { }
+  ) {
+    // Reset Status in story header
+    this.blogService.updateLiveStory(this.story);
+    // Reset AutoSave time in story header
+    this.blogService.updateAutoSaveStatus('');
+  }
 
   ngOnInit() {
     // liveStory Subscriber

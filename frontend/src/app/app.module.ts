@@ -35,6 +35,7 @@ import { TrashComponent } from "./pages/me/stories/tabs/trash/trash.component";
 import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/status-story/status-story.component";
 import { UserHeaderComponent } from "./shared/layout/headers/user-header/user-header.component";
 import { ShowStoryStatusComponent } from "./shared/layout/headers/story-header/show-story-status/show-story-status.component";
+import { StorySocialsComponent } from "./pages/me/stories/story-page/story-socials/story-socials.component";
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ShowStoryStatusComponent } from "./shared/layout/headers/story-header/s
     TrashComponent,
     UserHeaderComponent,
     ShowStoryStatusComponent,
+    StorySocialsComponent,
   ],
   imports: [
     AppRoutingModule,

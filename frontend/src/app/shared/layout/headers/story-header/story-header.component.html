@@ -5,11 +5,11 @@
   </div>
 
   <div class="d-flex col justify-content-center align-items-center">
-    <span class="lead" *ngIf="autoSaveStatus"> {{ autoSaveStatus }} {{ storyLastSavedTimestamp | date:'mediumTime' }} &nbsp;|&nbsp;</span>
+    <span class="lead" *ngIf="autoSaveStatus"> {{ autoSaveStatus }} {{ storyLastSavedTimestamp | date:'mediumTime' }}</span>
   </div>
 
   <div class="d-flex col justify-content-end m-3 align-items-center">
-    <anon-show-story-status class="mr-3" [statusNumber]="story.status" [textEnabled]="false"></anon-show-story-status>
+    <anon-show-story-status class="mr-2" [statusNumber]="story.status" [textEnabled]="false"></anon-show-story-status>
     <a class="mr-3 text-decoration-none" routerLink="/me/{{story.id}}"><small class="font-weight-light text-muted">Preview story</small></a>
     <button (click)="saveStory(this.story)" class="p-1 mr-3" status="success" size="tiny" [disabled]="!storyLoaded" nbButton outline> Save </button>
 
