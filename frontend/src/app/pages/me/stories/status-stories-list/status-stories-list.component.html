@@ -6,6 +6,13 @@
         <anon-status-story [story]="story" [statusNumber]="statusNumber"></anon-status-story>
       </nb-list-item>
     </nb-list>
+
+    <div id="storiesCount">
+      <span class="text-muted display-4">
+        {{filteredStories.length}} Stories
+      </span>
+    </div>
+
   </ng-container>
 
   <ng-template #empty>

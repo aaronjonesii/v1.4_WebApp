@@ -25,6 +25,7 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
     status: 0,
   };
   @Input() statusNumber: number = 10000;
+  color: string = 'red';
 
   constructor(
     private menuService: NbMenuService,
@@ -40,6 +41,10 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
+  }
+
+  changeStyle($event: any){
+    this.color = $event.type == 'mouseover' ? 'yellow' : 'red';
   }
 
   editStory(story: Post) {
