@@ -86,8 +86,10 @@ export class PublicStoryPageComponent implements OnInit, OnDestroy {
     if(this.profile_json != null) {
       let author_id = this.profile_json.sub.replace('|', '.')
       if (author_id == this.story.author) {
-        this.extras.showToast('Story owner is here!', 'Owner Detected', 'info');
-        this.menu_items.push({ title: 'Edit Story', link: `me/${this.story.id}/edit` })
+        // TODO: Shake menu icon for editing story for the author to notice
+        this.extras.showToast('Check out the option to edit your story below', 'Welcome Author of this story', 'info');
+        // Replace Report Story option with Edit Story for author
+        this.menu_items.splice(0, 1, { title: 'Edit Story', link: `me/${this.story.id}/edit` })
       }
     }
   }
