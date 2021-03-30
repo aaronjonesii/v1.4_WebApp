@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from "@auth0/auth0-angular";
-import { NbMenuService } from "@nebular/theme";
-import { BlogService } from "../../utils/blog/blog.service";
-import { Post } from "../../utils/blog/models/post";
+import { BlogService } from "../../../utils/blog/blog.service";
+import { Post } from "../../../utils/blog/models/post";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 
@@ -15,14 +13,6 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   storyLoaded = false;
   autoSaveStatus = '';
-  // TODO: make published in another file for other files to use one object
-  user_context_items = [
-    { title: 'Write a story', link: '/new-story', icon: 'plus-outline' },
-    { title: 'Stories', link: '/me/stories', icon: 'file-text-outline' },
-    { title: 'Settings', link: '/me/settings', icon: 'settings-2-outline' },
-    { title: 'Log Out', icon: 'unlock-outline' }
-  ];
-
   story_context_items = [
     { title: 'Change featured image' },
     { title: 'Change display title / subtitle' },
@@ -42,18 +32,10 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
   public domparser = new DOMParser();
 
   constructor(
-    public auth: AuthService,
-    private menuService: NbMenuService,
     private blogService: BlogService,
   ) { }
 
   ngOnInit() {
-    // User Context Menu Subscriber
-    this.menuService.onItemClick().pipe(
-      takeUntil(this.unsub$)
-    ).subscribe((event) => {
-      if (event.item.title === 'Log Out') { this.auth.logout() }
-    });
     // liveStory Subscriber
     this.blogService.sharedLiveStory.pipe(
       takeUntil(this.unsub$)

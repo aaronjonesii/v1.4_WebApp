@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HomeComponent } from './pages/home/home.component';
-import { MainHeaderComponent } from './shared/layout/main-header/main-header.component';
+import { MainHeaderComponent } from './shared/layout/headers/main-header/main-header.component';
 import { StoryPageComponent } from './pages/me/stories/story-page/story-page.component';
 import { HomeModule } from './pages/home/home.module';
 // Import the HTTP interceptor from the Auth0 Angular SDK
@@ -15,7 +15,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { LoadingComponent } from "./shared/layout/loading/loading.component";
 import { NewStoryModule } from "./pages/new-story/new-story.module";
 import { NewStoryComponent } from "./pages/new-story/new-story.component";
-import { StoryHeaderComponent } from "./shared/layout/story-header/story-header.component";
+import { StoryHeaderComponent } from "./shared/layout/headers/story-header/story-header.component";
 import { MeModule } from "./pages/me/me.module";
 import { MeComponent } from "./pages/me/me.component";
 import { StoriesComponent } from "./pages/me/stories/stories.component";
@@ -33,6 +33,7 @@ import { PublicStoriesListComponent } from "./pages/me/stories/public-stories-li
 import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-list/status-stories-list.component";
 import { TrashComponent } from "./pages/me/stories/tabs/trash/trash.component";
 import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/status-story/status-story.component";
+import { UserHeaderComponent } from "./shared/layout/headers/user-header/user-header.component";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/sta
     StatusStoriesListComponent,
     StatusStoryComponent,
     TrashComponent,
+    UserHeaderComponent,
   ],
   imports: [
     AppRoutingModule,

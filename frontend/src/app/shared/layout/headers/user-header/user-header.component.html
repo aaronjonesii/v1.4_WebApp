@@ -1,0 +1,6 @@
+<ng-container *ngIf="auth.isAuthenticated$ | async; else notLoggedIn">
+  <nb-user *ngIf="auth.user$ | async as user" [name]="user.name" [title]="user.nickname" [picture]='user.picture' [nbContextMenu]="user_context_items" onlyPicture> </nb-user>
+</ng-container>
+<ng-template #notLoggedIn>
+  <button class="p-2 mr-3" status="success" (click)="auth.loginWithRedirect()" hero nbButton>Log In</button>
+</ng-template>

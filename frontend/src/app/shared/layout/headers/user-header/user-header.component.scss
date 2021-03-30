@@ -1,0 +1,8 @@
+@import '../../../../../themes';
+
+@include nb-install-component() {
+  .logo {
+    height: 75%!important;
+    width: 75%!important;
+  }
+}
