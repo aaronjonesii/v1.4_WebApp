@@ -19,7 +19,14 @@ import {
   NbUserModule,
   NbContextMenuModule,
   NbInputModule,
-  NbFormFieldModule, NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule, NbSearchModule
+  NbFormFieldModule,
+  NbPopoverModule,
+  NbTabsetModule,
+  NbRouteTabsetModule,
+  NbListModule,
+  NbActionsModule,
+  NbSearchModule,
+  NbTagModule
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -38,7 +45,7 @@ const NB_MODULES = [
   NbLayoutModule, NbButtonModule, NbCardModule, NbSelectModule, NbIconModule,
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
   NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule,
-  NbSearchModule,
+  NbSearchModule, NbTagModule,
 ];
 const MAT_MODULES = []!;
 const COMPONENTS = []!;

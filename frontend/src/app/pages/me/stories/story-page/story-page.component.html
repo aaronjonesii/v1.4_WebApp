@@ -5,10 +5,22 @@
     <div class="row">
         <div class="col p-0">
           <nb-user class="" [name]="story.author_name!"> </nb-user>
-          <div class="row ml-2 small text-muted"> {{story.created_on}} | {{story.read_time}} min read </div>
+          <div class="row ml-2 small text-muted"> {{story.created_on | date: 'short' }} | {{story.read_time}} min read </div>
         </div>
         <div class="col align-self-center">
-            <div class="row"> <button class="" shape="semi-round" size="tiny" status="success" outline nbButton> Follow </button> </div>
+          <div class="row">
+            <ng-container class="">
+              <small class="text-muted">Story Status: &nbsp; </small>
+              <nb-tag *ngIf="story.status == 1" status="danger" appearance="outline" text="Trash" size="tiny"></nb-tag>
+              <nb-tag *ngIf="story.status == 2" status="primary" appearance="outline" text="Draft" size="tiny"></nb-tag>
+              <nb-tag *ngIf="story.status == 3" status="info" appearance="outline" text="Pending" size="tiny"></nb-tag>
+              <nb-tag *ngIf="story.status == 4" status="warning" appearance="outline" text="Review" size="tiny"></nb-tag>
+              <nb-tag *ngIf="story.status == 5" status="success" appearance="outline" text="Published" size="tiny"></nb-tag>
+              <nb-tag *ngIf="story.status == 6" status="control" appearance="outline" text="Future" size="tiny"></nb-tag>
+              <nb-tag *ngIf="story.status == 7" status="basic" appearance="outline" text="Unlisted" size="tiny"></nb-tag>
+            </ng-container>
+<!--            <button class="" shape="semi-round" size="tiny" status="success" outline nbButton> Follow </button>-->
+            </div>
         </div>
       <div class="row">
         <div class="col d-flex p-1"> <nb-icon icon="twitter-outline"></nb-icon> </div>
