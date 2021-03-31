@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Post } from "./blog/models/post";
-import { SlugifyPipe } from "./blog/slugify.pipe";
+import { Post } from "../models/post";
+import { SlugifyPipe } from "../pipes/slugify.pipe";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable()

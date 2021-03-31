@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Post } from "../../../../shared/utils/blog/models/post";
+import { Post } from "../../../../shared/utils/models/post";
 import { Subject } from "rxjs";
-import { BlogService } from "../../../../shared/utils/blog/blog.service";
+import { BlogService } from "../../../../shared/utils/services/blog.service";
 import { takeUntil } from "rxjs/operators";
 
 @Component({

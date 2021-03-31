@@ -1,17 +1,17 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Post } from "../../../shared/utils/blog/models/post";
-import * as BalloonEditor from "../../../shared/utils/blog/ckeditor";
+import { Post } from "../../../shared/utils/models/post";
+import * as BalloonEditor from "../../../shared/utils/CustomBalloonEditor/ckeditor";
 import { AuthService } from "@auth0/auth0-angular";
-import { BlogService } from "../../../shared/utils/blog/blog.service";
-import { SlugifyPipe } from "../../../shared/utils/blog/slugify.pipe";
+import { BlogService } from "../../../shared/utils/services/blog.service";
+import { SlugifyPipe } from "../../../shared/utils/pipes/slugify.pipe";
 import { ChangeEvent } from "@ckeditor/ckeditor5-angular";
 import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntil } from "rxjs/operators";
 import { Observable, Subject } from "rxjs";
-import { UrlService } from "../../../shared/utils/url.service";
-import { StoriesService } from "../../../shared/utils/stories.service";
+import { UrlService } from "../../../shared/utils/services/url.service";
+import { StoriesService } from "../../../shared/utils/services/stories.service";
 import { ComponentCanDeactivate } from "../../../shared/utils/pending-changes.guard";
-import { ExtrasService } from "../../../shared/utils/extras.service";
+import { ExtrasService } from "../../../shared/utils/services/extras.service";
 
 @Component({
   selector: 'anon-edit-story',

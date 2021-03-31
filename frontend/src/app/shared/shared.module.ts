@@ -26,19 +26,19 @@ import {
   NbListModule,
   NbActionsModule,
   NbSearchModule,
-  NbTagModule
+  NbTagModule, NbAutocompleteModule
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { SlugifyPipe } from "./utils/blog/slugify.pipe";
-import { UrlService } from "./utils/url.service";
-import { StoriesService } from "./utils/stories.service";
+import { SlugifyPipe } from "./utils/pipes/slugify.pipe";
+import { UrlService } from "./utils/services/url.service";
+import { StoriesService } from "./utils/services/stories.service";
 import { PendingChangesGuard } from "./utils/pending-changes.guard";
-import { DateAgoPipe } from "./utils/blog/date-ago.pipe";
-import { SettingsService } from "./utils/blog/settings.service";
-import { ExtrasService } from "./utils/extras.service";
+import { DateAgoPipe } from "./utils/pipes/date-ago.pipe";
+import { ProfileSettingsService } from "./utils/services/profile-settings.service";
+import { ExtrasService } from "./utils/services/extras.service";
 import { ShowStoryStatusComponent } from './layout/headers/story-header/show-story-status/show-story-status.component';
 
 const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule, ];
@@ -46,7 +46,7 @@ const NB_MODULES = [
   NbLayoutModule, NbButtonModule, NbCardModule, NbSelectModule, NbIconModule,
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
   NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule,
-  NbSearchModule, NbTagModule,
+  NbSearchModule, NbTagModule, NbAutocompleteModule,
 ];
 const MAT_MODULES = []!;
 const COMPONENTS = []!;
@@ -54,7 +54,7 @@ const ENTRY_COMPONENTS = []!;
 const PIPES = [SlugifyPipe, DateAgoPipe];
 const PROVIDERS = [
   SlugifyPipe, UrlService, StoriesService,
-  PendingChangesGuard, DateAgoPipe, SettingsService,
+  PendingChangesGuard, DateAgoPipe, ProfileSettingsService,
   ExtrasService,
 ];
 

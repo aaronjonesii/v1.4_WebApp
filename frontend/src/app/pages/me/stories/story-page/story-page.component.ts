@@ -1,15 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Blog } from '../../../../shared/utils/blog/models/blog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BlogService } from '../../../../shared/utils/blog/blog.service';
+import { BlogService } from '../../../../shared/utils/services/blog.service';
 import { Location } from '@angular/common';
-import { Post } from "../../../../shared/utils/blog/models/post";
+import { Post } from "../../../../shared/utils/models/post";
 import { Subject } from "rxjs";
-import { filter, takeUntil } from "rxjs/operators";
-import * as BalloonEditor from "../../../../shared/utils/blog/ckeditor";
-import { StoriesService } from "../../../../shared/utils/stories.service";
+import { takeUntil } from "rxjs/operators";
+import * as BalloonEditor from "../../../../shared/utils/CustomBalloonEditor/ckeditor";
+import { StoriesService } from "../../../../shared/utils/services/stories.service";
 import { NbMenuService } from "@nebular/theme";
-import { ExtrasService } from "../../../../shared/utils/extras.service";
+import { ExtrasService } from "../../../../shared/utils/services/extras.service";
 
 @Component({
   selector: 'anon-blog-post',
@@ -27,7 +26,7 @@ export class StoryPageComponent implements OnInit, OnDestroy {
     created_on: '',
     status: 0,
   };
-  storyMarkUp = '';
+  storyMarkup = '';
   storyLoaded = false;
   public Editor = BalloonEditor;
   menu_items: any = [{ title: 'Edit Blog Post' }];
@@ -46,7 +45,7 @@ export class StoryPageComponent implements OnInit, OnDestroy {
       takeUntil(this.unsub$)
     ).subscribe(
       routeParams => this.story.id = routeParams.post_id,
-      error => console.error(error),
+      error => this.extras.showToast(`${JSON.stringify(error)}`, 'Error', 'danger', 0),
     );
   }
 
@@ -72,9 +71,9 @@ export class StoryPageComponent implements OnInit, OnDestroy {
     ).subscribe(
       story => {
         this.story = story;
-        this.storyMarkUp = this.storiesService.filterStoryContentMarkUp(story);
+        this.storyMarkup = this.storiesService.filterStoryContentMarkUp(story);
       },
-      error => console.error(error), // TODO: Handle errors and redirect if story is in trash
+      error => this.extras.showToast(`${JSON.stringify(error)}`, 'Error', 'danger', 0),
       () => {this.storyLoaded = true;}
     );
   }

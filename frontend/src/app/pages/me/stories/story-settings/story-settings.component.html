@@ -1,0 +1,7 @@
+<div class="container" *ngIf="storyLoaded; else notLoaded">
+  <div class="display-1">{{story.title}}</div>
+</div>
+
+<ng-template #notLoaded>
+  <anon-loading></anon-loading>
+</ng-template>

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Post } from "../../../../../shared/utils/blog/models/post";
+import { Post } from "../../../../../shared/utils/models/post";
 import { Subject } from "rxjs";
-import { BlogService } from "../../../../../shared/utils/blog/blog.service";
-import { StoriesService } from "../../../../../shared/utils/stories.service";
+import { BlogService } from "../../../../../shared/utils/services/blog.service";
+import { StoriesService } from "../../../../../shared/utils/services/stories.service";
 import { takeUntil } from "rxjs/operators";
 
 @Component({

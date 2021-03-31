@@ -24,9 +24,9 @@ import { DraftsComponent } from "./pages/me/stories/tabs/drafts/drafts.component
 import { PublishedComponent } from "./pages/me/stories/tabs/published/published.component";
 import { UnlistedComponent } from "./pages/me/stories/tabs/unlisted/unlisted.component";
 import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
-import { SettingsComponent } from "./pages/me/settings/settings.component";
-import { SettingsSectionComponent } from "./pages/me/settings/settings-section/settings-section.component";
-import { SettingsSectionItemComponent } from "./pages/me/settings/settings-section/settings-section-item/settings-section-item.component";
+import { ProfileSettingsComponent } from "./pages/me/profile-settings/profile-settings.component";
+import { ProfileSettingsSectionComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section.component";
+import { ProfileSettingsSectionItemComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section-item/profile-settings-section-item.component";
 import { NbToastrModule } from "@nebular/theme";
 import { PublicStoryPageComponent } from './pages/public-story-page/public-story-page.component';
 import { PublicStoriesListComponent } from "./pages/me/stories/public-stories-list/public-stories-list.component";
@@ -36,6 +36,8 @@ import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/sta
 import { UserHeaderComponent } from "./shared/layout/headers/user-header/user-header.component";
 import { ShowStoryStatusComponent } from "./shared/layout/headers/story-header/show-story-status/show-story-status.component";
 import { StorySocialsComponent } from "./pages/me/stories/story-page/story-socials/story-socials.component";
+import { StoryHeaderSettingsComponent } from "./shared/layout/headers/story-header/story-header-settings/story-header-settings.component";
+import { StorySettingsComponent } from "./pages/me/stories/story-settings/story-settings.component";
 
 @NgModule({
   declarations: [
@@ -52,9 +54,9 @@ import { StorySocialsComponent } from "./pages/me/stories/story-page/story-socia
     PublishedComponent,
     UnlistedComponent,
     EditStoryComponent,
-    SettingsComponent,
-    SettingsSectionComponent,
-    SettingsSectionItemComponent,
+    ProfileSettingsComponent,
+    ProfileSettingsSectionComponent,
+    ProfileSettingsSectionItemComponent,
     PublicStoryPageComponent,
     PublicStoriesListComponent,
     StatusStoriesListComponent,
@@ -63,6 +65,8 @@ import { StorySocialsComponent } from "./pages/me/stories/story-page/story-socia
     UserHeaderComponent,
     ShowStoryStatusComponent,
     StorySocialsComponent,
+    StoryHeaderSettingsComponent,
+    StorySettingsComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -4,11 +4,11 @@ import { AuthService } from "@auth0/auth0-angular";
 import { takeUntil } from "rxjs/operators";
 
 @Component({
-  selector: 'anon-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  selector: 'anon-profile-settings',
+  templateUrl: './profile-settings.component.html',
+  styleUrls: ['./profile-settings.component.scss']
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class ProfileSettingsComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   profile_json = null;
   settingsSections = [

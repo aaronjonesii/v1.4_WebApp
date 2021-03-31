@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Post } from "../../../../../shared/utils/blog/models/post";
-import { BlogService } from "../../../../../shared/utils/blog/blog.service";
+import { Post } from "../../../../../shared/utils/models/post";
+import { BlogService } from "../../../../../shared/utils/services/blog.service";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { StoriesService } from "../../../../../shared/utils/stories.service";
+import { StoriesService } from "../../../../../shared/utils/services/stories.service";
 
 @Component({
   selector: 'anon-drafts',

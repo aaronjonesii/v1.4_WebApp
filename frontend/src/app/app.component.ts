@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { filter, mergeMap } from "rxjs/operators";
 import { AuthService } from "@auth0/auth0-angular";
 import { NavigationEnd, Router } from "@angular/router";
-import { UrlService } from "./shared/utils/url.service";
-import { ExtrasService } from "./shared/utils/extras.service";
+import { UrlService } from "./shared/utils/services/url.service";
+import { ExtrasService } from "./shared/utils/services/extras.service";
 
 @Component({
   selector: 'app-root',

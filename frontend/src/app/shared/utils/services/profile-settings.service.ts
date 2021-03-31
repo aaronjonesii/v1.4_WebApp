@@ -6,7 +6,7 @@ import { environment } from "../../../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsService {
+export class ProfileSettingsService {
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(

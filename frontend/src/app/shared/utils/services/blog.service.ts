@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BLOGS } from './mock-blogs';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { Blog } from './models/blog';
-import { Post } from "./models/post";
+import { Post } from "../models/post";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 
@@ -21,7 +19,6 @@ export class BlogService {
     status: 0,
   };
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-  private subject = new Subject<any>(); // Observable source
 
   private liveStory = new BehaviorSubject<any>(this.post);
   private lastSavedStory = new BehaviorSubject<any>(this.post);
@@ -36,9 +33,7 @@ export class BlogService {
   sharedStoryLastSavedTimestamp = this.storyLastSavedTimestamp.asObservable();
 
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor( private http: HttpClient ) { }
 
   updateLiveStory(story: any) { this.liveStory.next(story); };
   updateLastSavedStory(story: any) { this.lastSavedStory.next(story); };
@@ -48,17 +43,6 @@ export class BlogService {
     this.storyLastSavedTimestamp.next(storyLastSavedTimestamp);
   };
 
-  getBlogSubject(): Observable<any> {
-    return this.subject.asObservable();
-  };
-
-  updateBlogSubject() {
-    this.subject.next(BLOGS);
-  };
-
-  getPost(id: number): Observable<Blog> {
-    return of(BLOGS.find(blog => blog.id === id)!);
-  }
   // API Methods
   getOnePost(postID: string): Observable<Post> {
     return this.http.get<Post>(`${environment.apiURL}/blog/${postID}/`, {headers: this.httpHeaders});

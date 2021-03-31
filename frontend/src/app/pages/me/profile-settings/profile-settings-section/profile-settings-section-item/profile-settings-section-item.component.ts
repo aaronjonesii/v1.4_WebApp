@@ -1,16 +1,16 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { SettingsService } from "../../../../../shared/utils/blog/settings.service";
+import { ProfileSettingsService } from "../../../../../shared/utils/services/profile-settings.service";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { AuthService } from "@auth0/auth0-angular";
-import { ExtrasService } from "../../../../../shared/utils/extras.service";
+import { ExtrasService } from "../../../../../shared/utils/services/extras.service";
 
 @Component({
-  selector: 'anon-settings-section-item',
-  templateUrl: './settings-section-item.component.html',
-  styleUrls: ['./settings-section-item.component.scss']
+  selector: 'anon-profile-settings-section-item',
+  templateUrl: './profile-settings-section-item.component.html',
+  styleUrls: ['./profile-settings-section-item.component.scss']
 })
-export class SettingsSectionItemComponent implements OnInit, OnDestroy {
+export class ProfileSettingsSectionItemComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   @Input() user: any;
   @Input() fieldName: any;
@@ -23,7 +23,7 @@ export class SettingsSectionItemComponent implements OnInit, OnDestroy {
   fieldSnapshot = '';
 
   constructor(
-    private settingsService: SettingsService,
+    private settingsService: ProfileSettingsService,
     private auth: AuthService,
     private extras: ExtrasService,
   ) { }

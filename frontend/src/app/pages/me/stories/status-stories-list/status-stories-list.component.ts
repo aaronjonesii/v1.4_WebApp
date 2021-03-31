@@ -1,10 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from "rxjs";
-import { Post } from "../../../../shared/utils/blog/models/post";
-import { BlogService } from "../../../../shared/utils/blog/blog.service";
-import { StoriesService } from "../../../../shared/utils/stories.service";
+import { Post } from "../../../../shared/utils/models/post";
+import { BlogService } from "../../../../shared/utils/services/blog.service";
+import { StoriesService } from "../../../../shared/utils/services/stories.service";
 import { takeUntil } from "rxjs/operators";
-import { ExtrasService } from "../../../../shared/utils/extras.service";
+import { ExtrasService } from "../../../../shared/utils/services/extras.service";
 
 /**
  * Stories Statuses:
@@ -24,6 +24,7 @@ import { ExtrasService } from "../../../../shared/utils/extras.service";
 })
 export class StatusStoriesListComponent implements OnInit, OnDestroy {
   @Input() statusNumber: number = 0;
+  @Input() statusName: string = '';
   private unsub$: Subject<any> = new Subject<any>();
   stories: Post[] = [];
   filteredStories: Post[] = [];

@@ -1,12 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from "rxjs";
-import { Post } from "../../shared/utils/blog/models/post";
-import * as BalloonEditor from "../../shared/utils/blog/ckeditor";
+import { Post } from "../../shared/utils/models/post";
+import * as BalloonEditor from "../../shared/utils/CustomBalloonEditor/ckeditor";
 import { ActivatedRoute } from "@angular/router";
-import { BlogService } from "../../shared/utils/blog/blog.service";
-import { StoriesService } from "../../shared/utils/stories.service";
+import { BlogService } from "../../shared/utils/services/blog.service";
+import { StoriesService } from "../../shared/utils/services/stories.service";
 import { takeUntil } from "rxjs/operators";
-import { ExtrasService } from "../../shared/utils/extras.service";
+import { ExtrasService } from "../../shared/utils/services/extras.service";
 import { AuthService } from "@auth0/auth0-angular";
 
 @Component({
@@ -89,7 +89,8 @@ export class PublicStoryPageComponent implements OnInit, OnDestroy {
         // TODO: Shake menu icon for editing story for the author to notice
         this.extras.showToast('Check out the option to edit your story below', 'Welcome Author of this story', 'info');
         // Replace Report Story option with Edit Story for author
-        this.menu_items.splice(0, 1, { title: 'Edit Story', link: `me/${this.story.id}/edit` })
+        this.menu_items.splice(0, 1, { title: 'Edit story', link: `me/${this.story.id}/edit` });
+        this.menu_items.push({ title: 'Story settings', link: `/me/${this.story.id}/settings` });
       }
     }
   }

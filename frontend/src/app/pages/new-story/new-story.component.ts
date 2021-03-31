@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import * as BalloonEditor from '../../shared/utils/blog/ckeditor';
+import * as BalloonEditor from '../../shared/utils/CustomBalloonEditor/ckeditor';
 import { ChangeEvent } from "@ckeditor/ckeditor5-angular";
-import { BlogService } from "../../shared/utils/blog/blog.service";
-import { Post } from "../../shared/utils/blog/models/post";
-import { SlugifyPipe } from "../../shared/utils/blog/slugify.pipe";
+import { BlogService } from "../../shared/utils/services/blog.service";
+import { Post } from "../../shared/utils/models/post";
+import { SlugifyPipe } from "../../shared/utils/pipes/slugify.pipe";
 import { AuthService } from "@auth0/auth0-angular";
 import { Router } from "@angular/router";
-import { StoriesService } from "../../shared/utils/stories.service";
+import { StoriesService } from "../../shared/utils/services/stories.service";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 
