@@ -48,7 +48,21 @@ export class StoriesService {
     // ]
     let filteredStories = [];
     for (let story of stories) { if( story.status == status ) {filteredStories.push(story)} }
+    filteredStories.sort(this.sortByDate);
+    // filteredStories.sort(this.sortByTitle);
     return filteredStories;
+  }
+  sortByDate(a:any, b:any) {
+    const c:any = new Date(a.updated_on).getTime();
+    const d:any = new Date(b.updated_on).getTime();
+    // return c > d ? 1 : -1; // Ascending
+    return c > d ? -1 : 1; // Descending
+  }
+  sortByTitle(a:Post, b:Post) {
+    const c:any = a.title;
+    const d:any = b.title;
+    return c > d ? 1 : -1; // Ascending
+    // return c > d ? -1 : 1; // Descending
   }
 
   public filterStoryContentMarkUp(story: Post) {
