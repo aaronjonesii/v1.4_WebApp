@@ -29,7 +29,7 @@ export class StoryPageComponent implements OnInit, OnDestroy {
   storyMarkup = '';
   storyLoaded = false;
   public Editor = BalloonEditor;
-  menu_items: any = [{ title: 'Edit Blog Post' }];
+  menu_items: any = [ { title: 'Edit Blog Post' } ];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -57,7 +57,10 @@ export class StoryPageComponent implements OnInit, OnDestroy {
       if (event.item.title === 'Publish Story') { this.publishStory(); }
     });
     this.getPost();
-    this.menu_items = [ { title: 'Edit Story', link: `me/${this.story.id}/edit`,  icon: 'edit-2-outline' } ]
+    this.menu_items = [
+      { title: 'Edit Story', link: `me/${this.story.id}/edit`,  icon: 'edit-2-outline' },
+      { title: 'Story settings', link: `/me/${this.story.id}/settings`, icon: 'settings-outline' },
+      ]
     setTimeout(() => this.checkPublishStatus(this.story), 999);
   }
   ngOnDestroy() {

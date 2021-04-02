@@ -23,29 +23,24 @@ export class StoryHeaderSettingsComponent implements OnInit {
   };
   tags: Set<any> = new Set(this.story.tags);
   category_options = ['Angular', 'Django', 'Anonymous']; // TODO: Get categories from backend
-  filteredNgModelOptions$ = of(this.category_options);
-  inputFormControl = new FormControl();
+  filteredCategoryOptions$ = of(this.category_options);
 
   constructor() {}
 
   ngOnInit() {}
 
-  onTagRemove(tagToRemove: NbTagComponent): void {
-    this.tags.delete(tagToRemove.text);
-  }
-
+  onTagRemove(tagToRemove: NbTagComponent): void { this.tags.delete(tagToRemove.text); }
   onTagAdd({ value, input }: NbTagInputAddEvent): void {
     if (value) { this.tags.add(value) }
     input.nativeElement.value = '';
   }
 
-  private filter(value: string): string[] {
+  private categoryFilter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.category_options.filter(optionValue => optionValue.toLowerCase().includes(filterValue));
   }
-
-  onModelChange(value: string) {
-    this.filteredNgModelOptions$ = of(this.filter(value));
+  onCategoryChange(category: string) {
+    this.filteredCategoryOptions$ = of(this.categoryFilter(category));
   }
 
 }

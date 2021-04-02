@@ -1,10 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from "rxjs";
+import { of, Subject } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { takeUntil } from "rxjs/operators";
 import { ExtrasService } from "../../../../shared/utils/services/extras.service";
 import { Post } from "../../../../shared/utils/models/post";
 import { BlogService } from "../../../../shared/utils/services/blog.service";
+import { NbTagComponent, NbTagInputAddEvent } from "@nebular/theme";
 
 @Component({
   selector: 'anon-story-settings',
@@ -23,6 +24,53 @@ export class StorySettingsComponent implements OnInit, OnDestroy {
     status: 0,
   };
   storyLoaded = false;
+  category_options = ['Angular', 'Django', 'Anonymous']; // TODO: Get categories from backend
+  filteredCategoryOptions$ = of(this.category_options);
+  storySettingsSections = [
+    {
+      'header': 'Featured image',
+      'id': 'story-image',
+      'items': [
+        {
+          'item_name': 'Featured story image',
+          'item_key': 'background_image',
+          'item_description': "Tip: add a high-quality image to your story to capture people's interest",
+        },
+      ],
+    },
+    {
+      'header': 'Tags',
+      'id': 'story-tags',
+      'items': [
+        {
+          'item_name': 'Tags',
+          'item_key': 'tags',
+          'item_description': "Add tags so readers know what your story is about.",
+        },
+      ],
+    },
+    {
+      'header': 'Category',
+      'id': 'story-category',
+      'items': [
+        {
+          'item_name': 'Category',
+          'item_key': 'category',
+          'item_description': "Categorize your story by selecting a topic this story should be displayed in.",
+        },
+      ],
+    },
+    {
+      'header': 'Status',
+      'id': 'story-status',
+      'items': [
+        {
+          'item_name': 'Status',
+          'item_key': 'status',
+        },
+      ],
+    },
+  ];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -52,6 +100,14 @@ export class StorySettingsComponent implements OnInit, OnDestroy {
       error => this.extras.showToast(`${JSON.stringify(error)}`, 'Error', 'danger', 0),
       () => {this.storyLoaded = true;}
     );
+  }
+
+  private categoryFilter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.category_options.filter(optionValue => optionValue.toLowerCase().includes(filterValue));
+  }
+  onCategoryChange(category: string) {
+    this.filteredCategoryOptions$ = of(this.categoryFilter(category));
   }
 
 }

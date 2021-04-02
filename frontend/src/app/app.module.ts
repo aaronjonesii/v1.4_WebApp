@@ -38,6 +38,8 @@ import { ShowStoryStatusComponent } from "./shared/layout/headers/story-header/s
 import { StorySocialsComponent } from "./pages/me/stories/story-page/story-socials/story-socials.component";
 import { StoryHeaderSettingsComponent } from "./shared/layout/headers/story-header/story-header-settings/story-header-settings.component";
 import { StorySettingsComponent } from "./pages/me/stories/story-settings/story-settings.component";
+import { StorySettingsSectionComponent } from "./pages/me/stories/story-settings/story-settings-section/story-settings-section.component";
+import { StorySettingsSectionItemComponent } from "./pages/me/stories/story-settings/story-settings-section/story-settings-section-item/story-settings-section-item.component";
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { StorySettingsComponent } from "./pages/me/stories/story-settings/story-
     StorySocialsComponent,
     StoryHeaderSettingsComponent,
     StorySettingsComponent,
+    StorySettingsSectionComponent,
+    StorySettingsSectionItemComponent,
   ],
   imports: [
     AppRoutingModule,

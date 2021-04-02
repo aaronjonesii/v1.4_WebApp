@@ -1,7 +1,43 @@
-<div class="container" *ngIf="storyLoaded; else notLoaded">
-  <div class="display-1">{{story.title}}</div>
+<div class="container" *ngIf="!storyLoaded; else loaded">
+  <anon-loading></anon-loading>
 </div>
 
-<ng-template #notLoaded>
-  <anon-loading></anon-loading>
+<ng-template #loaded>
+
+  <div class="d-flex justify-content-center settings container">
+
+    <div class="settings-sidebar d-flex">
+      <div class="fixed-sidebar">
+        <h5 class="pb-20">Settings</h5>
+        <ul>
+          <li class="settings-sidebar-item" *ngFor="let section of storySettingsSections">
+            <a class="text-reset text-decoration-none" [attr.href]="'/me/'+story.id+'/settings#'+section.id">{{section.header}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="settings-content w-100 flex-column">
+
+      <div class="story-preview">
+        <div class="h5">Story Preview</div>
+        <nb-card class="card-box-shadow p-32">
+          <nb-card-body>
+            <div class="" [innerHTML]="story.content"></div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+
+      <div class="">
+        <anon-story-settings-section
+          *ngFor="let section of storySettingsSections"
+          [section]="section"
+          [story]="story"
+        ></anon-story-settings-section>
+      </div>
+
+    </div>
+
+  </div>
+
 </ng-template>

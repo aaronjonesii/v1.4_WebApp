@@ -22,13 +22,13 @@
       [style.width]="'298px'"
       class="col-8"
       [ngModel]="story.category"
-      (ngModelChange)="onModelChange($event)"
+      (ngModelChange)="onCategoryChange($event)"
       nbInput
       type="text"
       [nbAutocomplete]="storyCategory" />
 
     <nb-autocomplete #storyCategory>
-      <nb-option *ngFor="let option of filteredNgModelOptions$ | async" [value]="option">
+      <nb-option *ngFor="let option of filteredCategoryOptions$ | async" [value]="option">
         {{ option }}
       </nb-option>
     </nb-autocomplete>

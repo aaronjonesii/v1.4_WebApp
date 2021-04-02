@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { Post } from "../models/post";
+import { Category, Post, Tag } from "../models/post";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 
@@ -66,6 +66,14 @@ export class BlogService {
 
   getOnePublicPost(postID: string): Observable<Post> {
     return this.http.get<Post>(`${environment.apiURL}/public/${postID}/`, {headers: this.httpHeaders});
+  }
+
+  getAllTags(): Observable<Tag[]> {
+    return this.http.get<Tag[]>(`${environment.apiURL}/tags/`, {headers: this.httpHeaders});
+  }
+
+  getAllCategories(): Observable<Tag[]> {
+    return this.http.get<Category[]>(`${environment.apiURL}/cats/`, {headers: this.httpHeaders});
   }
 
 }

@@ -26,4 +26,8 @@ export class ExtrasService {
   // TODO: change to router.navigatebyURL instead so toastr's can be seen
   public goBack() { this.location.back(); }
 
+  public showError(error: any, errorFrom: string) {
+    this.showToast(`${JSON.stringify(error)}`, `Error From ${errorFrom}`, 'danger', 0)
+  }
+
 }
