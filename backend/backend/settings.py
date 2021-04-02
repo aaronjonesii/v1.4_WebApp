@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 # CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST').split(',')
 CORS_ORIGIN_WHITELIST = ['http://localhost:4200']
 
-# AUTH_USER_MODEL = 'blog.User'
+AUTH_USER_MODEL = 'blog.User'
 
 AUTHENTICATION_BACKENDS = [
     'backend.authbackends.EmailorUsernameModelBackend',

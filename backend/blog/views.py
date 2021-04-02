@@ -10,7 +10,7 @@ from .models import Tag, Post, Category, NewsletterSubscriber
 from rest_framework import views, status
 from rest_framework import permissions
 
-from requests import get # IP
+from requests import get  # IP
 
 
 # Used by Auth0
