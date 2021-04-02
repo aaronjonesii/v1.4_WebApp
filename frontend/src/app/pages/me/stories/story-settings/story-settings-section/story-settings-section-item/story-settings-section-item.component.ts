@@ -54,7 +54,7 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
     }
     if (this.item_key === 'category') {
       this.getAllCategories();
-      this.storyCategory = this.story.category.name;
+      if (this.story.category) this.storyCategory = this.story.category.name;
       this.filteredCategoryOptions$ = of(this.categoryOptions);
     }
   }
@@ -170,7 +170,7 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
     const filterValue = value.toLowerCase();
     setTimeout(() => {
       return this.categoryOptions.filter((catOptionValue: any) => catOptionValue.name.toLowerCase().includes(filterValue))
-    }, 0)
+    }, 100)
   }
   onCategoryChange(value: string) {
     this.filteredCategoryOptions$ = of(this.filterCategory(value));

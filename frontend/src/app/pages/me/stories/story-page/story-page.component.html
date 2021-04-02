@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col p-0">
           <div class="row mb-1 align-items-center">
-            <nb-user class="mr-1" [name]="story.author_name!"></nb-user>
+            <nb-user class="mr-2" [name]="story.author_name!"></nb-user>
             <button class="h-50" shape="semi-round" size="tiny" status="success" outline nbButton> Follow </button>
           </div>
           <div class="row ml-2 small text-muted"> {{story.created_on | date: 'short' }} | {{story.read_time}} min read </div>
