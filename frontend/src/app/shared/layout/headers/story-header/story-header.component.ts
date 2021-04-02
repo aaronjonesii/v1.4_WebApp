@@ -29,7 +29,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
   };

@@ -14,7 +14,7 @@ export class StoriesService {
 
   updateFilteredStories(stories: Post[]) { this.filteredStories.next(stories); };
 
-  public parseEditorContent(editor: any, story: Post) {
+  public parseEditorContent(editor: any, story: Post, storyWordCount: number) {
     const htmlString = editor.getData();
     const domDoc = this.domparser.parseFromString(htmlString, 'text/html')
     story.content = htmlString;
@@ -29,8 +29,10 @@ export class StoriesService {
       byline = domDoc.getElementsByClassName('ck-subtitle')[0].textContent;
       story.byline = byline;
     }
-    // TODO: Caculate read time from word count
-    story.read_time = "0";
+    let actual_read_time = storyWordCount / 200;
+    let whole_read_time = ~~(actual_read_time);
+    if (whole_read_time<=0) whole_read_time = 1;
+    story.read_time = whole_read_time;
     // TODO: Provide options to user for statuses
     // story.status = 2; // TODO: Draft status
     return story;

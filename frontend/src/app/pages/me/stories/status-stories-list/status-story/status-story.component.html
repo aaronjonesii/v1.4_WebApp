@@ -5,7 +5,10 @@
     </a>
   </div>
   <div class="row">
-    <p class="font-weight-lighter m-0 text-hint">Last edited {{story.updated_on | dateAgo}}</p>
+    <p class="font-weight-lighter m-0 text-hint" *ngIf="statusNumber == 2">Last edited {{story.updated_on | dateAgo}} · {{story.read_time}} min read so far</p>
+    <p class="font-weight-lighter m-0 text-hint" *ngIf="statusNumber == 5">Last edited {{story.updated_on | dateAgo}}</p>
+    <p class="font-weight-lighter m-0 text-hint" *ngIf="statusNumber == 7"><nb-icon icon="eye-off-outline" [nbPopover]="unlistedPopover" nbPopoverTrigger="hover"></nb-icon> Unlisted · Published on {{story.publish_on | date: 'short'}} · {{story.read_time}} min read</p>
+    <p class="font-weight-lighter m-0 text-hint" *ngIf="statusNumber == 1">Last edited {{story.updated_on | dateAgo}}</p>
 
       <nb-icon class="btn p-0" [nbPopover]="dropdown" nbPopoverPlacement="bottom" icon="arrow-ios-downward-outline" [options]="{ fill: '#8f9bb3' }"></nb-icon>
       <ng-template #dropdown>

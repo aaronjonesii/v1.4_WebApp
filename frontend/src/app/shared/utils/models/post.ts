@@ -11,7 +11,7 @@ export interface Post {
   background_image?: string;
   slug: string;
   content: string;
-  read_time: string;
+  read_time: number;
   updated_on?: string;
   created_on: string;
   publish_on?: string;

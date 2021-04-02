@@ -20,11 +20,13 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
   };
   @Input() statusNumber: number = 10000;
+  unlistedPopover = "The story is only visible to those with the link." +
+    "It won't be listed on public pages (e.g. homepage) and cannot be found using a search engine.";
 
   constructor(
     private menuService: NbMenuService,

@@ -27,13 +27,23 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
   };
   storyLastSavedTimestamp!: number;
   lastSavedStory!: Post;
   public Editor = BalloonEditor;
+  storyCharacterCount: number = 0;
+  storyWordCount: number = 0;
+  editorConfig = {
+    wordCount: {
+      onUpdate: (stats:any) => {
+        this.storyCharacterCount = stats.characters;
+        this.storyWordCount = stats.words;
+      }
+    },
+  };
 
   constructor(
     public auth: AuthService,
@@ -134,7 +144,7 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
   }
 
   onChange( { editor }: ChangeEvent ) {
-    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story));
+    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story, this.storyWordCount));
     // If story has already been saved
     if (this.storyLastSavedTimestamp) {
       const postLastSavedSeconds = this.checkSeconds(this.storyLastSavedTimestamp)

@@ -22,7 +22,7 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
   };
@@ -30,9 +30,17 @@ export class NewStoryComponent implements OnInit, OnDestroy {
   changes = 0
   status = 'Not Saved';
   public Editor = BalloonEditor;
+  storyCharacterCount: number = 0;
+  storyWordCount: number = 0;
   editorConfig = {
     title: { placeholder: 'Title' },
     placeholder: 'Tell your story...',
+    wordCount: {
+      onUpdate: (stats:any) => {
+        this.storyCharacterCount = stats.characters;
+        this.storyWordCount = stats.words;
+      }
+    },
   };
 
   constructor(
@@ -64,7 +72,7 @@ export class NewStoryComponent implements OnInit, OnDestroy {
   }
 
   public onChange( { editor }: ChangeEvent ) {
-    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story));
+    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story, this.storyWordCount));
     // If there have been more than 5 changes and the title is more than 5 characters
     if ((this.changes >= 5) && (this.story.title.replace('&nbsp;', '').length >= 5)) {
       if (this.storyLastSavedTimestamp) {

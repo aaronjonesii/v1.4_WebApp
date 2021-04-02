@@ -16,7 +16,7 @@ export class StoryHeaderSettingsComponent implements OnInit {
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
     tags: [],
