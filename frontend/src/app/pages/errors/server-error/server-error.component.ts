@@ -14,6 +14,7 @@ export class ServerErrorComponent implements OnInit, OnDestroy {
   timesup: boolean = false;
   minutes_of_countdown = 0.5;
   counter_in_seconds = this.minutes_of_countdown*60
+  hrefContactUs = 'mailto:anonsystems@protonmail.com?subject=Website Server Errors&body=Unable to connect to server(anonsys.tech), I was on … page and wanted to … ';
 
 
   constructor(private urlService: UrlService) { }

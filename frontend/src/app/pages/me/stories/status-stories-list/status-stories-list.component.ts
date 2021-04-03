@@ -53,7 +53,7 @@ export class StatusStoriesListComponent implements OnInit, OnDestroy {
   getStories() {
     this.blogService.getPosts().pipe(takeUntil(this.unsub$)).subscribe(
       stories => this.stories = stories,
-      error => this.extras.showToast(error, 'Error Getting Stories', 'danger'),
+      error => {},
       () => this.complete(),
     );
   }
