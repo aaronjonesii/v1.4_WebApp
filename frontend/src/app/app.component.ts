@@ -22,14 +22,6 @@ export class AppComponent implements OnInit  {
   ) { }
 
   ngOnInit(): void {
-    // // Check for Authentication errors
-    this.auth.error$.pipe(
-      filter(e => e.message === 'Login required'),
-      // mergeMap(() => this.auth.loginWithRedirect())
-    ).subscribe(
-      error => this.extras.showToast(`appComp#ngOnInit auth error => ${error}`, 'Authentication Error', 'danger')
-    );
-
     // Store previousUrl w/URL Service Subscription
     this._router.events.pipe(
       filter((event) => event instanceof NavigationEnd)
