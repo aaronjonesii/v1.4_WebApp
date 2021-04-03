@@ -1,8 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Post } from "../../../../shared/utils/models/post";
+import { Post } from "../../shared/utils/models/post";
 import { Subject } from "rxjs";
-import { BlogService } from "../../../../shared/utils/services/blog.service";
+import { BlogService } from "../../shared/utils/services/blog.service";
 import { takeUntil } from "rxjs/operators";
+import { ExtrasService } from "../../shared/utils/services/extras.service";
 
 @Component({
   selector: 'anon-public-stories-list',
@@ -17,6 +18,7 @@ export class PublicStoriesListComponent implements OnInit, OnDestroy {
 
   constructor(
     private blogService: BlogService,
+    private extras: ExtrasService,
   ) { }
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class PublicStoriesListComponent implements OnInit, OnDestroy {
     this.blogService.getPublicPosts().pipe(takeUntil(this.unsub$)).subscribe(
       stories => { this.publicStories = stories; },
       error => {
-        console.error(error);
+        this.extras.showError(error, 'getting public stories');
         this.publicStories = [];
         this.storiesLoaded = true;
       },

@@ -1,4 +1,4 @@
-@import '../../../../../themes.scss';
+@import '../../../themes';
 
 @include nb-install-component() {
   ::ng-deep nb-list-item {

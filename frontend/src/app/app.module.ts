@@ -29,7 +29,7 @@ import { ProfileSettingsSectionComponent } from "./pages/me/profile-settings/pro
 import { ProfileSettingsSectionItemComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section-item/profile-settings-section-item.component";
 import { NbToastrModule } from "@nebular/theme";
 import { PublicStoryPageComponent } from './pages/public-story-page/public-story-page.component';
-import { PublicStoriesListComponent } from "./pages/me/stories/public-stories-list/public-stories-list.component";
+import { PublicStoriesListComponent } from "./pages/public-stories-list/public-stories-list.component";
 import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-list/status-stories-list.component";
 import { TrashComponent } from "./pages/me/stories/tabs/trash/trash.component";
 import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/status-story/status-story.component";

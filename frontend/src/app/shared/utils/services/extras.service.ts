@@ -27,7 +27,12 @@ export class ExtrasService {
   public goBack() { this.location.back(); }
 
   public showError(error: any, errorFrom: string) {
-    this.showToast(`${JSON.stringify(error)}`, `Error From ${errorFrom}`, 'danger', 0)
+    if (error.status === 0) {
+      // TODO: Navigate to error page
+      this.showToast('Sorry we are having trouble connecting to the server, try again later...', 'Unable to connect to the server', 'danger', 7000)
+    } else {
+      this.showToast(`${JSON.stringify(error)}`, `Error From ${errorFrom}`, 'danger', 0)
+    }
   }
 
 }
