@@ -40,6 +40,9 @@ import { StoryHeaderSettingsComponent } from "./shared/layout/headers/story-head
 import { StorySettingsComponent } from "./pages/me/stories/story-settings/story-settings.component";
 import { StorySettingsSectionComponent } from "./pages/me/stories/story-settings/story-settings-section/story-settings-section.component";
 import { StorySettingsSectionItemComponent } from "./pages/me/stories/story-settings/story-settings-section/story-settings-section-item/story-settings-section-item.component";
+import { ServerErrorInterceptor } from "./shared/utils/server-error-interceptor.service";
+import { ServerErrorComponent } from './pages/errors/server-error/server-error.component';
+import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +74,8 @@ import { StorySettingsSectionItemComponent } from "./pages/me/stories/story-sett
     StorySettingsComponent,
     StorySettingsSectionComponent,
     StorySettingsSectionItemComponent,
+    ServerErrorComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -99,7 +104,7 @@ import { StorySettingsSectionItemComponent } from "./pages/me/stories/story-sett
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

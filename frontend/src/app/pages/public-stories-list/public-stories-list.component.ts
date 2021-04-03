@@ -33,7 +33,7 @@ export class PublicStoriesListComponent implements OnInit, OnDestroy {
     this.blogService.getPublicPosts().pipe(takeUntil(this.unsub$)).subscribe(
       stories => { this.publicStories = stories; },
       error => {
-        this.extras.showError(error, 'getting public stories');
+        // this.extras.showError(error, 'getting public stories');
         this.publicStories = [];
         this.storiesLoaded = true;
       },
