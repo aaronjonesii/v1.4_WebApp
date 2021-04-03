@@ -1,0 +1,21 @@
+<div class="" *ngIf="auth.user$ | async as user">
+  <div class="d-flex justify-content-center settings container">
+
+    <div class="settings-sidebar d-flex">
+      <div class="fixed-sidebar">
+        <h5 class="pb-20">Settings</h5>
+        <ul>
+          <li class="settings-sidebar-item" *ngFor="let section of settingsSections; ">
+            <a class="text-reset text-decoration-none" [attr.href]="'/me/settings#'+section.id">{{section.header}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="settings-content w-100 flex-column">
+<!--      <anon-profile-profile-settings-section [section]="settingsSections.profile" [user]="user"></anon-profile-profile-settings-section>-->
+      <anon-profile-settings-section *ngFor="let section of settingsSections" [section]="section" [user]="user"></anon-profile-settings-section>
+    </div>
+
+  </div>
+</div>

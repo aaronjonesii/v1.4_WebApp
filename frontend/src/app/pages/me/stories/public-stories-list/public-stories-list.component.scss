@@ -1,7 +1,0 @@
-@import '../../../../../themes.scss';
-
-@include nb-install-component() {
-  ::ng-deep nb-list-item {
-    border: 0!important;
-  }
-}

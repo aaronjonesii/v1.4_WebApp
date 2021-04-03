@@ -1,17 +1,17 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Post } from "../../../shared/utils/blog/models/post";
-import * as BalloonEditor from "../../../shared/utils/blog/ckeditor";
+import { Post } from "../../../shared/utils/models/post";
+import * as BalloonEditor from "../../../shared/utils/CustomBalloonEditor/ckeditor";
 import { AuthService } from "@auth0/auth0-angular";
-import { BlogService } from "../../../shared/utils/blog/blog.service";
-import { SlugifyPipe } from "../../../shared/utils/blog/slugify.pipe";
+import { BlogService } from "../../../shared/utils/services/blog.service";
+import { SlugifyPipe } from "../../../shared/utils/pipes/slugify.pipe";
 import { ChangeEvent } from "@ckeditor/ckeditor5-angular";
 import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntil } from "rxjs/operators";
 import { Observable, Subject } from "rxjs";
-import { UrlService } from "../../../shared/utils/url.service";
-import { StoriesService } from "../../../shared/utils/stories.service";
+import { UrlService } from "../../../shared/utils/services/url.service";
+import { StoriesService } from "../../../shared/utils/services/stories.service";
 import { ComponentCanDeactivate } from "../../../shared/utils/pending-changes.guard";
-import { ExtrasService } from "../../../shared/utils/extras.service";
+import { ExtrasService } from "../../../shared/utils/services/extras.service";
 
 @Component({
   selector: 'anon-edit-story',
@@ -27,13 +27,23 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
   };
   storyLastSavedTimestamp!: number;
   lastSavedStory!: Post;
   public Editor = BalloonEditor;
+  storyCharacterCount: number = 0;
+  storyWordCount: number = 0;
+  editorConfig = {
+    wordCount: {
+      onUpdate: (stats:any) => {
+        this.storyCharacterCount = stats.characters;
+        this.storyWordCount = stats.words;
+      }
+    },
+  };
 
   constructor(
     public auth: AuthService,
@@ -123,13 +133,18 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
       story => {
         this.blogService.updateLastSavedStory(story);
       },
-      error => console.error(error), // TODO: Handle errors
+      error => {
+        if (error.status === 400) {
+          if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose another title.`, `AutoSave Failed - ${error.error.title}`, 'danger');
+          } else { this.extras.showToast(`Uncaught Exception: newStory#publish\n${JSON.stringify(error.error)}`, 'AutoSave Failed - Please report this error', 'danger'); }
+        }
+      },
       () => {this.blogService.updateAutoSaveStatus(`Saved @`);}
     );
   }
 
   onChange( { editor }: ChangeEvent ) {
-    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story));
+    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story, this.storyWordCount));
     // If story has already been saved
     if (this.storyLastSavedTimestamp) {
       const postLastSavedSeconds = this.checkSeconds(this.storyLastSavedTimestamp)

@@ -52,7 +52,8 @@ def update_tags(update_tags, post_instance):
     for tag in update_tags:
         if Tag.objects.filter(name=tag.get('name')).exists():
             existing_tag = Tag.objects.filter(name=tag.get('name')).first()
-            existing_tag.posts.add(post_instance)
+            if not post_instance.tags.filter(name=tag.get('name')):
+                existing_tag.posts.add(post_instance)
             keep_tags.append(existing_tag.name)
         else:
             new_tag = Tag.objects.create(**tag)

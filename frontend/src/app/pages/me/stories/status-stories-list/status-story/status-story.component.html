@@ -5,22 +5,21 @@
     </a>
   </div>
   <div class="row">
-    <p class="font-weight-lighter m-0 text-hint">Last edited {{story.updated_on | dateAgo}}</p>
+    <p class="font-weight-lighter m-0 text-hint" *ngIf="statusNumber == 2">Last edited {{story.updated_on | dateAgo}} · {{story.read_time}} min read so far</p>
+    <p class="font-weight-lighter m-0 text-hint" *ngIf="statusNumber == 5">Last edited {{story.updated_on | dateAgo}}</p>
+    <p class="font-weight-lighter m-0 text-hint" *ngIf="statusNumber == 7"><nb-icon icon="eye-off-outline" [nbPopover]="unlistedPopover" nbPopoverTrigger="hover"></nb-icon> Unlisted · Published on {{story.publish_on | date: 'short'}} · {{story.read_time}} min read</p>
+    <p class="font-weight-lighter m-0 text-hint" *ngIf="statusNumber == 1">Last edited {{story.updated_on | dateAgo}}</p>
 
-    <div class="dropdown">
-      <button class="btn p-0 ml-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <nb-icon class="" icon="arrow-ios-downward-outline" [options]="{ fill: '#8f9bb3' }"></nb-icon>
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <button class="dropdown-item" (click)="editStory(this.story)">Edit Story</button>
-        <ng-container *ngIf="statusNumber == 1">
-          <button class="dropdown-item" (click)="moveToDrafts(this.story)">Move to Drafts</button>
-        </ng-container>
-        <ng-container *ngIf="(statusNumber < 8) && (statusNumber > 1)">
-          <button class="dropdown-item" (click)="trashStory(this.story)">Trash Story</button>
-        </ng-container>
-      </div>
-    </div>
+      <nb-icon class="btn p-0" [nbPopover]="dropdown" nbPopoverPlacement="bottom" icon="arrow-ios-downward-outline" [options]="{ fill: '#8f9bb3' }"></nb-icon>
+      <ng-template #dropdown>
+          <nb-list>
+            <nb-list-item class="btn" (click)="editStory(this.story)"> Edit Story </nb-list-item>
+            <nb-list-item class="btn darkOnHover" *ngIf="statusNumber == 1" (click)="moveStoryToDrafts(this.story)"> Move to Drafts </nb-list-item>
+            <nb-list-item class="btn darkOnHover" *ngIf="(statusNumber < 8) && (statusNumber > 1)" routerLink="/me/{{story.id}}/settings"> Story settings </nb-list-item>
+            <nb-list-item class="btn darkOnHover" *ngIf="(statusNumber < 8) && (statusNumber > 1)" (click)="trashStory(this.story)"> Trash Story </nb-list-item>
+
+          </nb-list>
+      </ng-template>
 
   </div>
 </div>

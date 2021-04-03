@@ -24,16 +24,25 @@ import { DraftsComponent } from "./pages/me/stories/tabs/drafts/drafts.component
 import { PublishedComponent } from "./pages/me/stories/tabs/published/published.component";
 import { UnlistedComponent } from "./pages/me/stories/tabs/unlisted/unlisted.component";
 import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
-import { SettingsComponent } from "./pages/me/settings/settings.component";
-import { SettingsSectionComponent } from "./pages/me/settings/settings-section/settings-section.component";
-import { SettingsSectionItemComponent } from "./pages/me/settings/settings-section/settings-section-item/settings-section-item.component";
+import { ProfileSettingsComponent } from "./pages/me/profile-settings/profile-settings.component";
+import { ProfileSettingsSectionComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section.component";
+import { ProfileSettingsSectionItemComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section-item/profile-settings-section-item.component";
 import { NbToastrModule } from "@nebular/theme";
 import { PublicStoryPageComponent } from './pages/public-story-page/public-story-page.component';
-import { PublicStoriesListComponent } from "./pages/me/stories/public-stories-list/public-stories-list.component";
+import { PublicStoriesListComponent } from "./pages/public-stories-list/public-stories-list.component";
 import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-list/status-stories-list.component";
 import { TrashComponent } from "./pages/me/stories/tabs/trash/trash.component";
 import { StatusStoryComponent } from "./pages/me/stories/status-stories-list/status-story/status-story.component";
 import { UserHeaderComponent } from "./shared/layout/headers/user-header/user-header.component";
+import { ShowStoryStatusComponent } from "./shared/layout/headers/story-header/show-story-status/show-story-status.component";
+import { StorySocialsComponent } from "./pages/me/stories/story-page/story-socials/story-socials.component";
+import { StoryHeaderSettingsComponent } from "./shared/layout/headers/story-header/story-header-settings/story-header-settings.component";
+import { StorySettingsComponent } from "./pages/me/stories/story-settings/story-settings.component";
+import { StorySettingsSectionComponent } from "./pages/me/stories/story-settings/story-settings-section/story-settings-section.component";
+import { StorySettingsSectionItemComponent } from "./pages/me/stories/story-settings/story-settings-section/story-settings-section-item/story-settings-section-item.component";
+import { ServerErrorInterceptor } from "./shared/utils/server-error-interceptor";
+import { ServerErrorComponent } from './pages/errors/server-error/server-error.component';
+import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -50,15 +59,23 @@ import { UserHeaderComponent } from "./shared/layout/headers/user-header/user-he
     PublishedComponent,
     UnlistedComponent,
     EditStoryComponent,
-    SettingsComponent,
-    SettingsSectionComponent,
-    SettingsSectionItemComponent,
+    ProfileSettingsComponent,
+    ProfileSettingsSectionComponent,
+    ProfileSettingsSectionItemComponent,
     PublicStoryPageComponent,
     PublicStoriesListComponent,
     StatusStoriesListComponent,
     StatusStoryComponent,
     TrashComponent,
     UserHeaderComponent,
+    ShowStoryStatusComponent,
+    StorySocialsComponent,
+    StoryHeaderSettingsComponent,
+    StorySettingsComponent,
+    StorySettingsSectionComponent,
+    StorySettingsSectionItemComponent,
+    ServerErrorComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -87,7 +104,7 @@ import { UserHeaderComponent } from "./shared/layout/headers/user-header/user-he
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

@@ -8,4 +8,10 @@
     margin: 100px 0 0 0;
     text-align: center;
   }
+  #storiesCount {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    writing-mode: tb-rl;
+  }
 }

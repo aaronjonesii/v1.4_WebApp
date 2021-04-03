@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BlogService } from "../../../utils/blog/blog.service";
-import { Post } from "../../../utils/blog/models/post";
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { BlogService } from "../../../utils/services/blog.service";
+import { Post } from "../../../utils/models/post";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
+import { ExtrasService } from "../../../utils/services/extras.service";
+import { NbMenuService, NbPopoverDirective, NbWindowService } from "@nebular/theme";
 
 @Component({
   selector: 'anon-new-story-header',
@@ -10,20 +12,24 @@ import { Subject } from "rxjs";
   styleUrls: ['./story-header.component.scss'],
 })
 export class StoryHeaderComponent implements OnInit, OnDestroy {
+  @ViewChild('storySettings', { read: TemplateRef }) storySettingsTemplate: any;
   private unsub$: Subject<any> = new Subject<any>();
   storyLoaded = false;
   autoSaveStatus = '';
   story_context_items = [
-    { title: 'Change featured image' },
-    { title: 'Change display title / subtitle' },
-    { title: 'Change tags', },
+    { title: 'Story Settings' },
+    { title: 'Hint and keyboard shortcuts' },
+    { title: 'More help' },
+    // { title: 'Change featured image' },
+    // { title: 'Change display title / subtitle' },
+    // { title: 'Change tags', },
   ];
   story: Post = {
     author: '',
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
   };
@@ -33,9 +39,18 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private blogService: BlogService,
+    private extras: ExtrasService,
+    private windowService: NbWindowService,
+    private menuService: NbMenuService,
   ) { }
 
   ngOnInit() {
+    // User Context Menu Subscriber
+    this.menuService.onItemClick().pipe(
+      takeUntil(this.unsub$)
+    ).subscribe((event) => {
+      if (event.item.title === 'Story Settings') { this.openWindowWithoutBackdrop(); }
+    });
     // liveStory Subscriber
     this.blogService.sharedLiveStory.pipe(
       takeUntil(this.unsub$)
@@ -75,9 +90,9 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
         // TODO: create handleErrors function in blog.service
         // TODO: updateAutoSaveStatus('Error saving')
         // TODO: Create Toastr for error messages
-        if (error.status === 400) { console.error('Bad Request: ', error.error);
-          if (error.error.hasOwnProperty('title')) { console.error('Error', error.error.title);
-          } else { alert(`Uncaught Exception: newStory#publish\n${JSON.stringify(error.error)}`); }
+        if (error.status === 400) {
+          if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose another title.`, `${error.error.title}`, 'danger');
+          } else { this.extras.showToast(`Uncaught Exception: newStory#publish\n${JSON.stringify(error.error)}`, 'Please report this error', 'danger'); }
           // console.error('Error occurred during post creation: ', error);
         }
         if (error.status === 500) { alert(`Internal Server Error: newStory#publish\n${error.error}`); }
@@ -85,6 +100,19 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
       },
       () => {this.blogService.updateAutoSaveStatus('Saved @');},
     )
+  }
+
+  openWindowWithoutBackdrop() {
+    this.windowService.open(
+      this.storySettingsTemplate,
+      {
+        title: 'Story Settings',
+        hasBackdrop: true,
+        closeOnEsc: false,
+        windowClass: 'story-header-settings',
+        context: {'story': this.story}
+      },
+    );
   }
 
 }

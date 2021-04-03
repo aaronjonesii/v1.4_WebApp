@@ -17,42 +17,42 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import routers
 
-from blog import views
+from blog.views import newsletter, weather, ip, post, auth0
 
-blog_list = views.PostViewSet.as_view({
+blog_list = post.PostViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
 
-public_blog_list = views.PublicPostViewSet.as_view({'get': 'list'})
-public_blog_detail = views.PublicPostViewSet.as_view({'get': 'retrieve'})
+public_blog_list = post.PublicPostViewSet.as_view({'get': 'list'})
+public_blog_detail = post.PublicPostViewSet.as_view({'get': 'retrieve'})
 
-blog_detail = views.PostViewSet.as_view({
+blog_detail = post.PostViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
     'delete': 'destroy'
 })
 
-related_post = views.PostViewSet.as_view({
+related_post = post.PostViewSet.as_view({
     'get': 'related_posts'
 })
 
-post_byline = views.PostViewSet.as_view({
+post_byline = post.PostViewSet.as_view({
     'get': 'byline'
 })
 
-post_tags = views.PostViewSet.as_view({
+post_tags = post.PostViewSet.as_view({
     'get': 'tags'
 })
 
-newsletter_subscribe = views.NewsletterSubscription.as_view({
+newsletter_subscribe = newsletter.NewsletterSubscription.as_view({
     'post': 'create',
 })
 
 router = routers.DefaultRouter()
-router.register(r'tags', views.TagViewSet)
-router.register(r'cats', views.CategoryViewSet)
+router.register(r'tags', post.TagViewSet)
+router.register(r'cats', post.CategoryViewSet)
 
 ipv4pattern = '(?:(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?)\.){3}(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?'
 ipv6pattern = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
@@ -61,7 +61,7 @@ ipv6pattern = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('user/update/', views.auth0_user_update, name='update_user'),
+    path('user/update/', auth0.auth0_user_update, name='update_user'),
 
     path('public/', public_blog_list, name='public_post'),
     path('public/<uuid:pk>/', public_blog_detail, name='public_post_detail'),
@@ -72,15 +72,15 @@ urlpatterns = [
     path('blog/<uuid:pk>/byline/', post_byline, name='post_byline'),
     path('blog/<uuid:pk>/tags/', post_tags, name='post_tags'),
 
-    path('weather/', views.weatherView, name='weather'),  # Get Current Weather Conditions from requester
-    path('weather/forecast/', views.forecastWeatherView, name='forecast'),  # Get 5 day forecast from requester
+    path('weather/', weather.weatherView, name='weather'),  # Get Current Weather Conditions from requester
+    path('weather/forecast/', weather.forecastWeatherView, name='forecast'),  # Get 5 day forecast from requester
 
     path('newsletter/subscribe/', newsletter_subscribe, name='newsletter_subscribe'),  # Newsletter subscription
-    path('newsletter/unsubscribe/', views.NewsletterUnsubscription.as_view(), name='newsletter_unsubscribe'),  # Newsletter unsubscription
+    path('newsletter/unsubscribe/', newsletter.NewsletterUnsubscription.as_view(), name='newsletter_unsubscribe'),  # Newsletter unsubscription
 
-    path('ip/', views.ipView, name='ip'),  # Get IP info from requester
-    re_path(rf'^ip/(?P<query_ip>{ipv4pattern}))/$', views.searchIP, name='search_ip'),  # Get IPv4 info from query_ip
-    re_path(rf'^ip/(?P<query_ip>{ipv6pattern})/$', views.searchIP, name='search_ip'),  # Get IPv6 info from query_ip
+    path('ip/', ip.ipView, name='ip'),  # Get IP info from requester
+    re_path(rf'^ip/(?P<query_ip>{ipv4pattern}))/$', ip.searchIP, name='search_ip'),  # Get IPv4 info from query_ip
+    re_path(rf'^ip/(?P<query_ip>{ipv6pattern})/$', ip.searchIP, name='search_ip'),  # Get IPv6 info from query_ip
 
     path('', include(router.urls)),
 ]

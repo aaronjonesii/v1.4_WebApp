@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    author = models.ForeignKey(User,
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.PROTECT,
                                help_text="User who created the Blog Post.")
     author_name = models.CharField(max_length=420, blank=True)
@@ -24,12 +24,13 @@ class Post(models.Model):
     read_time = models.IntegerField(null=True)                                              # REQUIRED
     updated_on = models.DateTimeField(auto_now=True)                                        # REQUIRED
     created_on = models.DateTimeField(auto_now_add=True)                                    # REQUIRED
-    public = models.BooleanField(default=False)
     publish_on = models.DateField(null=True, blank=True)
     status = models.ForeignKey(Status,
                                on_delete=models.CASCADE,
                                related_name='status',
                                help_text="Trash, Draft, Pending, Review, Publish, Future, Private")  # REQUIRED
+    public = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Post"

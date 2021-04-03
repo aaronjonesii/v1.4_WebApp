@@ -1,0 +1,48 @@
+<div class="container" *ngIf="!storyLoaded; else loaded">
+  <anon-loading></anon-loading>
+</div>
+
+<ng-template #loaded>
+
+  <div class="d-flex justify-content-center settings container">
+
+    <div class="settings-sidebar d-flex">
+      <div class="fixed-sidebar">
+        <h5 class="pb-20">Settings</h5>
+        <ul>
+          <li class="settings-sidebar-item" *ngFor="let section of storySettingsSections">
+            <a class="text-reset text-decoration-none" [attr.href]="'/me/'+story.id+'/settings#'+section.id">{{section.header}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="settings-content w-100 flex-column">
+
+      <div class="story-preview">
+        <div class="row justify-content-between px-3">
+          <div class="h5">Story Preview</div>
+          <div class="align-self-end">
+            <small><a class="text-decoration-none text-muted" routerLink="/me/{{story.id}}">Back to story</a></small>
+          </div>
+        </div>
+        <nb-card class="card-box p-32">
+          <nb-card-body>
+            <div class="" [innerHTML]="story.content"></div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+
+      <div class="">
+        <anon-story-settings-section
+          *ngFor="let section of storySettingsSections"
+          [section]="section"
+          [story]="story"
+        ></anon-story-settings-section>
+      </div>
+
+    </div>
+
+  </div>
+
+</ng-template>

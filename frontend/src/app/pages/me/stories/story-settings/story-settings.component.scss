@@ -1,0 +1,70 @@
+@import '../../../../../themes.scss';
+
+@include nb-install-component() {
+  // Margin
+  .mb-50 { margin-bottom: 50px!important; }
+  .mb-8 { margin-bottom: 8px!important; }
+  .mr-10 { margin-right: 10px!important; }
+  .mt-10 { margin-top: 10px!important; }
+  .mb-24 { margin-bottom: 24px!important; }
+  // Padding
+  .p-32 { padding: 32px!important; }
+  .pb-20 { padding-bottom: 20px!important; }
+  .pb-35 { padding-bottom: 35px!important; }
+  .pt-30 { padding-top: 30px!important; }
+  .pb-8 { padding-bottom: 8px!important; }
+  // Border
+  .borderBottom { border-bottom: 1px solid rgba(0,0,0,.05); }
+  .borderBottomLightest { border-bottom: 1px solid rgba(0,0,0,.05)!important; }
+  // Classes
+  .settings {
+    padding: 60px 20px 0 20px; // top, left, bottom, right
+    max-width: 1040px!important;
+  }
+  .settings-sidebar {
+    display: none!important;
+    width: 265px!important;
+    padding-right: 20px!important;
+  }
+  .fixed-sidebar { position: fixed!important; }
+  .settings-sidebar-item {
+    padding-bottom: 20px!important;
+    font-size: 18px;
+    color: rgba(0,0,0,.54)!important;
+    fill: rgba(0,0,0,.54)!important;
+  }
+  ul {
+    padding: 0;
+    list-style: none;
+    list-style-image: none;
+  }
+  .settings-content { max-width: 680px!important; }
+  .story-preview {
+    margin-bottom: 60px!important;
+  }
+  ::ng-deep nb-card-body > div > h1 {
+    margin-top: 0!important;
+  }
+  ::ng-deep nb-card-body > div > .ck-subtitle {
+    font-size: 21px;
+  }
+  ::ng-deep nb-card-body > div > p {
+    margin-top: 30px;
+  }
+  .card-box {
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 25%)!important;
+    max-height: 400px!important;
+  }
+
+  //  Breakpoints
+  @media screen and (min-width: 1199px) {
+    .settings-sidebar {
+      display: block!important;
+    }
+  }
+
+  // OLD
+  .story-settings-container {
+    max-width: 740px;
+  }
+}

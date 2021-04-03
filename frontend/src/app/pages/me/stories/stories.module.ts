@@ -7,6 +7,8 @@ import { SharedModule } from "../../../shared/shared.module";
 import { UnlistedComponent } from "./tabs/unlisted/unlisted.component";
 import { PublishedComponent } from "./tabs/published/published.component";
 import { TrashComponent } from './tabs/trash/trash.component';
+import { StorySettingsSectionComponent } from './story-settings/story-settings-section/story-settings-section.component';
+import { StorySettingsSectionItemComponent } from './story-settings/story-settings-section/story-settings-section-item/story-settings-section-item.component';
 
 const routes: Routes = [
   { path: '', component: StoriesComponent, children: [

@@ -1,0 +1,44 @@
+<div class="container">
+
+  <div class="row align-items-center mb-3">
+    <label class="col-4 label">Featured Image</label>
+    <nb-form-field class="col-8" [style.width]="'298px'">
+      <nb-icon nbPrefix icon="image-outline" pack="eva"></nb-icon>
+      <input type="text" nbInput [(ngModel)]="story.background_image">
+    </nb-form-field>
+  </div>
+
+  <div class="row align-items-center mb-3">
+    <label class="col-4 label">Tags</label>
+    <nb-tag-list class="col-8" [style.width]="'390px!important'" (tagRemove)="onTagRemove($event)">
+      <nb-tag *ngFor="let tag of tags" [text]="tag" removable appearance="outline" status="basic"></nb-tag>
+      <input type="text" nbTagInput (tagAdd)="onTagAdd($event)" />
+    </nb-tag-list>
+  </div>
+
+  <div class="row align-items-center mb-3">
+    <label class="col-4 label">Category</label>
+    <input
+      [style.width]="'298px'"
+      class="col-8"
+      [ngModel]="story.category"
+      (ngModelChange)="onCategoryChange($event)"
+      nbInput
+      type="text"
+      [nbAutocomplete]="storyCategory" />
+
+    <nb-autocomplete #storyCategory>
+      <nb-option *ngFor="let option of filteredCategoryOptions$ | async" [value]="option">
+        {{ option }}
+      </nb-option>
+    </nb-autocomplete>
+  </div>
+  <div class="row justify-content-center">
+    <anon-show-story-status [textEnabled]="true" [statusNumber]="story.status"></anon-show-story-status>
+  </div>
+  <hr />
+  <div class="row justify-content-around mt-4">
+    <button class="" nbButton status="danger" outline>Trash</button>
+    <button class="" nbButton status="danger">Delete</button>
+  </div>
+</div>

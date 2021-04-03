@@ -1,0 +1,26 @@
+<div class="">
+  <ng-container *ngIf="textEnabled">
+    <small class="text-muted">Story Status: &nbsp; </small>
+  </ng-container>
+  <ng-container *ngIf="statusNumber == 1">
+    <nb-tag  status="danger" appearance="outline" text="Trash" size="tiny"></nb-tag>
+  </ng-container>
+  <ng-container *ngIf="statusNumber == 2">
+    <nb-tag status="primary" appearance="outline" text="Draft" size="tiny"></nb-tag>
+  </ng-container>
+  <ng-container *ngIf="statusNumber == 3">
+    <nb-tag status="info" appearance="outline" text="Pending" size="tiny"></nb-tag>
+  </ng-container>
+  <ng-container *ngIf="statusNumber == 4">
+  <nb-tag status="warning" appearance="outline" text="Review" size="tiny"></nb-tag>
+  </ng-container>
+  <ng-container *ngIf="statusNumber == 5">
+    <nb-tag status="success" appearance="outline" text="Published" size="tiny"></nb-tag>
+  </ng-container>
+  <ng-container *ngIf="statusNumber == 6">
+    <nb-tag status="control" appearance="outline" text="Future" size="tiny"></nb-tag>
+  </ng-container>
+  <ng-container *ngIf="statusNumber == 7">
+    <nb-tag status="basic" appearance="outline" text="Unlisted" size="tiny"></nb-tag>
+  </ng-container>
+</div>

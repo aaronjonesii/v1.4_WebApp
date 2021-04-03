@@ -1,12 +1,12 @@
 import { Component, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Post } from "../../../../../shared/utils/blog/models/post";
+import { Post } from "../../../../../shared/utils/models/post";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { NbContextMenuDirective, NbMenuService } from "@nebular/theme";
-import { ExtrasService } from "../../../../../shared/utils/extras.service";
+import { ExtrasService } from "../../../../../shared/utils/services/extras.service";
 import { Router } from "@angular/router";
-import { BlogService } from "../../../../../shared/utils/blog/blog.service";
-import { StoriesService } from "../../../../../shared/utils/stories.service";
+import { BlogService } from "../../../../../shared/utils/services/blog.service";
+import { StoriesService } from "../../../../../shared/utils/services/stories.service";
 
 @Component({
   selector: 'anon-status-story',
@@ -20,11 +20,13 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
   };
   @Input() statusNumber: number = 10000;
+  unlistedPopover = "The story is only visible to those with the link." +
+    "It won't be listed on public pages (e.g. homepage) and cannot be found using a search engine.";
 
   constructor(
     private menuService: NbMenuService,
@@ -45,9 +47,9 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
   editStory(story: Post) {
     this.router.navigateByUrl(`/me/${story.id}/edit`)
       .then(True => { if (!True) {
-        this.extras.showToast('Sorry, something went wrong, redirecting you to previous page.', 'Error', 'danger');
+          this.extras.showToast('Sorry, something went wrong, redirecting you to previous page.', 'Error', 'danger');
         } }
-      )
+      );
   }
 
   trashStory(story: Post) {
@@ -63,7 +65,7 @@ export class StatusStoryComponent implements OnInit, OnDestroy {
     )
   }
 
-  moveToDrafts(story: Post) {
+  moveStoryToDrafts(story: Post) {
     story.status = 2;
     // Send update to backend
     this.blogService.updatePost(this.story.id!, story).pipe(

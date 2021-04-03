@@ -1,0 +1,77 @@
+<li class="list-item d-flex align-items-center pb-35 pt-30">
+  <div class="mr-10 d-flex w-100 align-items-center">
+    <div class="d-block w-100">
+      <div class="h6 fieldName">{{fieldName}}</div>
+      <div class="w-100">
+        <div class="fieldSection mt-10 flex-column">
+
+          <ng-container *ngIf="item_key === 'tags'; else notTags">
+            <nb-tag-list (tagRemove)="onTagRemove($event)" class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent">
+              <nb-tag *ngFor="let tag of storyTags" [text]="tag.name" [removable]="canEdit"></nb-tag>
+              <input
+                #fieldInput
+                nbTagInput
+                type="text"
+                (tagAdd)="onTagAdd($event.value)"
+                [nbAutocomplete]="tagAutocomplete"
+                [disabled]="!canEdit"
+                fullWidth
+              />
+            </nb-tag-list>
+            <nb-autocomplete #tagAutocomplete (selectedChange)="onTagAdd($event)">
+              <nb-option *ngFor="let tagOption of allTags" [value]="tagOption.name">{{tagOption.name}}</nb-option>
+            </nb-autocomplete>
+          </ng-container>
+
+          <ng-template #notTags>
+            <ng-container *ngIf="item_key === 'category'; else notCategory">
+              <input
+                class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
+                #fieldInput
+                nbInput
+                fullWidth
+                [(ngModel)]="storyCategory"
+                (ngModelChange)="onCategoryChange($event)"
+                type="text"
+                [nbAutocomplete]="categoryAutocomplete"
+                [disabled]="!canEdit"
+              />
+              <nb-autocomplete #categoryAutocomplete>
+                <nb-option *ngFor="let categoryOption of filteredCategoryOptions$ | async" [value]="categoryOption.name">{{categoryOption.name}}</nb-option>
+              </nb-autocomplete>
+            </ng-container>
+            <ng-template #notCategory>
+              <ng-container *ngIf="item_key === 'status'; else notStatus">
+                <nb-select
+                  #fieldInput
+                  [(ngModel)]="story[item_key]"
+                  [disabled]="!canEdit"
+                  class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
+                >
+                  <nb-option *ngFor="let status of statuses" [value]="status.number">{{status.name}}</nb-option>
+                </nb-select>
+              </ng-container>
+              <ng-template #notStatus>
+                <input
+                  #fieldInput
+                  class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
+                  [(ngModel)]="story[item_key]"
+                  [disabled]="!canEdit"
+                />
+              </ng-template>
+            </ng-template>
+          </ng-template>
+
+          <small class="fieldDescription text-muted" *ngIf="fieldDescription">{{fieldDescription}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="edit-button-section flex-shrink-1 align-self-start">
+    <button #editButtonBtn class="button settingsEditButton" (click)="editButton()">Edit</button>
+    <span #buttonsSpan class="buttonSet row justify-content-between">
+      <button class="button saveButton" (click)="saveButton()">Save</button>
+      <button class="button cancelButton" (click)="cancelButton()">Cancel</button>
+    </span>
+  </div>
+</li>

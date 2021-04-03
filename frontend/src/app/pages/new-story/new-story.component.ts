@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import * as BalloonEditor from '../../shared/utils/blog/ckeditor';
+import * as BalloonEditor from '../../shared/utils/CustomBalloonEditor/ckeditor';
 import { ChangeEvent } from "@ckeditor/ckeditor5-angular";
-import { BlogService } from "../../shared/utils/blog/blog.service";
-import { Post } from "../../shared/utils/blog/models/post";
-import { SlugifyPipe } from "../../shared/utils/blog/slugify.pipe";
+import { BlogService } from "../../shared/utils/services/blog.service";
+import { Post } from "../../shared/utils/models/post";
+import { SlugifyPipe } from "../../shared/utils/pipes/slugify.pipe";
 import { AuthService } from "@auth0/auth0-angular";
 import { Router } from "@angular/router";
-import { StoriesService } from "../../shared/utils/stories.service";
+import { StoriesService } from "../../shared/utils/services/stories.service";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 
@@ -22,7 +22,7 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     title: '',
     slug: '',
     content: '',
-    read_time: '',
+    read_time: 0,
     created_on: '',
     status: 0,
   };
@@ -30,9 +30,17 @@ export class NewStoryComponent implements OnInit, OnDestroy {
   changes = 0
   status = 'Not Saved';
   public Editor = BalloonEditor;
+  storyCharacterCount: number = 0;
+  storyWordCount: number = 0;
   editorConfig = {
     title: { placeholder: 'Title' },
     placeholder: 'Tell your story...',
+    wordCount: {
+      onUpdate: (stats:any) => {
+        this.storyCharacterCount = stats.characters;
+        this.storyWordCount = stats.words;
+      }
+    },
   };
 
   constructor(
@@ -41,7 +49,12 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     private slugifyPipe: SlugifyPipe,
     private router: Router,
     private storiesService: StoriesService,
-  ) { }
+  ) {
+    // Reset Status in story header
+    this.blogService.updateLiveStory(this.story);
+    // Reset AutoSave time in story header
+    this.blogService.updateAutoSaveStatus('');
+  }
 
   ngOnInit() {
     // liveStory Subscriber
@@ -59,7 +72,7 @@ export class NewStoryComponent implements OnInit, OnDestroy {
   }
 
   public onChange( { editor }: ChangeEvent ) {
-    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story));
+    this.blogService.updateLiveStory(this.storiesService.parseEditorContent(editor, this.story, this.storyWordCount));
     // If there have been more than 5 changes and the title is more than 5 characters
     if ((this.changes >= 5) && (this.story.title.replace('&nbsp;', '').length >= 5)) {
       if (this.storyLastSavedTimestamp) {
