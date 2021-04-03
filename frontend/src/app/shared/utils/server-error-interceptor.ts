@@ -1,7 +1,7 @@
 import { Injectable, Injector } from "@angular/core";
-import { AuthHttpInterceptor } from "@auth0/auth0-angular";
+import { AuthClientConfig, AuthHttpInterceptor, AuthService } from "@auth0/auth0-angular";
 import {  HttpEvent, HttpHandler, HttpRequest } from "@angular/common/http";
-import { catchError, retry } from "rxjs/operators";
+import { catchError, mergeMap, retry } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 import { ExtrasService } from "./services/extras.service";
 import { Router } from "@angular/router";
@@ -9,18 +9,22 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class ServerErrorInterceptor extends AuthHttpInterceptor {
-  extras: any;
-  router: any;
-  constructor(extras: ExtrasService, router: Router) {
-    let configFactory: any;
-    let authService: any;
+  constructor(
+    configFactory: AuthClientConfig,
+    authService: AuthService,
+    private AuthService: AuthService,
+    private extras: ExtrasService,
+    private router: Router,
+  ) {
     super(configFactory, authService);
-    this.extras = extras;
-    this.router = router;
   }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return this.AuthService.getAccessTokenSilently().pipe(
+      mergeMap(() => super.intercept(req, next)),
       retry(1),
       catchError((error:any) => {
         if (error.status === 0) {
@@ -32,6 +36,7 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
         }
         return throwError(error)
       })
-    )
+    );
   }
+  
 }
