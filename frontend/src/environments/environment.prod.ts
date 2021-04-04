@@ -3,5 +3,5 @@ export const environment = {
   Auth0_domain: 'anonsys.auth0.com',
   Auth0_clientID: 'J4a9OjrjpSH3A30KuAEJ4AEuM84SD21j',
   Auth0_audience: 'https://api.anonsys.tech',
-  apiURL: 'http://api.anonsys.tech',
+  apiURL: 'https://api.anonsys.tech',
 };
