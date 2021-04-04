@@ -13,7 +13,6 @@
     </div>
 
     <div class="settings-content w-100 flex-column">
-<!--      <anon-profile-profile-settings-section [section]="settingsSections.profile" [user]="user"></anon-profile-profile-settings-section>-->
       <anon-profile-settings-section *ngFor="let section of settingsSections" [section]="section" [user]="user"></anon-profile-settings-section>
     </div>
 

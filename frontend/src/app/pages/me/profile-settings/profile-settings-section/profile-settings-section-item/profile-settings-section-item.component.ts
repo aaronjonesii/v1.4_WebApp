@@ -76,7 +76,7 @@ export class ProfileSettingsSectionItemComponent implements OnInit, OnDestroy {
     ).subscribe(
       user => this.extras.showToast(`${this.fieldName} was successfully updated.`, 'Success', 'success'), // TODO: Need to update user infor with new user dictionary
       error => {
-        this.extras.showToast(JSON.stringify(error.error), '[!] Error [!]', 'danger');
+        // TODO: Handle all errors in Interceptor
         // Reset field
         this.user[this.item_key] = this.fieldSnapshot;
       },

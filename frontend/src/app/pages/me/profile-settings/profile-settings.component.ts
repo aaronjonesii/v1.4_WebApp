@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from "rxjs";
 import { AuthService } from "@auth0/auth0-angular";
 import { takeUntil } from "rxjs/operators";
+import { ExtrasService } from "../../../shared/utils/services/extras.service";
 
 @Component({
   selector: 'anon-profile-settings',
@@ -52,12 +53,13 @@ export class ProfileSettingsComponent implements OnInit, OnDestroy {
 
   constructor(
     public auth: AuthService,
+    private extras: ExtrasService,
   ) { }
 
   ngOnInit() {
     this.auth.user$.pipe(takeUntil(this.unsub$)).subscribe(
       profile => this.profile_json = JSON.parse(JSON.stringify(profile, null, 2)),
-      error => console.error(error),
+      error => this.extras.showError(error, 'loading user profile'),
       () => {},
     );
   }

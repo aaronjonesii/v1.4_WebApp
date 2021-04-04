@@ -20,7 +20,7 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
     super(configFactory, authService);
     this._authService.isAuthenticated$.subscribe(isAuthenticated => this.authenticated = isAuthenticated)
   }
-  
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return super.intercept(req, next).pipe(
       retry(1),
