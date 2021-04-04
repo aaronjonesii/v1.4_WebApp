@@ -20,27 +20,9 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
     super(configFactory, authService);
     this._authService.isAuthenticated$.subscribe(isAuthenticated => this.authenticated = isAuthenticated)
   }
-
-  // intercept(
-  //   req: HttpRequest<any>,
-  //   next: HttpHandler
-  // ): Observable<HttpEvent<any>> {
-  //   return this._authService.getAccessTokenSilently().pipe(
-  //     catchError(() => of(true)),
-  //     // getAccessTokenSilently returns a string
-  //     // if the value of errorOccurred is a boolean true, then an error has occured and the request continues without an authorization header
-  //     mergeMap(errorOccurred => errorOccurred === true ?
-  //       next.handle(req)
-  //       : super.intercept(req, next)),
-  //   );
-  // }
-
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    return this._authService.getAccessTokenSilently().pipe(
-      mergeMap(() => super.intercept(req, next)),
+  
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return super.intercept(req, next).pipe(
       retry(1),
       catchError((error:any) => {
         if (error.status === 0) {
@@ -51,7 +33,7 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
           if (error.message === 'Login required') {
             if (this.authenticated) {
               this.extras.showToast('Sorry, something went wrong authenticating your account. Try again...', 'Error Authenticating', 'danger', 0);
-            }
+            } console.log('[!] Not authenticated and login required [!]');
           } else {
             this.extras.showError(`If you are seeing, this please send screenshot to anonsys@protonmail.com`, 'Uncaught Exception');
             console.log(error);
