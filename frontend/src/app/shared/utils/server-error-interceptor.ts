@@ -44,7 +44,8 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
       retry(1),
       catchError((error:any) => {
         if (error.status === 0) {
-          this.extras.showToast('Sorry, unable to connect to the server. Try again later...', 'Unable to connect to server', 'danger', 0);
+          // TODO: Change once backend is up and ready for production
+          this.extras.showToast('Sorry, we are currently working on our backend at the moment. Try again later...', 'Backend is down', 'danger', 0);
           this.router.navigateByUrl('/error')
         } else {
           if (error.message === 'Login required') {

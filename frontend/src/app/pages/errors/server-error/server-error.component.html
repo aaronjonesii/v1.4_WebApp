@@ -8,7 +8,7 @@
     </div>
 
     <ng-container *ngIf="!timesup; else showButton">
-      <p class="text-muted">Try again in {{this.counter_in_seconds}} seconds</p>
+      <p class="text-muted">Try again in {{this.counter_in_seconds * 1000 | date:'m'}} minutes {{this.counter_in_seconds * 1000 | date:'ss'}} seconds</p>
     </ng-container>
     <ng-template #showButton>
       <div class="row w-100 justify-content-center">
