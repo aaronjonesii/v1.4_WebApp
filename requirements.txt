@@ -9,3 +9,5 @@ cryptography
 drf-jwt
 pyjwt
 python-memcached
+channels
+daphne
