@@ -20,7 +20,7 @@
       </div>
     </div>
     <div *ngIf="this.story.background_image == ''; else storyImage" class="">
-      <img class="img-fluid mx-auto" src="https://picsum.photos/3000/1500" />
+<!--      <img class="img-fluid mx-auto" src="https://picsum.photos/3000/1500" />-->
     </div>
     <ng-template #storyImage>
       <div class="row w-100 m-0"> <img class="img-fluid mx-auto" [src]="story.background_image" /> </div>
