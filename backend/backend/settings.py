@@ -26,6 +26,8 @@ SECRET_KEY = os.environ.get('BACKEND_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('BACKEND_DEBUG')
+if os.getenv('DEBUG') == '1': DEBUG = True
+else: DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get('BACKEND_ALLOWED_HOSTS').split(',')
 
@@ -42,6 +44,7 @@ AUTHENTICATION_BACKENDS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
