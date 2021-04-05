@@ -105,6 +105,7 @@ import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-fo
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
+    { provide: 'Window',  useValue: window },
   ],
   bootstrap: [AppComponent]
 })
