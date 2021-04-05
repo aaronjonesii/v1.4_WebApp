@@ -144,7 +144,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+if 'BACKEND_STATIC_ROOT' in os.environ:
+    STATIC_ROOT = os.environ.get('BACKEND_STATIC_ROOT')
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Django REST Simple JWT
