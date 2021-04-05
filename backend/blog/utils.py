@@ -32,6 +32,8 @@ def refresh_auth0_token():
     }
     response = requests.post(f'{settings.AUTH0_DOMAIN}/oauth/token', data=payload)
     oauth = response.json()
+    if 'access_token' not in oauth:
+        raise ValueError('access_token was not in response')
     access_token = oauth.get('access_token')
     cache.set('Auth0_MGMT_API_JWT', access_token, 84600)
 
