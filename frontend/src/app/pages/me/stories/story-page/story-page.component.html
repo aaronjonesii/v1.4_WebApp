@@ -32,12 +32,23 @@
       <div class="row w-100">
         <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkup" tagName="story"></ckeditor>
       </div>
-      <div class="row w-100">
-        <div class="d-inline-flex pr-3 m-1 p1 h5 text-muted" style="height: 42px; line-height: 38px; background-color: rgba(0, 0, 0, 0.05); border-radius: 99em;">
-          <div class="d-flex align-self-center mx-1 p-1 rounded-circle bg-dark text-white" style="height: fit-content; box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.2);"> <nb-icon icon="hash-outline"></nb-icon> </div>
-          AnonymousTag
+
+      <ng-container *ngIf="story.category">
+        <div class="row w-100">
+          <div class="d-inline-flex pr-3 m-1 p1 h5 text-muted" style="height: 42px; line-height: 38px; background-color: rgba(0, 0, 0, 0.05); border-radius: 99em;">
+            <div class="d-flex align-self-center mx-1 p-1 rounded-circle bg-dark text-white" style="height: fit-content; box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.2);"> <nb-icon icon="hash-outline"></nb-icon> </div>
+            {{story.category.name}}
+          </div>
         </div>
-      </div>
+      </ng-container>
+      <ng-container *ngIf="story.tags">
+        <div class="row w-100" *ngIf="story.tags.length > 0">
+          <nb-tag-list>
+            <nb-tag *ngFor="let tag of story.tags" [text]="tag.name" appearance="outline" status="basic"></nb-tag>
+          </nb-tag-list>
+        </div>
+      </ng-container>
+
       <div class="d-flex row w-100 justify-content-between m-0">
 <!--        <div class="d-flex align-self-center"> <span class="border rounded-circle p-2 mx-2"> <nb-icon class="icon-size" icon="bell-outline"></nb-icon> </span> <span class="align-self-center">0 Bells Rung</span> </div>-->
         <div class=""></div>
