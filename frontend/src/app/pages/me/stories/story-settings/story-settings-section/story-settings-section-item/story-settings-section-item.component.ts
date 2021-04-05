@@ -170,7 +170,7 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
     const filterValue = value.toLowerCase();
     setTimeout(() => {
       return this.categoryOptions.filter((catOptionValue: any) => catOptionValue.name.toLowerCase().includes(filterValue))
-    }, 100)
+    }, 999)
   }
   onCategoryChange(value: string) {
     this.filteredCategoryOptions$ = of(this.filterCategory(value));
