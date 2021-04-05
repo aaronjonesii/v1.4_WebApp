@@ -22,18 +22,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_6^!n9*85txi4i6*$(^y!jsb6xao635xd@d*zp@oox$73_fxrv'
-# TODO: Place in system environment
+SECRET_KEY = os.environ.get('BACKEND_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# TODO: Place in system environment
+DEBUG = os.environ.get('BACKEND_DEBUG')
+if os.getenv('DEBUG') == '1': DEBUG = True
+else: DEBUG = False
 
-ALLOWED_HOSTS = []
-# TODO: Place in system environment
+ALLOWED_HOSTS = os.environ.get('BACKEND_ALLOWED_HOSTS').split(',')
 
-# CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST').split(',')
-CORS_ORIGIN_WHITELIST = ['http://localhost:4200']
+CORS_ORIGIN_WHITELIST = os.environ.get('BACKEND_CORS_ORIGIN_WHITELIST').split(',')
 
 AUTH_USER_MODEL = 'blog.User'
 
@@ -46,6 +44,7 @@ AUTHENTICATION_BACKENDS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -98,11 +97,14 @@ ASGI_APPLICATION = 'backend.routing.application'
 
 DATABASES = {
     'default': {
-        'NAME': 'backend',
+        'NAME': os.environ.get('BACKEND_DB_NAME'),
         'ENGINE': 'mysql.connector.django',
-        'USER': 'anonymous',
-        'PASSWORD': 'anonymous',
-        'OPTIONS': {'autocommit': True, 'charset': 'utf8mb4',},
+        'USER': os.environ.get('BACKEND_DB_USER'),
+        'PASSWORD': os.environ.get('BACKEND_DB_PASSWORD'),
+        'OPTIONS': {
+            'autocommit': True,
+            'charset': 'utf8mb4',
+        },
     }
 }
 
@@ -142,7 +144,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+if 'BACKEND_STATIC_ROOT' in os.environ:
+    STATIC_ROOT = os.environ.get('BACKEND_STATIC_ROOT')
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Django REST Simple JWT
@@ -175,8 +180,8 @@ JWT_AUTH = {
     'JWT_DECODE_HANDLER':
         'blog.utils.jwt_decode_token',
     'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': 'https://api.anonsys.tech',
-    'JWT_ISSUER': 'https://anonsys.auth0.com/',
+    'JWT_AUDIENCE': os.environ.get('BACKEND_AUTH0_JWT_AUDIENCE'),
+    'JWT_ISSUER': f"https://{os.environ.get('BACKEND_AUTH0_JWT_ISSUER')}/",
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
@@ -184,22 +189,23 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(
-    # dsn=os.environ.get('SENTRY_URL', ''),
-    dsn="https://0f07ef4a0dc241bebe70c88f871a49a7@o214341.ingest.sentry.io/1810585",
+    dsn=os.environ.get('BACKEND_SENTRY_URL'),
     integrations=[DjangoIntegration()]
 )
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'backend_cache',
+        'LOCATION': os.environ.get('BACKEND_CACHE_LOCATION'),
     }
 }
 
 # TODO: Place all in system environment
 # Auth0 Management
-AUTH0_DOMAIN = 'https://anonsys.auth0.com'
-AUTH0_AUDIENCE = 'https://anonsys.auth0.com/api/v2'
-AUTH0_CLIENT_ID = 'w6ClmoCh2SALilP7pFppCvEw6nfwoYOY'
-AUTH0_CLIENT_SECRET = 'C_C0FYNu3MlsbZn0pgKp9sy7NwTgcemUBM8yT-aDqwbEPfPsDARkJ3wqAMdSw45e'
-AUTH0_GRANT_TYPE = 'client_credentials'  # OAuth 2.0 flow to use
+AUTH0_DOMAIN = os.environ.get('BACKEND_AUTH0_DOMAIN')
+AUTH0_AUDIENCE = os.environ.get('BACKEND_AUTH0_AUDIENCE')
+AUTH0_CLIENT_ID = os.environ.get('BACKEND_AUTH0_CLIENT_ID')
+AUTH0_CLIENT_SECRET = os.environ.get('BACKEND_AUTH0_CLIENT_SECRET')
+AUTH0_GRANT_TYPE = os.environ.get('BACKEND_AUTH0_GRANT_TYPE')
+AUTH0_JWT_AUDIENCE = os.environ.get('BACKEND_AUTH0_JWT_AUDIENCE')
+AUTH0_JWT_ISSUER = os.environ.get('BACKEND_AUTH0_JWT_ISSUER')

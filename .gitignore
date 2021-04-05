@@ -176,3 +176,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+/backend/static/
+backend/dev.env
+backend/setEnv.py
