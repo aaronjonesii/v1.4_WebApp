@@ -16,7 +16,7 @@
         </div>
 
         <anon-story-socials class="row align-items-center" [contextMenuItems]="menu_items"></anon-story-socials>
-        
+
       </div>
     </div>
     <div *ngIf="this.story.background_image == ''; else storyImage" class="">
@@ -28,7 +28,7 @@
     <div class="mt-5 blog-content mx-auto row">
 
       <div class="row w-100">
-        <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkUp"></ckeditor>
+        <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkUp" tagName="story"></ckeditor>
       </div>
       <div class="row w-100">
         <div class="d-inline-flex pr-3 m-1 p1 h5 text-muted" style="height: 42px; line-height: 38px; background-color: rgba(0, 0, 0, 0.05); border-radius: 99em;">
