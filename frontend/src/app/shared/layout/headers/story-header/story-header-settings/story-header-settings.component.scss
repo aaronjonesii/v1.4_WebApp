@@ -1,5 +1,7 @@
 @import '../../../../../../themes';
 
 @include nb-install-component() {
-
+  .mh-50 {
+    max-height: 500px!important;
+  }
 }
