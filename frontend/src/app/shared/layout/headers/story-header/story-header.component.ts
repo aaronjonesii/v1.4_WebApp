@@ -92,10 +92,10 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
         // TODO: Create Toastr for error messages
         if (error.status === 400) {
           if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose another title.`, `${error.error.title}`, 'danger');
-          } else { this.extras.showToast(`Uncaught Exception: newStory#publish\n${JSON.stringify(error.error)}`, 'Please report this error', 'danger'); }
+          } else { this.extras.showToast(`Uncaught Exception: storyHeader#saveStory\n${JSON.stringify(error.error)}`, 'Please report this error', 'danger'); }
           // console.error('Error occurred during post creation: ', error);
         }
-        if (error.status === 500) { alert(`Internal Server Error: newStory#publish\n${error.error}`); }
+        if (error.status === 500) { alert(`Internal Server Error: storyHeader#saveStory\n${error.error}`); }
         // TODO: Create Appealing Error Page
       },
       () => {this.blogService.updateAutoSaveStatus('Saved @');},
