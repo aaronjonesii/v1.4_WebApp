@@ -16,7 +16,7 @@ export class StorySocialsComponent implements OnInit, OnDestroy {
 
   constructor(@Inject('Window') window: Window) {
     let storyLink: any;
-    setTimeout(() => storyLink = `${window.location.hostname}/public/${this.story.id}`, 0);
+    setTimeout(() => storyLink = `https://${window.location.hostname}/public/${this.story.id}`, 0);
     setTimeout(() => this.twitterLink = `https://twitter.com/intent/tweet?url=${storyLink}`, 0);
     setTimeout(() => this.linkedinLink = `https://www.linkedin.com/shareArticle?mini=true&url=${storyLink}`, 0);
     setTimeout(() => this.facebookLink = `https://www.facebook.com/sharer.php?u=${storyLink}`, 0);
