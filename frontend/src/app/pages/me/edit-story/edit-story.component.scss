@@ -8,4 +8,7 @@
     margin: 0 auto !important;
     float: none !important;
   }
+  ::ng-deep p {
+    margin-top: 1rem!important;
+  }
 }
