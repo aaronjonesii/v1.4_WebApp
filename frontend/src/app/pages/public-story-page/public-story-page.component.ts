@@ -56,7 +56,6 @@ export class PublicStoryPageComponent implements OnInit, OnDestroy {
     this.getPost();
     // TODO: Create reporting functionality
     this.menu_items = [{ title: 'Report Story', link: `report/${this.story.id}/` }]
-    setTimeout(() => this.checkIfAuthor(), 999);
   }
   ngOnDestroy() {
     this.unsub$.next();
@@ -80,6 +79,7 @@ export class PublicStoryPageComponent implements OnInit, OnDestroy {
 
   complete() {
     this.storyLoaded = true;
+    setTimeout(() => this.checkIfAuthor(), 999);
   }
 
   checkIfAuthor() {

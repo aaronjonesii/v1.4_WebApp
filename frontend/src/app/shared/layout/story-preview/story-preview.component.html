@@ -1,0 +1,13 @@
+<div class="story-preview" [style]="'margin-bottom:'+marginBottom+'px!important;'">
+  <div class="row justify-content-between px-3">
+    <div class="h5">Story Preview</div>
+    <div class="align-self-end">
+      <small *ngIf="showBackToStoryButton"><a class="text-decoration-none text-muted" routerLink="/me/{{story.id}}">Back to story</a></small>
+    </div>
+  </div>
+  <nb-card class="card-box p-32">
+    <nb-card-body>
+      <div class="" [innerHTML]="story.content"></div>
+    </nb-card-body>
+  </nb-card>
+</div>

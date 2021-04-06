@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../../../../shared/utils/services/blog.service';
 import { Location } from '@angular/common';
@@ -7,8 +7,9 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import * as BalloonEditor from "../../../../shared/utils/CustomBalloonEditor/ckeditor";
 import { StoriesService } from "../../../../shared/utils/services/stories.service";
-import { NbMenuService } from "@nebular/theme";
+import { NbDialogService, NbMenuService } from "@nebular/theme";
 import { ExtrasService } from "../../../../shared/utils/services/extras.service";
+import { ConfirmationPopupComponent } from "../../../../shared/layout/confirmation-popup/confirmation-popup.component";
 
 @Component({
   selector: 'anon-blog-post',
@@ -39,6 +40,7 @@ export class StoryPageComponent implements OnInit, OnDestroy {
     private menuService: NbMenuService,
     private extras: ExtrasService,
     private router: Router,
+    private dialogService: NbDialogService,
   ) {
     // Get Story ID from URL
     this.activatedRoute.params.pipe(
@@ -54,7 +56,7 @@ export class StoryPageComponent implements OnInit, OnDestroy {
     this.menuService.onItemClick().pipe(
       takeUntil(this.unsub$)
     ).subscribe((event) => {
-      if (event.item.title === 'Publish Story') { this.publishStory(); }
+      if (event.item.title === 'Publish Story') { this.openPublishConfirmationPopUp(); }
     });
     this.getPost();
     this.menu_items = [
@@ -91,20 +93,21 @@ export class StoryPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  publishStory() {
-    // Set status to Publish
-    this.story.status = 5;
-    // Send update to backend
-    this.blogService.updatePost(this.story.id!, this.story).pipe(
-      takeUntil(this.unsub$)
-    ).subscribe(
-      story => {this.extras.showToast(`Successfully published ${this.story.title}`, 'Published Story', 'success')},
-      error => {this.extras.showToast(`Something went wrong while trying to publish ${this.story.title}`, 'Error publishing story', 'danger')},
-      () => {
-        // Redirect to published stories
-        this.router.navigateByUrl(`/me/stories/published`);
-      },
+  openPublishConfirmationPopUp() {
+    this.dialogService.open(
+        ConfirmationPopupComponent,
+        { context: {
+          story: this.story
+        } }
     )
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'e') {
+      this.extras.showToast('You pressed E on your keyboard to quickly navigate to edit your story.', 'Edit story from keypress', 'info', 0);
+      this.router.navigateByUrl(`/me/${this.story.id}/edit`);
+    }
   }
 
 }

@@ -43,6 +43,8 @@ import { StorySettingsSectionItemComponent } from "./pages/me/stories/story-sett
 import { ServerErrorInterceptor } from "./shared/utils/server-error-interceptor";
 import { ServerErrorComponent } from './pages/errors/server-error/server-error.component';
 import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
+import { ConfirmationPopupComponent } from "./shared/layout/confirmation-popup/confirmation-popup.component";
+import { StoryPreviewComponent } from "./shared/layout/story-preview/story-preview.component";
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-fo
     StorySettingsSectionItemComponent,
     ServerErrorComponent,
     PageNotFoundComponent,
+    ConfirmationPopupComponent,
+    StoryPreviewComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -105,6 +109,7 @@ import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-fo
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
+    { provide: 'Window',  useValue: window },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,10 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Post } from "../../../shared/utils/models/post";
 import * as BalloonEditor from "../../../shared/utils/CustomBalloonEditor/ckeditor";
 import { AuthService } from "@auth0/auth0-angular";
 import { BlogService } from "../../../shared/utils/services/blog.service";
 import { SlugifyPipe } from "../../../shared/utils/pipes/slugify.pipe";
-import { ChangeEvent } from "@ckeditor/ckeditor5-angular";
+import { ChangeEvent, CKEditor5, CKEditorComponent } from "@ckeditor/ckeditor5-angular";
 import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntil } from "rxjs/operators";
 import { Observable, Subject } from "rxjs";
@@ -20,6 +20,7 @@ import { ExtrasService } from "../../../shared/utils/services/extras.service";
 })
 export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
   private unsub$: Subject<any> = new Subject<any>();
+  @ViewChild( '_editor' ) editor: CKEditorComponent | any;
   previousUrl!: string;
   storyLoaded = false;
   story: Post = {
@@ -33,9 +34,9 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
   };
   storyLastSavedTimestamp!: number;
   lastSavedStory!: Post;
-  public Editor = BalloonEditor;
   storyCharacterCount: number = 0;
   storyWordCount: number = 0;
+  public Editor = BalloonEditor;
   editorConfig = {
     wordCount: {
       onUpdate: (stats:any) => {
@@ -84,7 +85,11 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     ).subscribe(storyLastSavedTimestamp => this.storyLastSavedTimestamp = storyLastSavedTimestamp);
   }
 
-  ngOnInit() { this.getPost(<string>this.story.id); }
+  ngOnInit() {
+    this.getPost(<string>this.story.id);
+    // console.log(this.editor);
+    // this.editor.editorInstance.editing.view.focus();
+  }
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
@@ -133,13 +138,8 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
       story => {
         this.blogService.updateLastSavedStory(story);
       },
-      error => {
-        if (error.status === 400) {
-          if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose another title.`, `AutoSave Failed - ${error.error.title}`, 'danger');
-          } else { this.extras.showToast(`Uncaught Exception: newStory#publish\n${JSON.stringify(error.error)}`, 'AutoSave Failed - Please report this error', 'danger'); }
-        }
-      },
-      () => {this.blogService.updateAutoSaveStatus(`Saved @`);}
+      error => { this.blogService.updateAutoSaveStatus('Error saving...'); },
+      () => { this.blogService.updateAutoSaveStatus(`Saved @`); }
     );
   }
 
@@ -156,6 +156,15 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
   checkSeconds(storylastSavedTimestamp: any) {
     const current_time = new Date();
     return (current_time.getTime() - storylastSavedTimestamp) / 1000
+  }
+
+  putEditorInFocus(editor: CKEditorComponent) {
+    setTimeout(() => {
+      editor.editorInstance?.editing.view.focus();
+      editor.editorInstance?.model.change(
+        (writer: any) => writer.setSelection( writer.createPositionAt( editor.editorInstance?.model.document.getRoot(), 'end' ) )
+      );
+    }, 0);
   }
 
 }

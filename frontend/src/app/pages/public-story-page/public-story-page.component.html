@@ -8,23 +8,19 @@
         <div class="col p-0">
           <div class="row mb-1 align-items-center">
             <nb-user class="mr-2" [name]="story.author_name!"></nb-user>
-            <button class="h-50" shape="semi-round" size="tiny" status="success" outline nbButton> Follow </button>
+            <button class="h-50" shape="semi-round" size="tiny" status="success" outline nbButton disabled> Follow </button>
           </div>
-          <div class="row ml-2 small text-muted"> {{story.created_on | date: 'short'}} | {{story.read_time}} min read </div>
+          <div class="row ml-2 small text-muted"> {{story.created_on | date:'LLL d, yyyy' }} · {{story.read_time}} min read </div>
         </div>
         <div class="col align-self-center">
         </div>
-        <div class="row">
-          <div class="col d-flex p-1"> <nb-icon icon="twitter-outline"></nb-icon> </div>
-          <div class="col d-flex p-1"> <nb-icon icon="linkedin-outline"></nb-icon> </div>
-          <div class="col d-flex p-1"> <nb-icon icon="facebook-outline"></nb-icon> </div>
-          <div class="col d-flex p-1"> <nb-icon icon="bookmark-outline"></nb-icon> </div>
-          <div class="col d-flex p-1"> <nb-icon icon="more-horizontal-outline" [nbContextMenu]="menu_items"></nb-icon> </div>
-        </div>
+
+        <anon-story-socials class="row align-items-center" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
+
       </div>
     </div>
     <div *ngIf="this.story.background_image == ''; else storyImage" class="">
-      <img class="img-fluid mx-auto" src="https://picsum.photos/3000/1500" />
+<!--      <img class="img-fluid mx-auto" src="https://picsum.photos/3000/1500" />-->
     </div>
     <ng-template #storyImage>
       <div class="row w-100 m-0"> <img class="img-fluid mx-auto" [src]="story.background_image" /> </div>
@@ -32,32 +28,36 @@
     <div class="mt-5 blog-content mx-auto row">
 
       <div class="row w-100">
-        <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkUp"></ckeditor>
+        <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkUp" tagName="story" class="w-100"></ckeditor>
       </div>
-      <div class="row w-100">
-        <div class="d-inline-flex pr-3 m-1 p1 h5 text-muted" style="height: 42px; line-height: 38px; background-color: rgba(0, 0, 0, 0.05); border-radius: 99em;">
-          <div class="d-flex align-self-center mx-1 p-1 rounded-circle bg-dark text-white" style="height: fit-content; box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.2);"> <nb-icon icon="hash-outline"></nb-icon> </div>
-          AnonymousTag
+      <ng-container *ngIf="story.category">
+        <div class="row w-100">
+          <div class="d-inline-flex pr-3 m-1 p1 h5 text-muted" style="height: 42px; line-height: 38px; background-color: rgba(0, 0, 0, 0.05); border-radius: 99em;">
+            <div class="d-flex align-self-center mx-1 p-1 rounded-circle bg-dark text-white" style="height: fit-content; box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.2);"> <nb-icon icon="hash-outline"></nb-icon> </div>
+            {{story.category.name}}
+          </div>
         </div>
-      </div>
+      </ng-container>
+      <ng-container *ngIf="story.tags">
+        <div class="row w-100" *ngIf="story.tags.length > 0">
+          <nb-tag-list>
+            <nb-tag *ngFor="let tag of story.tags" [text]="tag.name" appearance="outline" status="basic"></nb-tag>
+          </nb-tag-list>
+        </div>
+      </ng-container>
       <div class="d-flex row w-100 justify-content-between m-0">
-        <div class="d-flex align-self-center"> <span class="border rounded-circle p-2 mx-2"> <nb-icon class="icon-size" icon="bell-outline"></nb-icon> </span> <span class="align-self-center">0 Bells Rung</span> </div>
-        <div class="d-flex">
-          <div class="col d-flex p-1"> <nb-icon icon="twitter-outline"></nb-icon> </div>
-          <div class="col d-flex p-1"> <nb-icon icon="linkedin-outline"></nb-icon> </div>
-          <div class="col d-flex p-1"> <nb-icon icon="facebook-outline"></nb-icon> </div>
-          <div class="col d-flex p-1"> <nb-icon icon="bookmark-outline"></nb-icon> </div>
-          <div class="col d-flex p-1"> <nb-icon icon="more-horizontal-outline"></nb-icon> </div>
-        </div>
+<!--        <div class="d-flex align-self-center"> <span class="border rounded-circle p-2 mx-2"> <nb-icon class="icon-size" icon="bell-outline"></nb-icon> </span> <span class="align-self-center">0 Bells Rung</span> </div>-->
+        <div class=""></div>
+        <anon-story-socials class="d-flex" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
       </div>
       <hr class="w-100" />
       <div class="d-flex row w-100 justify-content-between m-0">
         <nb-user class="d-flex" size="giant" [name]="story.author_name!"> </nb-user>
-        <div class="d-flex align-items-center"> <button class="" shape="semi-round" size="small" status="success" outline nbButton> Follow </button> </div>
+        <div class="d-flex align-items-center"> <button class="" shape="semi-round" size="small" status="success" outline nbButton disabled> Follow </button> </div>
       </div>
       <hr class="w-100" />
       <div class="row w-100">
-        <button class="w-100" size="medium" nbButton outline status="success"> See responses (0) </button>
+        <button disabled class="w-100" size="medium" nbButton outline status="success"> See responses (0) - COMING SOON </button>
       </div>
 
     </div>

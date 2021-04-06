@@ -1,16 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Post } from "../models/post";
 import { SlugifyPipe } from "../pipes/slugify.pipe";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { BlogService } from "./blog.service";
+import { Router } from "@angular/router";
+import { ExtrasService } from "./extras.service";
 
 @Injectable()
-export class StoriesService {
+export class StoriesService implements OnDestroy {
+  private unsub$: Subject<any> = new Subject<any>();
   private domparser = new DOMParser();
 
   private filteredStories = new BehaviorSubject<any>([]);
   sharedFilteredStories = this.filteredStories.asObservable();
 
-  constructor( private slugifyPipe: SlugifyPipe ) { }
+  constructor(
+    private slugifyPipe: SlugifyPipe,
+    private blogService: BlogService,
+    private router: Router,
+    private extras: ExtrasService,
+  ) { }
 
   updateFilteredStories(stories: Post[]) { this.filteredStories.next(stories); };
 
@@ -80,6 +90,27 @@ export class StoriesService {
       storyMarkUp = storyMarkUp.replace(domDoc.getElementsByClassName('ck-subtitle')[0].outerHTML, '');
     }
     return storyMarkUp
+  }
+
+  publishStory(story: Post, redirect: string = '') {
+    // Set status to Publish
+    story.status = 5;
+    // Send update to backend
+    this.blogService.updatePost(story.id!, story).pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(
+      story => {this.extras.showToast(`Successfully published ${story.title}`, 'Published story', 'success')},
+      error => {this.extras.showToast(`Something went wrong while trying to publish ${story.title}`, 'Story not published', 'danger'), 0},
+      () => {
+        // Redirect to published stories, if requested
+        if (redirect != '') this.router.navigateByUrl(redirect);
+      },
+    )
+  }
+
+  ngOnDestroy() {
+    this.unsub$.next();
+    this.unsub$.complete();
   }
 
 }

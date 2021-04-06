@@ -1,0 +1,21 @@
+@import '../../../../themes.scss';
+
+@include nb-install-component() {
+  .story-preview {
+    //margin-bottom: 60px!important;
+  }
+  ::ng-deep nb-card-body > div > h1 {
+    margin-top: 0!important;
+  }
+  ::ng-deep nb-card-body > div > .ck-subtitle {
+    font-size: 21px;
+  }
+  ::ng-deep nb-card-body > div > p {
+    margin-top: 30px;
+  }
+  .card-box {
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 25%)!important;
+    max-height: 400px!important;
+  }
+
+}

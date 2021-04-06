@@ -24,6 +24,51 @@ export class StoryHeaderSettingsComponent implements OnInit {
   tags: Set<any> = new Set(this.story.tags);
   category_options = ['Angular', 'Django', 'Anonymous']; // TODO: Get categories from backend
   filteredCategoryOptions$ = of(this.category_options);
+  storySettingsSections = [
+    {
+      'header': 'Featured image',
+      'id': 'story-image',
+      'items': [
+        {
+          'item_name': 'Featured story image',
+          'item_key': 'background_image',
+          'item_description': "Tip: add a high-quality image to your story to capture people's interest",
+        },
+      ],
+    },
+    {
+      'header': 'Tags',
+      'id': 'story-tags',
+      'items': [
+        {
+          'item_name': 'Tags',
+          'item_key': 'tags',
+          'item_description': "Add tags so readers know what your story is about.",
+        },
+      ],
+    },
+    {
+      'header': 'Category',
+      'id': 'story-category',
+      'items': [
+        {
+          'item_name': 'Category',
+          'item_key': 'category',
+          'item_description': "Categorize your story by selecting a topic this story should be displayed in.",
+        },
+      ],
+    },
+    {
+      'header': 'Status',
+      'id': 'story-status',
+      'items': [
+        {
+          'item_name': 'Status',
+          'item_key': 'status',
+        },
+      ],
+    },
+  ];
 
   constructor() {}
 

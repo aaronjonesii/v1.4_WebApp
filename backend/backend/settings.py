@@ -25,8 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('BACKEND_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('BACKEND_DEBUG')
-if os.getenv('DEBUG') == '1': DEBUG = True
+if os.getenv('BACKEND_DEBUG') == '1': DEBUG = True
 else: DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get('BACKEND_ALLOWED_HOSTS').split(',')
