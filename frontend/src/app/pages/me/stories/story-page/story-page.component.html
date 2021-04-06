@@ -30,7 +30,7 @@
     <div class="mt-5 blog-content mx-auto row">
 
       <div class="row w-100">
-        <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkup" tagName="story"></ckeditor>
+        <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkup" tagName="story" class="w-100"></ckeditor>
       </div>
 
       <ng-container *ngIf="story.category">
