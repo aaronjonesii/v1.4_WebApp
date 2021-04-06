@@ -19,19 +19,7 @@
 
     <div class="settings-content w-100 flex-column">
 
-      <div class="story-preview">
-        <div class="row justify-content-between px-3">
-          <div class="h5">Story Preview</div>
-          <div class="align-self-end">
-            <small><a class="text-decoration-none text-muted" routerLink="/me/{{story.id}}">Back to story</a></small>
-          </div>
-        </div>
-        <nb-card class="card-box p-32">
-          <nb-card-body>
-            <div class="" [innerHTML]="story.content"></div>
-          </nb-card-body>
-        </nb-card>
-      </div>
+      <anon-story-preview [story]="story" [showBackToStoryButton]="true"></anon-story-preview>
 
       <div class="">
         <anon-story-settings-section

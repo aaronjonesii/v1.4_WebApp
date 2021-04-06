@@ -1,0 +1,21 @@
+<nb-card>
+  <nb-card-header>
+    <h4 class="text-muted text-center">Ready to publish <span class="text-truncate text-info">{{story.title}}</span>?</h4>
+  </nb-card-header>
+
+  <nb-card-body>
+    <anon-story-preview [story]="story" [showBackToStoryButton]="false" [marginBottom]="0"></anon-story-preview>
+  </nb-card-body>
+
+  <nb-card-footer>
+    <div class="row justify-content-around">
+      <ng-container *ngIf="story.status == 5; else notPublished">
+        <button class="" nbButton status="success" disabled>Already published</button>
+      </ng-container>
+      <ng-template #notPublished>
+        <button class="" (click)="publishStory()" nbButton status="success">Yes, publish story</button>
+      </ng-template>
+      <button class="" (click)="closePopup()" nbButton status="danger">No, cancel</button>
+    </div>
+  </nb-card-footer>
+</nb-card>

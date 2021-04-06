@@ -79,14 +79,14 @@ export class NewStoryComponent implements OnInit, OnDestroy {
         const postLastSavedSeconds = this.checkSeconds(this.storyLastSavedTimestamp)
         // If story has been saved more than 5 seconds ago
         if (postLastSavedSeconds > 5) {
-          this.publish(this.story);
+          this.saveDraft(this.story);
         } else { return; }
-      } else { this.publish(this.story); }
+      } else { this.saveDraft(this.story); }
     }
     this.changes++
   }
 
-  publish(story: Post) {
+  saveDraft(story: Post) {
     this.blogService.updateAutoSaveStatus('AutoSaving...');
     this.blogService.updateStoryLastSavedTimestamp(new Date().getTime());
     story.status = 2 // Set Status to Draft
@@ -108,9 +108,9 @@ export class NewStoryComponent implements OnInit, OnDestroy {
     )
   }
 
-  checkSeconds(storylastSavedTimestamp: any) {
+  checkSeconds(storyLastSavedTimestamp: any) {
     const current_time = new Date();
-    return (current_time.getTime() - storylastSavedTimestamp) / 1000
+    return (current_time.getTime() - storyLastSavedTimestamp) / 1000
   }
 
 }

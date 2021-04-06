@@ -1,0 +1,10 @@
+@import '../../../../themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    width: 650px!important;
+  }
+  nb-card-body {
+    //width: 600px!important;
+  }
+}
