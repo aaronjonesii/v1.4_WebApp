@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../../../../shared/utils/services/blog.service';
 import { Location } from '@angular/common';
@@ -100,6 +100,14 @@ export class StoryPageComponent implements OnInit, OnDestroy {
           story: this.story
         } }
     )
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'e') {
+      this.extras.showToast('You pressed E on your keyboard to quickly navigate to edit your story.', 'Edit story from keypress', 'info', 0);
+      this.router.navigateByUrl(`/me/${this.story.id}/edit`);
+    }
   }
 
 }
