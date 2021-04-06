@@ -15,15 +15,16 @@ export class StorySocialsComponent implements OnInit, OnDestroy {
   facebookLink = ``;
 
   constructor(@Inject('Window') window: Window) {
-    let storyLink: any;
-    if (this.story.public == true) {
-      setTimeout(() => storyLink = `https://${window.location.hostname}/public/${this.story.id}`, 0);
       setTimeout(() => {
-        this.twitterLink = `https://twitter.com/intent/tweet?url=${storyLink}`;
-        this.linkedinLink = `https://www.linkedin.com/shareArticle?mini=true&url=${storyLink}`;
-        this.facebookLink = `https://www.facebook.com/sharer.php?u=${storyLink}`;
+        if (this.story.public == true) {
+          let storyLink: any;
+          storyLink = `https://${window.location.hostname}/public/${this.story.id}`
+          this.twitterLink = `https://twitter.com/intent/tweet?url=${storyLink}`;
+          this.linkedinLink = `https://www.linkedin.com/shareArticle?mini=true&url=${storyLink}`;
+          this.facebookLink = `https://www.facebook.com/sharer.php?u=${storyLink}`;
+        }
       }, 0);
-    }
+
   }
 
   ngOnInit() { }
