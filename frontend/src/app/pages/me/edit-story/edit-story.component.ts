@@ -133,13 +133,8 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
       story => {
         this.blogService.updateLastSavedStory(story);
       },
-      error => {
-        if (error.status === 400) {
-          if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose another title.`, `AutoSave Failed - ${error.error.title}`, 'danger');
-          } else { this.extras.showToast(`Uncaught Exception: editStory#updateStory\n${JSON.stringify(error.error)}`, 'AutoSave Failed - Please report this error', 'danger'); }
-        }
-      },
-      () => {this.blogService.updateAutoSaveStatus(`Saved @`);}
+      error => { this.blogService.updateAutoSaveStatus('Error saving...'); },
+      () => { this.blogService.updateAutoSaveStatus(`Saved @`); }
     );
   }
 
