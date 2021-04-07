@@ -15,6 +15,7 @@ class CustomUserAdmin(UserAdmin):
         ),
         *UserAdmin.fieldsets,  # original form fieldsets, expanded
     )
+    list_display = ('username', 'email', 'is_frontend_admin', 'is_staff')
 
 
 admin.site.register(User, CustomUserAdmin)
