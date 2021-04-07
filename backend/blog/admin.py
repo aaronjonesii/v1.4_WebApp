@@ -2,7 +2,22 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User, Post, Category, Status, Tag, NewsletterSubscriber
 
-admin.site.register(User, UserAdmin)
+
+class CustomUserAdmin(UserAdmin):
+    fieldsets = (
+        (                      # new fieldset added on to the bottom
+            'Frontend Fields',  # group heading of your choice; set to None for a blank space instead of a header
+            {
+                'fields': (
+                    'is_frontend_admin',
+                ),
+            },
+        ),
+        *UserAdmin.fieldsets,  # original form fieldsets, expanded
+    )
+
+
+admin.site.register(User, CustomUserAdmin)
 admin.site.register(Post)
 admin.site.register(Category)
 admin.site.register(Status)
