@@ -45,6 +45,8 @@ def update_post_fields(new_post_data, instance):
     instance.updated_on = timezone.now()
     instance.publish_on = new_post_data.get('publish_on', instance.publish_on)
     instance.status = new_post_data.get('status', instance.status)
+    instance.public = new_post_data.get('public', instance.public)
+    instance.featured = new_post_data.get('featured', instance.featured)
 
 
 def update_tags(update_tags, post_instance):
