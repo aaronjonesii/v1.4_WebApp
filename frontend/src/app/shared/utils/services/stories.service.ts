@@ -92,7 +92,7 @@ export class StoriesService implements OnDestroy {
     return storyMarkUp
   }
 
-  publishStory(story: Post, redirect: string = '') {
+  publishStory(story: Post, redirectRouterLink: string = '') {
     // Set status to Publish
     story.status = 5;
     // Send update to backend
@@ -103,7 +103,7 @@ export class StoriesService implements OnDestroy {
       error => {this.extras.showToast(`Something went wrong while trying to publish ${story.title}`, 'Story not published', 'danger'), 0},
       () => {
         // Redirect to published stories, if requested
-        if (redirect != '') this.router.navigateByUrl(redirect);
+        if (redirectRouterLink != '') this.router.navigateByUrl(redirectRouterLink);
       },
     )
   }
