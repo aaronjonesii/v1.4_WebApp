@@ -9,6 +9,7 @@ import { ServerErrorComponent } from "./pages/errors/server-error/server-error.c
 const routes: Routes = [
   { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
   { path: 'error', component: ServerErrorComponent },
+  { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard] },
   { path: 'me', loadChildren: () => import('./pages/me/me.module').then(m => m.MeModule), canActivate: [AuthGuard] },
   { path: 'new-story', loadChildren: () => import('./pages/new-story/new-story.module').then(m => m.NewStoryModule), canActivate: [AuthGuard] },
   { path: 'public/:post_id', component: PublicStoryPageComponent },

@@ -76,4 +76,12 @@ export class BlogService {
     return this.http.get<Category[]>(`${environment.apiURL}/cats/`, {headers: this.httpHeaders});
   }
 
+  adminGetAllStories(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${environment.apiURL}/frontend/admin/blog/`, {headers: this.httpHeaders});
+  }
+
+  adminUpdateStory(postID: string, post: Post): Observable<Post> {
+    return this.http.put<Post>(`${environment.apiURL}/frontend/admin/blog/${postID}/`, post, {headers: this.httpHeaders});
+  }
+
 }

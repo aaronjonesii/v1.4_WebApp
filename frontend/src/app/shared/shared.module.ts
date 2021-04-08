@@ -26,7 +26,7 @@ import {
   NbListModule,
   NbActionsModule,
   NbSearchModule,
-  NbTagModule, NbAutocompleteModule
+  NbTagModule, NbAutocompleteModule, NbToggleModule, NbAccordionModule
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -45,7 +45,8 @@ const NB_MODULES = [
   NbLayoutModule, NbButtonModule, NbCardModule, NbSelectModule, NbIconModule,
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
   NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule,
-  NbSearchModule, NbTagModule, NbAutocompleteModule,
+  NbSearchModule, NbTagModule, NbAutocompleteModule, NbSidebarModule, NbToggleModule,
+  NbAccordionModule,
 ];
 const MAT_MODULES = []!;
 const COMPONENTS = []!;
@@ -65,7 +66,6 @@ const NB_THEME_PROVIDERS = [
     [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME ],
   ).providers!,
   ...NbSidebarModule.forRoot().providers!,
-  ...NbMenuModule.forRoot().providers!,
   ...NbDialogModule.forRoot().providers!,
   ...NbWindowModule.forRoot().providers!,
 ];

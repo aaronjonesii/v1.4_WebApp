@@ -1,0 +1,61 @@
+<div class="container">
+
+<!-- Header Section -->
+  <section class="container mb-3">
+    <div class="row w-100 justify-content-between">
+      <div class="col">
+        <span class="row display-4">Stories</span>
+        <small class="row text-muted">Manage stories on your site.</small>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+  </section>
+
+  <ng-container class="container" *ngIf="!stories_loaded; else loaded">
+    <anon-loading></anon-loading>
+  </ng-container>
+
+  <ng-template #loaded>
+
+    <!-- Sub Header Section -->
+    <section class="container">
+      <nb-card>
+        <nb-card-body>
+          <nav>
+            <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+              <a
+                *ngFor="let status of statuses | keyvalue"
+                class="nav-item nav-link text-decoration-none text-hint"
+                [class.active]="status.value.default"
+                id="nav-{{status.key}}-tab"
+                data-toggle="tab"
+                href="#nav-{{status.key}}"
+                role="tab"
+              >
+                {{status.value.plural_name}} <span class="badge badge-pill badge-dark">{{status.value.number_of_stories}}</span>
+              </a>
+            </div>
+          </nav>
+        </nb-card-body>
+      </nb-card>
+    </section>
+
+    <!--  Stories Section  -->
+    <section class="container">
+      <div class="tab-content" id="nav-tabContent">
+        <div
+          *ngFor="let status of statuses | keyvalue"
+          class="tab-pane fade"
+          [ngClass]="{'show active': status.value.default}"
+          id="nav-{{status.key}}"
+          role="tabpanel"
+        >
+          <anon-admin-stories-status-list [stories]="status.value.stories"></anon-admin-stories-status-list>
+        </div>
+      </div>
+    </section>
+
+  </ng-template>
+
+</div>
