@@ -51,6 +51,7 @@ import { AdminStoriesComponent } from "./pages/admin/admin-stories/admin-stories
 import { AdminDashboardComponent } from "./pages/admin/admin-dashboard/admin-dashboard.component";
 import { AdminStoriesStatusListComponent } from "./pages/admin/admin-stories/admin-stories-status-list/admin-stories-status-list.component";
 import { AdminDashboardQuickLinksComponent } from "./pages/admin/admin-dashboard/admin-dashboard-quick-links/admin-dashboard-quick-links.component";
+import { AdminDashboardStoriesComponent } from "./pages/admin/admin-dashboard/admin-dashboard-stories/admin-dashboard-stories.component";
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { AdminDashboardQuickLinksComponent } from "./pages/admin/admin-dashboard
     AdminStoriesComponent,
     AdminDashboardComponent,
     AdminStoriesStatusListComponent,
-    AdminDashboardQuickLinksComponent
+    AdminDashboardQuickLinksComponent,
+    AdminDashboardStoriesComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -5,8 +5,6 @@ import { SharedModule } from "../../shared/shared.module";
 import { RouterModule, Routes } from "@angular/router";
 import { AdminStoriesComponent } from './admin-stories/admin-stories.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { AdminStoriesStatusListComponent } from './admin-stories/admin-stories-status-list/admin-stories-status-list.component';
-import { AdminDashboardQuickLinksComponent } from './admin-dashboard/admin-dashboard-quick-links/admin-dashboard-quick-links.component';
 
 
 const routes: Routes = [
