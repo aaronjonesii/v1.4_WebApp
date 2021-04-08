@@ -17,6 +17,7 @@ export interface Post {
   publish_on?: string;
   status: number;
   public?: boolean;
+  featured?: boolean;
 
 }
 
