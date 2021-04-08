@@ -91,3 +91,11 @@ class IsFrontendAdmin(permissions.BasePermission):
         user_id = request.user
         return is_frontend_admin(user_id)
 
+
+class AdminPostViewSet(viewsets.ModelViewSet):
+    """
+        CRUD endpoint for frontend admin posts.
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = (permissions.IsAuthenticated, IsFrontendAdmin)
