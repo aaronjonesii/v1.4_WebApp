@@ -9,6 +9,7 @@ import json
 
 from ..serializers import PostSerializer, TagSerializer, CategorySerializer
 from ..models import Post, Tag, Category
+from .auth0 import is_frontend_admin
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -52,7 +53,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 class PublicPostViewSet(viewsets.ModelViewSet):
     """
-    CRUD endpoint for blogging platform.
+    CRUD endpoint for public posts.
     """
     serializer_class = PostSerializer
     permission_classes = (permissions.AllowAny,)
@@ -72,16 +73,29 @@ class TagViewSet(viewsets.ModelViewSet):
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
-    CRUD endpoint for tags.
+    CRUD endpoint for categories.
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = (permissions.AllowAny,)
 
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def public_stories(request):
-    stories = Post.objects.filter(public=True).all()
-    json_stories = json.loads(json.dumps(PostSerializer(stories, many=True).data))
-    return JsonResponse(json_stories, content_type='application/json', safe=False)
+class IsFrontendAdmin(permissions.BasePermission):
+    """
+    Global permission check for frontend admin
+    """
+    message = 'You lack valid authentication credentials for the target resource.'
+    code = 401
+
+    def has_permission(self, request, view):
+        user_id = request.user
+        return is_frontend_admin(user_id)
+
+
+class AdminPostViewSet(viewsets.ModelViewSet):
+    """
+        CRUD endpoint for frontend admin posts.
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = (permissions.IsAuthenticated, IsFrontendAdmin)

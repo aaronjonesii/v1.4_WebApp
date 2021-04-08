@@ -27,7 +27,7 @@ import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
 import { ProfileSettingsComponent } from "./pages/me/profile-settings/profile-settings.component";
 import { ProfileSettingsSectionComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section.component";
 import { ProfileSettingsSectionItemComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section-item/profile-settings-section-item.component";
-import { NbToastrModule } from "@nebular/theme";
+import { NbMenuModule, NbToastrModule } from "@nebular/theme";
 import { PublicStoryPageComponent } from './pages/public-story-page/public-story-page.component';
 import { PublicStoriesListComponent } from "./pages/public-stories-list/public-stories-list.component";
 import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-list/status-stories-list.component";
@@ -45,6 +45,13 @@ import { ServerErrorComponent } from './pages/errors/server-error/server-error.c
 import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
 import { ConfirmationPopupComponent } from "./shared/layout/confirmation-popup/confirmation-popup.component";
 import { StoryPreviewComponent } from "./shared/layout/story-preview/story-preview.component";
+import { AdminModule } from "./pages/admin/admin.module";
+import { AdminComponent } from "./pages/admin/admin.component";
+import { AdminStoriesComponent } from "./pages/admin/admin-stories/admin-stories.component";
+import { AdminDashboardComponent } from "./pages/admin/admin-dashboard/admin-dashboard.component";
+import { AdminStoriesStatusListComponent } from "./pages/admin/admin-stories/admin-stories-status-list/admin-stories-status-list.component";
+import { AdminDashboardQuickLinksComponent } from "./pages/admin/admin-dashboard/admin-dashboard-quick-links/admin-dashboard-quick-links.component";
+import { AdminDashboardStoriesComponent } from "./pages/admin/admin-dashboard/admin-dashboard-stories/admin-dashboard-stories.component";
 
 @NgModule({
   declarations: [
@@ -80,12 +87,19 @@ import { StoryPreviewComponent } from "./shared/layout/story-preview/story-previ
     PageNotFoundComponent,
     ConfirmationPopupComponent,
     StoryPreviewComponent,
+    AdminComponent,
+    AdminStoriesComponent,
+    AdminDashboardComponent,
+    AdminStoriesStatusListComponent,
+    AdminDashboardQuickLinksComponent,
+    AdminDashboardStoriesComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
     NbToastrModule.forRoot(),
+    NbMenuModule.forRoot(),
     NbEvaIconsModule,
     HttpClientModule,
 
@@ -93,6 +107,7 @@ import { StoryPreviewComponent } from "./shared/layout/story-preview/story-previ
     NewStoryModule,
     MeModule,
     StoriesModule,
+    AdminModule,
 
     AuthModule.forRoot({
       domain: environment.Auth0_domain,
@@ -103,6 +118,10 @@ import { StoryPreviewComponent } from "./shared/layout/story-preview/story-previ
         allowedList: [
           { uri: environment.apiURL + '/user/update/' },
           { uri: environment.apiURL + '/blog/*' },
+          {
+            uri: environment.apiURL + '/frontend/admin/*',
+            // tokenOptions: { scope: 'read:users_app_metadata' },
+          },
         ]
       }
     }),

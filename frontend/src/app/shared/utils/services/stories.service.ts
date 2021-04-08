@@ -64,11 +64,40 @@ export class StoriesService implements OnDestroy {
     // filteredStories.sort(this.sortByTitle);
     return filteredStories;
   }
+  sort_stories_by_date(
+    stories_to_sort: Post[],
+    sort_by: 'updated_on'|'created_on',
+    direction: 'descending'|'ascending') {
+    if ((sort_by === "updated_on")&&(direction === "descending")) stories_to_sort.sort(this.sort_by_updated_on_descending)
+    if ((sort_by === "updated_on")&&(direction === "ascending")) stories_to_sort.sort(this.sort_by_updated_on_ascending)
+    if ((sort_by === "created_on")&&(direction === "descending")) stories_to_sort.sort(this.sort_by_created_on_descending)
+    if ((sort_by === "created_on")&&(direction === "ascending")) stories_to_sort.sort(this.sort_by_created_on_ascending)
+  }
   sortByDate(a:any, b:any) {
     const c:any = new Date(a.updated_on).getTime();
     const d:any = new Date(b.updated_on).getTime();
     // return c > d ? 1 : -1; // Ascending
     return c > d ? -1 : 1; // Descending
+  }
+  sort_by_updated_on_descending(a:any, b:any) {
+    const c:any = new Date(a.updated_on).getTime();
+    const d:any = new Date(b.updated_on).getTime();
+    return c > d ? -1 : 1;
+  }
+  sort_by_updated_on_ascending(a:any, b:any) {
+    const c:any = new Date(a.updated_on).getTime();
+    const d:any = new Date(b.updated_on).getTime();
+    return c > d ? 1 : -1;
+  }
+  sort_by_created_on_descending(a:any, b:any) {
+    const c:any = new Date(a.created_on).getTime();
+    const d:any = new Date(b.created_on).getTime();
+    return c > d ? -1 : 1;
+  }
+  sort_by_created_on_ascending(a:any, b:any) {
+    const c:any = new Date(a.created_on).getTime();
+    const d:any = new Date(b.created_on).getTime();
+    return c > d ? 1 : -1;
   }
   sortByTitle(a:Post, b:Post) {
     const c:any = a.title;
@@ -92,7 +121,7 @@ export class StoriesService implements OnDestroy {
     return storyMarkUp
   }
 
-  publishStory(story: Post, redirect: string = '') {
+  publishStory(story: Post, redirectRouterLink: string = '') {
     // Set status to Publish
     story.status = 5;
     // Send update to backend
@@ -103,7 +132,7 @@ export class StoriesService implements OnDestroy {
       error => {this.extras.showToast(`Something went wrong while trying to publish ${story.title}`, 'Story not published', 'danger'), 0},
       () => {
         // Redirect to published stories, if requested
-        if (redirect != '') this.router.navigateByUrl(redirect);
+        if (redirectRouterLink != '') this.router.navigateByUrl(redirectRouterLink);
       },
     )
   }

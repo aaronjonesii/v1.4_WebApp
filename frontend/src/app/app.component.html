@@ -9,4 +9,8 @@
     <router-outlet> </router-outlet>
   </nb-layout-column>
 
+  <nb-sidebar *ngIf="this._router.url.split('/')[1] === 'admin'">
+    <nb-menu [items]="MENU_ITEMS"></nb-menu>
+  </nb-sidebar>
+
 </nb-layout>

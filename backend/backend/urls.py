@@ -27,6 +27,13 @@ blog_list = post.PostViewSet.as_view({
 public_blog_list = post.PublicPostViewSet.as_view({'get': 'list'})
 public_blog_detail = post.PublicPostViewSet.as_view({'get': 'retrieve'})
 
+admin_post_list = post.AdminPostViewSet.as_view({'get': 'list'})
+admin_post_detail = post.AdminPostViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'delete': 'destroy',
+})
+
 blog_detail = post.PostViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
@@ -34,21 +41,13 @@ blog_detail = post.PostViewSet.as_view({
     'delete': 'destroy'
 })
 
-related_post = post.PostViewSet.as_view({
-    'get': 'related_posts'
-})
+related_post = post.PostViewSet.as_view({'get': 'related_posts'})
 
-post_byline = post.PostViewSet.as_view({
-    'get': 'byline'
-})
+post_byline = post.PostViewSet.as_view({'get': 'byline'})
 
-post_tags = post.PostViewSet.as_view({
-    'get': 'tags'
-})
+post_tags = post.PostViewSet.as_view({'get': 'tags'})
 
-newsletter_subscribe = newsletter.NewsletterSubscription.as_view({
-    'post': 'create',
-})
+newsletter_subscribe = newsletter.NewsletterSubscription.as_view({'post': 'create',})
 
 router = routers.DefaultRouter()
 router.register(r'tags', post.TagViewSet)
@@ -61,9 +60,12 @@ ipv6pattern = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('frontend/admin/blog/', admin_post_list, name='admin_post_list'),
+    path('frontend/admin/blog/<uuid:pk>/', admin_post_detail, name='admin_post_detail'),
+
     path('user/update/', auth0.auth0_user_update, name='update_user'),
 
-    path('public/', public_blog_list, name='public_post'),
+    path('public/', public_blog_list, name='public_post_list'),
     path('public/<uuid:pk>/', public_blog_detail, name='public_post_detail'),
 
     path('blog/', blog_list, name='post_list'),
