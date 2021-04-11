@@ -39,6 +39,9 @@ import { PendingChangesGuard } from "./utils/pending-changes.guard";
 import { DateAgoPipe } from "./utils/pipes/date-ago.pipe";
 import { ProfileSettingsService } from "./utils/services/profile-settings.service";
 import { ExtrasService } from "./utils/services/extras.service";
+import { FrontendAdminGuard } from "./utils/frontend-admin.guard";
+import { AppComponent } from "../app.component";
+import { UserHeaderComponent } from "./layout/headers/user-header/user-header.component";
 
 const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule, ];
 const NB_MODULES = [
@@ -52,10 +55,12 @@ const MAT_MODULES = []!;
 const COMPONENTS = []!;
 const ENTRY_COMPONENTS = []!;
 const PIPES = [SlugifyPipe, DateAgoPipe];
-const PROVIDERS = [
-  SlugifyPipe, UrlService, StoriesService,
-  PendingChangesGuard, DateAgoPipe, ProfileSettingsService,
+const SERVICES = [
+  UrlService, StoriesService, ProfileSettingsService,
   ExtrasService,
+];
+const GUARDS = [
+  PendingChangesGuard, FrontendAdminGuard,
 ];
 
 const NB_THEME_PROVIDERS = [
@@ -70,6 +75,10 @@ const NB_THEME_PROVIDERS = [
   ...NbWindowModule.forRoot().providers!,
 ];
 
+const PROVIDERS = [
+  ...NB_THEME_PROVIDERS, ...SERVICES, ...PIPES, ...GUARDS,
+];
+
 @NgModule({
   imports: [ ...BASE_MODULES, ...NB_MODULES, ...MAT_MODULES ],
   exports: [...BASE_MODULES, ...NB_MODULES, ...MAT_MODULES, ...COMPONENTS, ...PIPES],
@@ -78,6 +87,6 @@ const NB_THEME_PROVIDERS = [
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {
-    return { ngModule: SharedModule, providers: [...NB_THEME_PROVIDERS, ...PROVIDERS] };
+    return { ngModule: SharedModule, providers: [...PROVIDERS] };
   }
 }

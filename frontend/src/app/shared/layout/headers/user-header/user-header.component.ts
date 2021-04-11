@@ -5,6 +5,7 @@ import { NbMenuService } from "@nebular/theme";
 import { takeUntil } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../environments/environment";
+import { AdminService } from "../../../utils/services/admin.service";
 
 @Component({
   selector: 'anon-user-header',
@@ -15,20 +16,18 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   isAuthenticated = false;
   user: any;
-  user_metadata: any;
+  user_idTokenClaims: any;
   user_context_items = [
-    // TODO: Only show Admin link to admins
-    { title: 'Admin', link: '/admin', icon: 'grid-outline' },
     { title: 'Write a story', link: '/new-story', icon: 'plus-outline' },
     { title: 'Stories', link: '/me/stories', icon: 'file-text-outline' },
     { title: 'Settings', link: '/me/settings', icon: 'settings-2-outline' },
-    { title: 'Log Out', icon: 'unlock-outline' }
+    { title: 'Log Out', icon: 'unlock-outline' },
   ];
 
   constructor(
     public auth: AuthService,
     private menuService: NbMenuService,
-    private http: HttpClient,
+    private admin: AdminService,
   ) { }
 
   ngOnInit() {
@@ -46,12 +45,16 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
     this.auth.user$.pipe(
       takeUntil(this.unsub$)
     ).subscribe((user) => this.user = user );
-
-    setTimeout(() => {
-      if (this.isAuthenticated) {
-        // TODO: Check for admin scope here
+    // Auth0 idTokenClaims Subscriber
+    this.auth.idTokenClaims$.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(
+      idTokenClaims => {
+        if (this.admin.is_frontend_admin(idTokenClaims)) {
+          this.user_context_items.unshift({ title: 'Admin', link: '/admin', icon: 'grid-outline' },)
+        }
       }
-    }, 2000)
+    );
   }
   ngOnDestroy() {
     this.unsub$.next();
