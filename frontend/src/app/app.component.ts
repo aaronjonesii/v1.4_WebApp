@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, mergeMap } from "rxjs/operators";
+import { filter } from "rxjs/operators";
 import { AuthService } from "@auth0/auth0-angular";
 import { NavigationEnd, Router } from "@angular/router";
 import { UrlService } from "./shared/utils/services/url.service";
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit  {
         this.currentUrl = event.url;
         this.urlService.setPreviousUrl(this.previousUrl);
       }
-    )
+    );
   }
 
   showStoryHeader(): boolean {
