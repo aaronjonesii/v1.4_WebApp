@@ -113,7 +113,6 @@ import { AdminDashboardStoriesComponent } from "./pages/admin/admin-dashboard/ad
       domain: environment.Auth0_domain,
       clientId: environment.Auth0_clientID,
       audience: environment.Auth0_audience,
-      // scope: 'read:current_user', // Request this scope at user authentication time
       httpInterceptor: { // Specify configuration for the interceptor
         allowedList: [
           { uri: environment.apiURL + '/user/update/' },
