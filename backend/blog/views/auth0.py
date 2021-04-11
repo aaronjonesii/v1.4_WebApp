@@ -62,13 +62,18 @@ def auth0_user_update(request):
 
 
 def is_frontend_admin(user_id):
+    """
+    Check for frontend_admin in roles from the users app metadata
+    :param user_id: Auth0 User ID
+    :return: boolean
+    """
     user_id = str(user_id)
     if not User.objects.filter(username=user_id).first().is_frontend_admin: return False
     check_token()
     user = json.loads(json.dumps(get_user_by_id(user_id)))
     user_app_metadata = user['app_metadata']
-    if "is_frontend_admin" in user_app_metadata:
-        if user_app_metadata['is_frontend_admin']:
+    if "roles" in user_app_metadata:
+        if "frontend_admin" in user_app_metadata['roles']:
             return True
     else: return False
 
