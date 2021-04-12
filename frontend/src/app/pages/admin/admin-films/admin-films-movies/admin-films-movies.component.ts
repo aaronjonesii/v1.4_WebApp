@@ -17,6 +17,7 @@ export class AdminFilmsMoviesComponent implements OnInit, OnDestroy {
   movies_next_page = '';
   movies_previous_page = '';
   movies_results: Movie[] = [];
+  loading = true;
 
   constructor(
     private filmsService: FilmsService,
@@ -30,7 +31,7 @@ export class AdminFilmsMoviesComponent implements OnInit, OnDestroy {
         this.movies_results = response.results;
       },
       console.error,
-      () => {this.movies_loaded = true;}
+      () => {this.movies_loaded = true;this.loading = false;}
     );
   }
 
@@ -38,6 +39,22 @@ export class AdminFilmsMoviesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
+  }
+
+  loadNext() {
+    if (this.loading) { return }
+    this.loading = true;
+    this.filmsService.load(this.movies_next_page).subscribe(
+      (response: FilmResponse) => {
+        this.movies_count = response.count;
+        this.movies_next_page = response.next;
+        this.movies_previous_page = response.previous;
+        this.movies_results.push(...response.results);
+        this.loading = false;
+      },
+      console.error,
+      () => {},
+    );
   }
 
 }

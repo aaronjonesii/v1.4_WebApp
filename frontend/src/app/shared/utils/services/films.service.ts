@@ -22,4 +22,8 @@ export class FilmsService {
     return this.http.get<any>(`${environment.apiURL}/frontend/admin/films/shows/`, {headers: this.httpHeaders});
   }
 
+  load(pageURL: string): Observable<any> {
+    return this.http.get<any>(pageURL, {headers: this.httpHeaders});
+  }
+
 }
