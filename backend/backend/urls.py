@@ -18,6 +18,7 @@ from django.urls import include, path, re_path
 from rest_framework import routers
 
 from blog.views import newsletter, weather, ip, post, auth0
+from films.views import films
 
 blog_list = post.PostViewSet.as_view({
     'get': 'list',
@@ -33,6 +34,10 @@ admin_post_detail = post.AdminPostViewSet.as_view({
     'put': 'update',
     'delete': 'destroy',
 })
+
+admin_animes_list = films.AnimeViewSet.as_view({'get': 'list'})
+admin_movies_list = films.MovieViewSet.as_view({'get': 'list'})
+admin_shows_list = films.ShowViewSet.as_view({'get': 'list'})
 
 blog_detail = post.PostViewSet.as_view({
     'get': 'retrieve',
@@ -62,6 +67,10 @@ urlpatterns = [
 
     path('frontend/admin/blog/', admin_post_list, name='admin_post_list'),
     path('frontend/admin/blog/<uuid:pk>/', admin_post_detail, name='admin_post_detail'),
+
+    path('frontend/admin/films/animes/', admin_animes_list, name='admin_animes_list'),
+    path('frontend/admin/films/movies/', admin_movies_list, name='admin_movies_list'),
+    path('frontend/admin/films/shows/', admin_shows_list, name='admin_shows_list'),
 
     path('user/update/', auth0.auth0_user_update, name='update_user'),
 

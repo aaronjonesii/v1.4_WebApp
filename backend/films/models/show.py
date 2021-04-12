@@ -14,7 +14,7 @@ class Show(models.Model):
     network = models.CharField(max_length=30)
     air_day = models.CharField(max_length=9)
     air_time = models.CharField(max_length=5)
-    status = models.FloatField(max_length=16)
+    status = models.CharField(max_length=16)
     num_seasons = models.PositiveSmallIntegerField()
     last_updated = models.FloatField(max_length=16)
     episodes = models.TextField()

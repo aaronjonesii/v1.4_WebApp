@@ -56,6 +56,10 @@ def get_films(film_type):
             if is__v_present: json_film['_v'] = json_film.pop(f'__v')
             film_list.append(json_film)
         return film_list
+    elif data.status_code == 503:
+        if 'Retry-After' in data.headers:
+            sys.exit(f"{data.status_code} {data.reason} @ {url}\nRetry in {data.headers['Retry-After']} minutes.")
+        sys.exit(f"{data.status_code} {data.reason} @ {url}")
     else: sys.exit(f"{data.status_code} {data.reason} @ {url}")
 
 
@@ -69,7 +73,7 @@ class FilmDatabase:
         try:
             self.database = self.connect()
             self.database_name = database_name
-            self.table_name = f"{film_type}s"
+            self.table_name = f"films_{film_type}"
             self.film_type = film_type
             allowed_film_types = ['anime', 'movie', 'show']
             if self.film_type not in allowed_film_types:
@@ -211,6 +215,7 @@ class FilmDatabase:
         """Show table columns"""
         cursor.execute(f"SHOW COLUMNS FROM {self.table_name};")
         results = cursor.fetchall()
+        print(f'Database Table {self.table_name}: ')
         for col in results:
             print(col)
 
@@ -270,6 +275,7 @@ def setup_films(film_type):
         film_database.use_database(cursor)
         if not film_database.table_exists(cursor):
             film_database.create_film_table(cursor)
+        # film_database.show_table_cols(cursor)
         new_film_count = film_database.update_database(cursor)
         print(f"{new_film_count} new {film_type}s were added to the database.")
     else:
@@ -280,4 +286,4 @@ if __name__ == '__main__':
     print('What\'s up?')
     # setup_films(film_type='anime')
     # setup_films(film_type='movie')
-    # setup_films(film_type='show')
+    setup_films(film_type='show')
