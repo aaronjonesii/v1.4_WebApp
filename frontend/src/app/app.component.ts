@@ -14,7 +14,7 @@ import { NbMenuItem } from "@nebular/theme";
 export class AppComponent implements OnInit  {
   previousUrl!: string;
   currentUrl!: string;
-  MENU_ITEMS: NbMenuItem[] = [
+  SIDEBAR_MENU_ITEMS: NbMenuItem[] = [
     {
       title: 'Dashboard',
       icon: 'home-outline',
@@ -33,7 +33,16 @@ export class AppComponent implements OnInit  {
       ]
     },
     { title: 'Media', icon: 'image-outline' },
-    { title: 'Popcorn Time Movies', icon: 'film-outline' },
+    {
+      title: 'Films',
+      icon: 'film-outline',
+      link: '/admin/films/movies',
+      children: [
+        { title: 'Anime Shows', link: '/admin/films/animes' },
+        { title: 'Movies', link: '/admin/films/movies' },
+        { title: 'TV Shows', link: '/admin/films/shows' },
+      ]
+    },
   ]
 
   constructor(
