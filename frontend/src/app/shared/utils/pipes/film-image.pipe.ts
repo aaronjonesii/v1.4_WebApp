@@ -9,7 +9,7 @@ export class FilmImagePipe implements PipeTransform {
       if ("poster" in movie_images) {
         if (movie_images.poster != undefined) {
           if (movie_images.poster.includes('http')) {
-            image_url = movie_images.poster
+            image_url = movie_images.poster.replace('http', 'https')
           }
         }
       }
