@@ -181,3 +181,4 @@ backend/dev.env
 backend/setDevEnv.py
 backend/prod.env
 backend/setProdEnv.py
+frontend/buildProd.sh
