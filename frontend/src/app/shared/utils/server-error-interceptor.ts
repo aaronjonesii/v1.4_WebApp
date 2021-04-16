@@ -35,16 +35,20 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
             } else { this.extras.showToast(` Please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Bad Request', 'danger', 0);console.error(error); }
           } else {
             if (error.status === 500) {
-              this.extras.showToast(`Please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, `Internal Server Error`, 'danger', 0);
+              // this.extras.showToast(`Please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, `Internal Server Error`, 'danger', 0);
               console.error(error);
             } else {
-              if (error.message === 'Login required') {
-                if (this.authenticated) {
-                  this.extras.showToast('Sorry, something went wrong authenticating your account. Try again...', 'Error Authenticating', 'danger', 0);
-                } console.error('[!] Not authenticated and login required [!]');
+              if (error.status === 503) {
+                this.extras.showToast('Something went wrong processing your request...', 'Try again in 5 minutes', 'danger', 0)
               } else {
-                this.extras.showError(`If you are seeing, this please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Exception');
-                console.error(error.error);
+                if (error.message === 'Login required') {
+                  if (this.authenticated) {
+                    this.extras.showToast('Sorry, something went wrong authenticating your account. Try again...', 'Error Authenticating', 'danger', 0);
+                  } console.error('[!] Not authenticated and login required [!]');
+                } else {
+                  // this.extras.showError(`If you are seeing, this please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Exception');
+                  console.error(error.error);
+                }
               }
             }
           }

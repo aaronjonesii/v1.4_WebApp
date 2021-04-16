@@ -36,7 +36,7 @@ def get_films(film_type):
     """
     allowed_film_types = ['anime', 'movie', 'show']
     if film_type not in allowed_film_types:
-        sys.exit(f"FilmTypeError in getFilm: '{film_type}' is not in the allowed film types => {allowed_film_types}")
+        raise ValueError(f"FilmTypeError in getFilm: '{film_type}' is not in the allowed film types => {allowed_film_types}")
     url = "https://tv-v2.api-fetch.sh/exports/" + film_type
     print(f"\nPreparing to get {film_type}s, this may take a minute or two...")
     data = get(url)
@@ -58,9 +58,10 @@ def get_films(film_type):
         return film_list
     elif data.status_code == 503:
         if 'Retry-After' in data.headers:
-            sys.exit(f"{data.status_code} {data.reason} @ {url}\nRetry in {data.headers['Retry-After']} minutes.")
-        sys.exit(f"{data.status_code} {data.reason} @ {url}")
-    else: sys.exit(f"{data.status_code} {data.reason} @ {url}")
+            raise ValueError(f"{data.status_code} {data.reason} @ {url}\nRetry in {data.headers['Retry-After']} minutes.")
+            raise ValueError(f"{data.status_code} {data.reason} @ {url}\nRetry in {data.headers['Retry-After']} minutes.")
+        raise ValueError(f"{data.status_code} {data.reason} @ {url}")
+    else: raise ValueError(f"{data.status_code} {data.reason} @ {url}")
 
 
 class FilmDatabase:
@@ -77,9 +78,9 @@ class FilmDatabase:
             self.film_type = film_type
             allowed_film_types = ['anime', 'movie', 'show']
             if self.film_type not in allowed_film_types:
-                sys.exit(f"FilmTypeError in FilmDatabase#init: '{film_type}' is not in the allowed film types => {allowed_film_types}")
+                raise ValueError(f"FilmTypeError in FilmDatabase#init: '{film_type}' is not in the allowed film types => {allowed_film_types}")
         except mysql.connector.errors.ProgrammingError:
-            sys.exit(f'\n [!] Authentication denied for {user}@{host} [!]')
+            raise ValueError(f'\n [!] Authentication denied for {user}@{host} [!]')
 
     def connect(self):
         """
@@ -209,7 +210,7 @@ class FilmDatabase:
                                                     )"""
                 cursor.execute(show_sql)
         except mysql.connector.errors.ProgrammingError as e:
-            sys.exit(f'TableCreationError in FilmDatabase#createFilmTable: \n{e} [!]')
+            raise ValueError(f'TableCreationError in FilmDatabase#createFilmTable: \n{e} [!]')
 
     def show_table_cols(self, cursor):
         """Show table columns"""
@@ -246,7 +247,7 @@ class FilmDatabase:
             cursor.execute(film_sql, values)
             self.database.commit()
         except mysql.connector.errors.ProgrammingError as e:
-            sys.exit(f"AddFilmError in FilmDatabase#addFilm: film below:\n{json_film}\nError: {e}")
+            raise ValueError(f"AddFilmError in FilmDatabase#addFilm: film below:\n{json_film}\nError: {e}")
 
     def update_database(self, cursor):
         """
@@ -286,4 +287,4 @@ if __name__ == '__main__':
     print('What\'s up?')
     # setup_films(film_type='anime')
     # setup_films(film_type='movie')
-    setup_films(film_type='show')
+    # setup_films(film_type='show')

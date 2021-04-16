@@ -12,6 +12,14 @@ export class FilmsService {
 
   constructor( private http: HttpClient ) { }
 
+  get_films(): Observable<any> {
+    return this.http.get<any>(`${environment.apiURL}/frontend/admin/films/`, {headers: this.httpHeaders});
+  }
+
+  update_films(): Observable<any> {
+    return this.http.get<any>(`${environment.apiURL}/frontend/admin/films/update/`, {headers: this.httpHeaders});
+  }
+
   get_animes(): Observable<any> {
     return this.http.get<any>(`${environment.apiURL}/frontend/admin/films/animes/`, {headers: this.httpHeaders});
   }

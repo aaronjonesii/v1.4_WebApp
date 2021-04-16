@@ -1,11 +1,8 @@
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
 from rest_framework import permissions
 from rest_framework import viewsets, renderers
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.http import JsonResponse
-import json
+
 
 from ..serializers import PostSerializer, TagSerializer, CategorySerializer
 from ..models import Post, Tag, Category

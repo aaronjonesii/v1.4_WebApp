@@ -18,10 +18,9 @@ const routes: Routes = [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'stories', component: AdminStoriesComponent },
       { path: 'films', children: [
-          { path: '', redirectTo: 'movies', pathMatch: 'full' },
+          { path: '', component: AdminFilmsComponent, pathMatch: 'full' },
           { path: 'animes', component: AdminFilmsAnimesComponent },
           { path: 'movies', component: AdminFilmsMoviesComponent },
-          { path: 'movies/search', component: SearchMoviesComponent },
           { path: 'movies/search/:movie_query', component: SearchMoviesComponent },
           { path: 'shows', component: AdminFilmsShowsComponent },
         ] },

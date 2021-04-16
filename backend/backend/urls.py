@@ -68,6 +68,8 @@ urlpatterns = [
     path('frontend/admin/blog/', admin_post_list, name='admin_post_list'),
     path('frontend/admin/blog/<uuid:pk>/', admin_post_detail, name='admin_post_detail'),
 
+    path('frontend/admin/films/', films.admin_films_view, name='admin_films_list'),
+    path('frontend/admin/films/update/', films.admin_update_films, name='admin_update_films'),
     path('frontend/admin/films/animes/', admin_animes_list, name='admin_animes_list'),
     path('frontend/admin/films/movies/', admin_movies_list, name='admin_movies_list'),
     path('frontend/admin/films/shows/', admin_shows_list, name='admin_shows_list'),

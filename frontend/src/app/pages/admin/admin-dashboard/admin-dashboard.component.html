@@ -13,9 +13,9 @@
   <!--  Top Card  -->
   <section class="container">
     <div class="col p-0">
-      <nb-card class="w-100" size="tiny">
+      <nb-card class="w-100">
         <nb-card-body>
-          <span class="display-4">Need an idea for this space</span>
+          <anon-admin-films></anon-admin-films>
         </nb-card-body>
       </nb-card>
     </div>
@@ -23,10 +23,20 @@
 
   <!--  Middle Cards  -->
   <section class="container">
+
     <div class="row p-4">
       <div class="col-md-7">
-        <anon-admin-dashboard-stories [stories]="all_stories" [is_stories_loaded]="is_stories_loaded"></anon-admin-dashboard-stories>
-        <nb-card><nb-card-body></nb-card-body></nb-card>
+        <anon-admin-dashboard-stories class="" [stories]="all_stories" [is_stories_loaded]="is_stories_loaded"></anon-admin-dashboard-stories>
+
+        <nb-accordion class="mt-4">
+          <nb-accordion-item expanded>
+            <nb-accordion-item-header>Something Here</nb-accordion-item-header>
+            <nb-accordion-item-body class="">
+              Something here
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+
       </div>
 
       <div class="col-md-5">
