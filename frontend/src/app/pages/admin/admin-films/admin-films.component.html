@@ -11,6 +11,10 @@
   </section>
 
   <ng-container class="container" *ngIf="!films_loaded; else loaded">
+    <ng-template [ngIf]="database_updating">
+      <div class="text-hint text-center">Updating Database, this may take a few minutes!</div>
+    </ng-template>
+
     <anon-loading class="films-loading"></anon-loading>
   </ng-container>
 

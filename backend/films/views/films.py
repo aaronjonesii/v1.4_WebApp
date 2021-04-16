@@ -80,7 +80,7 @@ def admin_update_films(request):
         new_show_count = update_film_database('show')
         new_movie_count = update_film_database('movie')
         last_updated = datetime.datetime.now().strftime('%c')
-        last_updated = cache.set('FILMS_LAST_UPDATED', last_updated, None)
+        cache.set('FILMS_LAST_UPDATED', last_updated, None)
         response = {
             'new_anime_count': new_anime_count,
             'new_show_count': new_show_count,
@@ -109,4 +109,5 @@ def update_film_database(film_type):
     database = os.environ.get('BACKEND_DB_NAME')
     film_database = FilmDatabase(host, user, passwd, database, film_type)
     cursor = film_database.cursor()
+    film_database.use_database(cursor)
     return film_database.update_database(cursor)

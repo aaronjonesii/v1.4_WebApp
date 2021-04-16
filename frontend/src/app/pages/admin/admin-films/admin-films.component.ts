@@ -16,6 +16,7 @@ export class AdminFilmsComponent implements OnInit, OnDestroy {
   shows_count = 0;
   movies_count = 0;
   database_last_updated = '';
+  database_updating = false;
 
   constructor(
     private filmService: FilmsService,
@@ -45,12 +46,17 @@ export class AdminFilmsComponent implements OnInit, OnDestroy {
   }
 
   update_database() {
+    this.database_updating = true;
+    this.films_loaded = false;
     this.filmService.update_films().pipe(takeUntil(this.unsub$)).subscribe(
       response => {
-        this.extras.showToast(`${response.new_anime_count} new anime shows\n${response.new_show_count} new tv shows\n${response.new_movie_count} new movies\n`, 'Updated Films Database', 'success', 0);
+        this.extras.showToast(
+          `${response.new_anime_count} new anime shows\n${response.new_show_count} new tv shows\n${response.new_movie_count} new movies\n`,
+          `${response.new_anime_count+response.new_show_count+response.new_movie_count} Films Added`,
+          'success', 0);
       },
       error => {},
-      () => {this.films_loaded = false;this.get_films();},
+      () => {this.get_films();},
     );
   }
 

@@ -27,7 +27,7 @@ export const SIDEBAR_MENU_ITEMS: NbMenuItem[] = [
       { title: 'Anime Shows', link: '/admin/films/animes' },
       { title: 'Movies', link: '/admin/films/movies' },
       { title: 'TV Shows', link: '/admin/films/shows' },
-      { title: 'Update Database', link: '/admin/films/update' },
+      { title: 'Update Database', link: '/admin/films' },
     ]
   },
 ]

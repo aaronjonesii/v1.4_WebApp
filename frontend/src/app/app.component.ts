@@ -4,7 +4,7 @@ import { AuthService } from "@auth0/auth0-angular";
 import { NavigationEnd, Router } from "@angular/router";
 import { UrlService } from "./shared/utils/services/url.service";
 import { ExtrasService } from "./shared/utils/services/extras.service";
-import { SIDEBAR_MENU_ITEMS } from "./shared/utils/Sidebar-menu";
+import { SIDEBAR_MENU_ITEMS } from "./shared/utils/menus/sidebar-menu";
 
 @Component({
   selector: 'app-root',

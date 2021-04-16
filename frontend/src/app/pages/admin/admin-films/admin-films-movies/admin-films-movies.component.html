@@ -24,20 +24,25 @@
       <!--   Film Section   -->
       <section class="container-fluid content-row mx-auto">
 
-          <nb-list class="row flex-row" nbInfiniteList listenWindowScroll [threshold]="100" (bottomThreshold)="loadNext()">
-            <nb-list-item *ngFor="let movie of movies_results" class="card mx-auto mb-3 bg-dark border-0 p-0" id="">
+      <ng-container *ngIf="movies_results.length > 0;else noMovies">
+        <nb-list class="row flex-row" nbInfiniteList listenWindowScroll [threshold]="100" (bottomThreshold)="loadNext()">
+          <nb-list-item *ngFor="let movie of movies_results" class="card mx-auto mb-3 bg-dark border-0 p-0" id="">
 
-              <div class="card mx-auto bg-dark" id="card" style="">
-                <a class="" target="_blank" href="https://www.imdb.com/title/{{ movie.imdb_id }}/" title="{{ movie?.title }}">
-                  <img class="card-img-top rounded" id="mov_img" src="{{ movie.images | film_image }}" alt="{{ movie?.title }}">
-                </a>
-                <!--Magnet Download Button-->
-                <a [href]="filmMovieLinkPipe.transform(movie.torrents)" id="download" class="down-link bottom-right-overlay badge badge-primary"><nb-icon class="down-icon" icon="cloud-download-outline" status="basic"></nb-icon></a>
-                <a href="" id="download-icon" class="down-icon-link bottom-right-overlay badge badge-primary">Download</a>
-              </div>
+            <div class="card mx-auto bg-dark" id="card" style="">
+              <a class="" target="_blank" href="https://www.imdb.com/title/{{ movie.imdb_id }}/" title="{{ movie?.title }}">
+                <img class="card-img-top rounded" id="mov_img" src="{{ movie.images | film_image }}" alt="{{ movie?.title }}">
+              </a>
+              <!--Magnet Download Button-->
+              <a [href]="filmMovieLinkPipe.transform(movie.torrents)" id="download" class="down-link bottom-right-overlay badge badge-primary"><nb-icon class="down-icon" icon="cloud-download-outline" status="basic"></nb-icon></a>
+              <a href="" id="download-icon" class="down-icon-link bottom-right-overlay badge badge-primary">Download</a>
+            </div>
 
-            </nb-list-item>
-          </nb-list>
+          </nb-list-item>
+        </nb-list>
+      </ng-container>
+      <ng-template #noMovies>
+        <div class="display-4 text-center">No movies yet.</div>
+      </ng-template>
 
       </section>
 

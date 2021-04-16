@@ -39,7 +39,7 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
               console.error(error);
             } else {
               if (error.status === 503) {
-                this.extras.showToast('Something went wrong processing your request...', 'Try again in 5 minutes', 'danger', 0)
+                this.extras.showToast('Try again in 5 minutes...', 'Service Unavailable', 'danger', 0)
               } else {
                 if (error.message === 'Login required') {
                   if (this.authenticated) {
