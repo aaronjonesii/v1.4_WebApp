@@ -1,5 +1,5 @@
 from blog.views.post import IsFrontendAdmin
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, filters
 from rest_framework.pagination import PageNumberPagination
 
 from ..serializers import AnimeSerializer, MovieSerializer, ShowSerializer
@@ -26,9 +26,11 @@ class MovieViewSet(viewsets.ModelViewSet):
     """
         CRUD endpoint for frontend admin movies.
     """
-    queryset = Movie.objects.order_by('-released')[:500]
+    queryset = Movie.objects.order_by('-released')
     serializer_class = MovieSerializer
-    permission_classes = (permissions.IsAuthenticated, IsFrontendAdmin)
+    # permission_classes = (permissions.IsAuthenticated, IsFrontendAdmin)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
     pagination_class = StandardResultsSetPagination
 
 

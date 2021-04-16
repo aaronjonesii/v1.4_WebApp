@@ -56,6 +56,7 @@ import { AdminFilmsComponent } from "./pages/admin/admin-films/admin-films.compo
 import { AdminFilmsAnimesComponent } from "./pages/admin/admin-films/admin-films-animes/admin-films-animes.component";
 import { AdminFilmsMoviesComponent } from "./pages/admin/admin-films/admin-films-movies/admin-films-movies.component";
 import { AdminFilmsShowsComponent } from "./pages/admin/admin-films/admin-films-shows/admin-films-shows.component";
+import { SearchMoviesComponent } from "./pages/admin/admin-films/admin-films-movies/search-movies/search-movies.component";
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { AdminFilmsShowsComponent } from "./pages/admin/admin-films/admin-films-
     AdminFilmsAnimesComponent,
     AdminFilmsMoviesComponent,
     AdminFilmsShowsComponent,
+    SearchMoviesComponent,
   ],
   imports: [
     AppRoutingModule,

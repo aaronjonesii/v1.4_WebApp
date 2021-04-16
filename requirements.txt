@@ -11,3 +11,4 @@ pyjwt
 python-memcached
 channels
 daphne
+django-filter

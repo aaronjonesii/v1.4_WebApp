@@ -26,4 +26,9 @@ export class FilmsService {
     return this.http.get<any>(pageURL, {headers: this.httpHeaders});
   }
 
+  search_movies(search_query: string): Observable<any> {
+    let url = encodeURI(`${environment.apiURL}/frontend/admin/films/movies/?search=${search_query}`);
+    return this.http.get<any>(url, {headers: this.httpHeaders});
+  }
+
 }

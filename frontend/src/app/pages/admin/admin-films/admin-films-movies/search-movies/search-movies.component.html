@@ -12,8 +12,8 @@
       <section class="container-fluid mb-3 ml-4">
         <div class="row w-100">
           <div class="col-md-6">
-            <span class="row display-4">Movies</span>
-            <small class="row text-muted">Most recent movies inside an infinite list.</small>
+            <span class="row display-4">{{movie_count}} movies found</span>
+            <h6 class="row text-muted">Search for: <span class="text-info"> {{movie_query}} </span> </h6>
           </div>
           <div class="col-md-6 align-self-center">
             <nb-alert class="m-0 align-items-center" accent="danger">Do NOT download any film before hiding your IP with a VPN!</nb-alert>
@@ -23,9 +23,9 @@
 
       <!--   Film Section   -->
       <section class="container-fluid content-row mx-auto">
-
+        <ng-container *ngIf="movie_results.length > 0">
           <nb-list class="row flex-row" nbInfiniteList listenWindowScroll [threshold]="100" (bottomThreshold)="loadNext()">
-            <nb-list-item *ngFor="let movie of movies_results" class="card mx-auto mb-3 bg-dark border-0 p-0" id="">
+            <nb-list-item *ngFor="let movie of movie_results" class="card mx-auto mb-3 bg-dark border-0 p-0" id="">
 
               <div class="card mx-auto bg-dark" id="card" style="">
                 <a class="" target="_blank" href="https://www.imdb.com/title/{{ movie.imdb_id }}/" title="{{ movie?.title }}">
@@ -38,6 +38,7 @@
 
             </nb-list-item>
           </nb-list>
+        </ng-container>
 
       </section>
 

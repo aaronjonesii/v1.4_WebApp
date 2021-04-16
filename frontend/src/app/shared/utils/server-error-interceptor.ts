@@ -44,7 +44,7 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
                 } console.error('[!] Not authenticated and login required [!]');
               } else {
                 this.extras.showError(`If you are seeing, this please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Exception');
-                console.error(error);
+                console.error(error.error);
               }
             }
           }

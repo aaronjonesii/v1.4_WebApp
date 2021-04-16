@@ -9,6 +9,7 @@ import { AdminFilmsComponent } from './admin-films/admin-films.component';
 import { AdminFilmsAnimesComponent } from './admin-films/admin-films-animes/admin-films-animes.component';
 import { AdminFilmsMoviesComponent } from './admin-films/admin-films-movies/admin-films-movies.component';
 import { AdminFilmsShowsComponent } from './admin-films/admin-films-shows/admin-films-shows.component';
+import { SearchMoviesComponent } from './admin-films/admin-films-movies/search-movies/search-movies.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,8 @@ const routes: Routes = [
           { path: '', redirectTo: 'movies', pathMatch: 'full' },
           { path: 'animes', component: AdminFilmsAnimesComponent },
           { path: 'movies', component: AdminFilmsMoviesComponent },
+          { path: 'movies/search', component: SearchMoviesComponent },
+          { path: 'movies/search/:movie_query', component: SearchMoviesComponent },
           { path: 'shows', component: AdminFilmsShowsComponent },
         ] },
     ] },
