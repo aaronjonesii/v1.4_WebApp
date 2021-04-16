@@ -51,7 +51,7 @@ export class AdminFilmsComponent implements OnInit, OnDestroy {
     this.filmService.update_films().pipe(takeUntil(this.unsub$)).subscribe(
       response => {
         this.extras.showToast(
-          `${response.new_anime_count} new anime shows\n${response.new_show_count} new tv shows\n${response.new_movie_count} new movies\n`,
+          `${response.new_anime_count} new anime shows\r\n${response.new_show_count} new tv shows\r\n${response.new_movie_count} new movies\r\n`,
           `${response.new_anime_count+response.new_show_count+response.new_movie_count} Films Added`,
           'success', 0);
       },

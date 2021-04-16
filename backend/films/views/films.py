@@ -7,10 +7,15 @@ from rest_framework.decorators import api_view, permission_classes
 
 from ..serializers import AnimeSerializer, MovieSerializer, ShowSerializer
 from ..models import Anime, Movie, Show
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from ..films_db import FilmDatabase
 import os
 from django.core.cache import cache
+from asgiref.sync import sync_to_async, async_to_sync
+import asyncio
+from rest_framework.views import APIView
+from rest_framework.response import Response
+import json
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -51,15 +56,14 @@ class ShowViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
 
-@api_view()
 @permission_classes([permissions.IsAuthenticated, IsFrontendAdmin])
-def admin_films_view(request):
+async def admin_films_view(request):
     """ Returns number of films in database and last time it was updated """
     try:
-        anime_count = get_film_count('anime')
-        show_count = get_film_count('show')
-        movie_count = get_film_count('movie')
-        last_updated = cache.get('FILMS_LAST_UPDATED')
+        anime_count = await _get_film_count('anime')
+        show_count = await _get_film_count('show')
+        movie_count = await _get_film_count('movie')
+        last_updated = await get_last_updated()
         response = {
             'anime_count': anime_count,
             'show_count': show_count,
@@ -68,19 +72,18 @@ def admin_films_view(request):
         }
         return JsonResponse(response)
     except Exception as e:
-        return JsonResponse({'status': 'error', 'message': e})
+        return JsonResponse(status=503, data={'status': 'error', 'message': str(e)})
 
 
-@api_view()
 @permission_classes([permissions.IsAuthenticated, IsFrontendAdmin])
-def admin_update_films(request):
+async def admin_update_films(request):
     """ Update Film Database """
     try:
-        new_anime_count = update_film_database('anime')
-        new_show_count = update_film_database('show')
-        new_movie_count = update_film_database('movie')
+        new_anime_count = await _update_film_database('anime')
+        new_show_count = await _update_film_database('show')
+        new_movie_count = await _update_film_database('movie')
         last_updated = datetime.datetime.now().strftime('%c')
-        cache.set('FILMS_LAST_UPDATED', last_updated, None)
+        await set_last_updated(last_updated)
         response = {
             'new_anime_count': new_anime_count,
             'new_show_count': new_show_count,
@@ -92,7 +95,7 @@ def admin_update_films(request):
         return JsonResponse(status=503, data={'status': 'error', 'message': str(e)})
 
 
-def get_film_count(film_type):
+async def _get_film_count(film_type):
     host = 'localhost'
     user = os.environ.get('BACKEND_DB_USER')
     passwd = os.environ.get('BACKEND_DB_PASSWORD')
@@ -102,7 +105,17 @@ def get_film_count(film_type):
     return film_database.show_film_count(cursor)
 
 
-def update_film_database(film_type):
+@sync_to_async()
+def get_last_updated():
+    return cache.get('FILMS_LAST_UPDATED')
+
+
+@sync_to_async()
+def set_last_updated(last_updated):
+    cache.set('FILMS_LAST_UPDATED', last_updated, None)
+
+
+async def _update_film_database(film_type):
     host = 'localhost'
     user = os.environ.get('BACKEND_DB_USER')
     passwd = os.environ.get('BACKEND_DB_PASSWORD')
