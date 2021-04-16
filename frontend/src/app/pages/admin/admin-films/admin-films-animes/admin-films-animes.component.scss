@@ -1,0 +1,20 @@
+@import '../../../../../themes.scss';
+
+@include nb-install-component() {
+  a > .card-img-top {
+    width: 206px;
+    height: 309px;
+  }
+  .card {
+    width: 13rem!important;
+    /* margin: 0.5rem 2rem 1rem 0.5rem; */
+    background: transparent!important;
+    border: none;
+  }
+  .top-overlay {
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    font-size: 1rem;
+  }
+}

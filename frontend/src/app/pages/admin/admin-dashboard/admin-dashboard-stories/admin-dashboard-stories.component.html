@@ -2,25 +2,28 @@
   <anon-loading></anon-loading>
 </ng-container>
 <ng-template #stories_loaded>
-  <nb-card>
-    <nb-card-header class="row">
-      <div class="d-flex col justify-content-start"> Recently Updated Stories </div>
-      <div class="d-flex col justify-content-end"> <nb-icon class="" icon="arrow-ios-downward-outline"></nb-icon> </div>
-    </nb-card-header>
-    <nb-list>
-      <nb-list-item *ngFor="let story of stories" class="row w-100 p-4">
-        <div class="w-100">
-          <a class="text-reset text-decoration-none">
-            <h6 class="text-basic">{{story.title}}</h6>
-          </a>
-        </div>
-        <div class="w-100 row">
-          <div class="text-muted d-flex col justify-content-start"> <small class="">{{story.updated_on | dateAgo }}</small> </div>
-          <ng-container *ngIf="story.public" class="d-flex col justify-content-end">
-            <nb-tag size="tiny" text="public" status="warning" appearance="outline"></nb-tag>
-          </ng-container>
-        </div>
-      </nb-list-item>
-    </nb-list>
-  </nb-card>
+
+  <nb-accordion>
+    <nb-accordion-item expanded>
+      <nb-accordion-item-header>Recently Updated Stories</nb-accordion-item-header>
+      <nb-accordion-item-body class="">
+        <nb-list>
+          <nb-list-item *ngFor="let story of stories" class="row w-100 p-4">
+            <div class="w-100">
+              <a class="text-reset text-decoration-none">
+                <h6 class="text-basic">{{story.title}}</h6>
+              </a>
+            </div>
+            <div class="w-100 row">
+              <div class="text-muted d-flex col justify-content-start"> <small class="">{{story.updated_on | dateAgo }}</small> </div>
+              <ng-container *ngIf="story.public" class="d-flex col justify-content-end">
+                <nb-tag size="tiny" text="public" status="warning" appearance="outline"></nb-tag>
+              </ng-container>
+            </div>
+          </nb-list-item>
+        </nb-list>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+
 </ng-template>

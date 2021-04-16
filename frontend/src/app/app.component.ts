@@ -4,7 +4,7 @@ import { AuthService } from "@auth0/auth0-angular";
 import { NavigationEnd, Router } from "@angular/router";
 import { UrlService } from "./shared/utils/services/url.service";
 import { ExtrasService } from "./shared/utils/services/extras.service";
-import { NbMenuItem } from "@nebular/theme";
+import { SIDEBAR_MENU_ITEMS } from "./shared/utils/Sidebar-menu";
 
 @Component({
   selector: 'app-root',
@@ -14,27 +14,7 @@ import { NbMenuItem } from "@nebular/theme";
 export class AppComponent implements OnInit  {
   previousUrl!: string;
   currentUrl!: string;
-  MENU_ITEMS: NbMenuItem[] = [
-    {
-      title: 'Dashboard',
-      icon: 'home-outline',
-      link: '/admin/dashboard',
-      home: true,
-    },
-    { title: 'BLOG', group: true },
-    {
-      title: 'Stories',
-      icon: 'text-outline',
-      link: '/admin/stories',
-      children: [
-        { title: 'All Stories', link: '/admin/stories' },
-        { title: 'Categories', link: '' },
-        { title: 'Tags', link: '' },
-      ]
-    },
-    { title: 'Media', icon: 'image-outline' },
-    { title: 'Popcorn Time Movies', icon: 'film-outline' },
-  ]
+  SIDEBAR_MENU = SIDEBAR_MENU_ITEMS;
 
   constructor(
     private auth: AuthService,

@@ -1,0 +1,29 @@
+@import '../../../../../themes.scss';
+
+@include nb-install-component() {
+  a > .card-img-top {
+    width: 206px;
+    height: 309px;
+  }
+  .down-icon-link {
+    height: 1rem!important;
+    background: rgba(180, 183, 186, 0.45); /*Harbor Mist*/
+    display: none;
+  }
+  .bottom-right-overlay {
+    position: absolute;
+    bottom: .2rem;
+    right: .5rem;
+  }
+  .down-icon {
+    font-size: .9rem!important;
+    margin-top: -2rem!important;
+    margin-right: 0!important;
+  }
+  .down-link {
+    background: rgba(180, 183, 186, 0.45); /*Harbor Mist*/
+    /*visibility: hidden;*/
+    /*opacity: 0;*/
+    transition: visibility 0s linear 300ms, opacity 300ms;
+  }
+}

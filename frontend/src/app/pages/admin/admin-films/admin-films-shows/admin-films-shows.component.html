@@ -1,0 +1,40 @@
+<div class="container-fluid content-row mx-auto">
+  <div class="row">
+
+    <div class="container" *ngIf="!shows_loaded; else loaded">
+      <anon-loading></anon-loading>
+    </div>
+
+    <ng-template #loaded>
+
+      <!-- Header Section -->
+      <section class="container-fluid mb-3 ml-4">
+        <div class="row w-100 justify-content-start">
+          <div class="col">
+            <span class="row display-4">TV Shows</span>
+            <small class="row text-muted">Most recent TV shows inside an infinite list.</small>
+          </div>
+        </div>
+      </section>
+
+      <!--   Film Section   -->
+      <section class="container-fluid content-row mx-auto">
+        <div class="row">
+          <div *ngFor="let show of shows_results" class="card mx-auto mb-3 bg-dark" id="card" style="">
+
+            <a class="" target="_blank" href="https://www.imdb.com/title/{{ show.imdb_id }}/" title="{{ show?.title }}">
+              <img class="card-img-top rounded" id="mov_img" src="{{ show.images | film_image }}" alt="{{ show?.title }}">
+            </a>
+
+            <!--Magnet Download Button-->
+            <a href="" id="download" class="down-link bottom-right-overlay badge badge-primary"><nb-icon class="down-icon" icon="cloud-download-outline" status="basic"></nb-icon></a>
+            <a href="" id="download-icon" class="down-icon-link bottom-right-overlay badge badge-primary">Download</a>
+
+          </div>
+        </div>
+      </section>
+
+    </ng-template>
+
+  </div>
+</div>

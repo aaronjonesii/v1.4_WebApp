@@ -52,6 +52,11 @@ import { AdminDashboardComponent } from "./pages/admin/admin-dashboard/admin-das
 import { AdminStoriesStatusListComponent } from "./pages/admin/admin-stories/admin-stories-status-list/admin-stories-status-list.component";
 import { AdminDashboardQuickLinksComponent } from "./pages/admin/admin-dashboard/admin-dashboard-quick-links/admin-dashboard-quick-links.component";
 import { AdminDashboardStoriesComponent } from "./pages/admin/admin-dashboard/admin-dashboard-stories/admin-dashboard-stories.component";
+import { AdminFilmsComponent } from "./pages/admin/admin-films/admin-films.component";
+import { AdminFilmsAnimesComponent } from "./pages/admin/admin-films/admin-films-animes/admin-films-animes.component";
+import { AdminFilmsMoviesComponent } from "./pages/admin/admin-films/admin-films-movies/admin-films-movies.component";
+import { AdminFilmsShowsComponent } from "./pages/admin/admin-films/admin-films-shows/admin-films-shows.component";
+import { SearchMoviesComponent } from "./pages/admin/admin-films/admin-films-movies/search-movies/search-movies.component";
 
 @NgModule({
   declarations: [
@@ -93,6 +98,11 @@ import { AdminDashboardStoriesComponent } from "./pages/admin/admin-dashboard/ad
     AdminStoriesStatusListComponent,
     AdminDashboardQuickLinksComponent,
     AdminDashboardStoriesComponent,
+    AdminFilmsComponent,
+    AdminFilmsAnimesComponent,
+    AdminFilmsMoviesComponent,
+    AdminFilmsShowsComponent,
+    SearchMoviesComponent,
   ],
   imports: [
     AppRoutingModule,

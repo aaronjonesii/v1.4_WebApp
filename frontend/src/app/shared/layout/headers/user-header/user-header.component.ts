@@ -51,7 +51,9 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
     ).subscribe(
       idTokenClaims => {
         if (this.admin.is_frontend_admin(idTokenClaims)) {
-          this.user_context_items.unshift({ title: 'Admin', link: '/admin', icon: 'grid-outline' },)
+          let add_admin_button = true;
+          for (let item of this.user_context_items) { if (item.title === 'Admin') { add_admin_button = false } }
+          if (add_admin_button) this.user_context_items.unshift({ title: 'Admin', link: '/admin', icon: 'grid-outline' },)
         }
       }
     );

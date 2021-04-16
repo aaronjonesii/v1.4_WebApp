@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'blog',
+    'films',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -157,11 +159,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',  # Used by Auth0
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',  # Used by Auth0
         'rest_framework.authentication.SessionAuthentication',  # Used by Auth0
         'rest_framework.authentication.BasicAuthentication',  # Used by Auth0
-    )
+    ),
 }
 
 # SIMPLE_JWT = {

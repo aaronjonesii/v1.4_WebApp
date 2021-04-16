@@ -9,7 +9,7 @@
     </div>
       <div class="d-flex col justify-content-center align-items-center lead"> </div>
       <div class="d-flex col justify-content-end m-3 align-items-center">
-        <nb-search class="mr-3" type="rotate-layout"></nb-search>
+        <nb-search class="mr-3" type="rotate-layout" [hint]="search_hint" [placeholder]="search_placeholder"></nb-search>
         <nb-icon class="mr-3" icon="bookmark-outline" [options]="{ fill: '#8f9bb3' }" nbButton></nb-icon>
         <nb-icon class="mr-3" icon="bell-outline" nbPopover="No Notifications!" nbPopoverPlacement="bottom" [options]="{ fill: '#8f9bb3' }" nbButton></nb-icon>
         <button *ngIf="_router.url == '/'" class="p-2 mr-3" size="tiny" status="success" routerLink="/new-story" outline nbButton>Write</button>
