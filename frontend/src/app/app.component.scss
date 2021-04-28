@@ -5,4 +5,13 @@
   //::ng-deep nb-layout-header nav {
   //  height: 3.5rem!important;
   //}
+
+  // Small Media Breakpoint
+  @include media-breakpoint-down(sm) {}
+  // Medium Media Breakpoint
+  @include media-breakpoint-down(md) {}
+  // Large Media Breakpoint
+  @include media-breakpoint-down(lg) {}
+  // Extra-Large Media Breakpoint
+  @include media-breakpoint-down(xl) {}
 }
