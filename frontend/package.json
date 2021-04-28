@@ -26,6 +26,7 @@
     "@ckeditor/ckeditor5-build-decoupled-document": "^26.0.0",
     "@nebular/eva-icons": "7.0.0",
     "@nebular/theme": "^7.0.0",
+    "bootstrap": "^4.6.0",
     "eva-icons": "^1.1.2",
     "highlight.js": "^10.6.0",
     "ngx-highlightjs": "^4.1.3",

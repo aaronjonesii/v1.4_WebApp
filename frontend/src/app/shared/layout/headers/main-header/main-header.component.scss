@@ -1,7 +1,57 @@
-@import '../../../../../themes';
+@import '../../../styles/themes';
 
 @include nb-install-component() {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
     ::ng-deep [nbButton].appearance-ghost.status-basic:hover {
       background-color: transparent!important;
     }
+  .logo-container {
+    display: flex;
+    align-self: center;
+    width: fit-content;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    width: auto;
+
+    .sidebar-toggle {
+      text-decoration: none;
+      color: nb-theme(text-hint-color);
+      nb-icon { font-size: 1.75rem; }
+    }
+
+    .logo-img {
+      display: none;
+      .logo {
+        height: 70%;
+        //height: 75%!important;
+        //width: 75%!important;
+      }
+    }
+    .logo-text {
+      font-size: 1.75rem;
+      padding: 0 1.25rem;
+      white-space: nowrap;
+      text-decoration: none;
+      align-self: center;
+    }
+
+  }
+
+  // Small Media Breakpoint
+  @include media-breakpoint-down(sm) {
+    // Show Elements
+    .logo-img { display: unset!important; }
+    // Hide Elements
+    .reading-list-btn { display: none; }
+    .notifications-btn { display: none; }
+    .write-story-btn { display: none; }
+    .logo-text { display: none; }
+  }
+
 }

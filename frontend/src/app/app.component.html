@@ -1,16 +1,17 @@
 <nb-layout>
 
-  <nb-layout-header>
+  <nb-layout-header fixed>
     <anon-header class="w-100" *ngIf="!showStoryHeader()"> </anon-header>
     <anon-new-story-header class="w-100" *ngIf="showStoryHeader()"> </anon-new-story-header>
   </nb-layout-header>
 
-  <nb-layout-column class="p-0">
+  <nb-sidebar *ngIf="this._router.url.split('/')[1] === 'admin'" responsive>
+    <nb-menu [items]="SIDEBAR_MENU"></nb-menu>
+  </nb-sidebar>
+
+  <nb-layout-column>
     <router-outlet> </router-outlet>
   </nb-layout-column>
 
-  <nb-sidebar *ngIf="this._router.url.split('/')[1] === 'admin'">
-    <nb-menu [items]="SIDEBAR_MENU"></nb-menu>
-  </nb-sidebar>
 
 </nb-layout>
