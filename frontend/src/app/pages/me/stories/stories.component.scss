@@ -1,7 +1,23 @@
-@import '../../../../themes.scss';
+@import '../../../shared/styles/themes';
 
 @include nb-install-component() {
   .top-section {
     margin-top: 64px;
+    .title {
+      font-size: 2rem;
+    }
+  }
+  .write-story-btn {
+    margin-right: 1rem;
+  }
+
+  // Small Media Breakpoint
+  @include media-breakpoint-down(sm) {
+    .top-section {
+      margin-top: 0;
+    }
+    .write-story-btn {
+      margin-right: 0;
+    }
   }
 }

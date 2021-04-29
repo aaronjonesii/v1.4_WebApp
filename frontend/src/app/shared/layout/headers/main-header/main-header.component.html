@@ -1,20 +1,23 @@
-<div class="container-fluid row" id="">
-  <ng-container *ngIf="this._router.url.split('/')[1] === 'admin'">
-    <a (click)="toggleSidebar()" class="sidebar-toggle d-flex align-items-center btn text-decoration-none">
-      <nb-icon icon="menu-2-outline" [options]="{ fill: '#8f9bb3' }"></nb-icon>
-    </a>
-  </ng-container>
-    <div class="d-flex col justify-content-start align-items-center">
-        <a class="text-decoration-none" routerLink="/"> <h5 class=""> Anonymous Systems </h5> </a>
+<div class="header-container">
+    <div class="logo-container">
+      <ng-container *ngIf="this._router.url.split('/')[1] === 'admin'">
+        <a (click)="toggleSidebar()" class="sidebar-toggle d-flex align-items-center btn">
+          <nb-icon icon="menu-2-outline"></nb-icon>
+        </a>
+      </ng-container>
+      <a class="logo-text" routerLink="/"> Anonymous Systems  </a>
+      <a class="logo-img" routerLink="/"> <img class="logo" src="./assets/favicon.png" alt="Anonymous Systems Home"> </a>
     </div>
-      <div class="d-flex col justify-content-center align-items-center lead"> </div>
-      <div class="d-flex col justify-content-end m-3 align-items-center">
-        <nb-search class="mr-3" type="rotate-layout" [hint]="search_hint" [placeholder]="search_placeholder"></nb-search>
-        <nb-icon class="mr-3" icon="bookmark-outline" [options]="{ fill: '#8f9bb3' }" nbButton></nb-icon>
-        <nb-icon class="mr-3" icon="bell-outline" nbPopover="No Notifications!" nbPopoverPlacement="bottom" [options]="{ fill: '#8f9bb3' }" nbButton></nb-icon>
-        <button *ngIf="_router.url == '/'" class="p-2 mr-3" size="tiny" status="success" routerLink="/new-story" outline nbButton>Write</button>
+</div>
 
-        <anon-user-header></anon-user-header>
+<!--<div class="header-container lead"> Middle Section </div>-->
 
-      </div>
-  </div>
+<div class="header-container m-3">
+  <nb-search class="mr-3 search-btn" type="rotate-layout" [hint]="search_hint" [placeholder]="search_placeholder"></nb-search>
+  <nb-icon class="mr-3 reading-list-btn" icon="bookmark-outline" [options]="{ fill: '#8f9bb3' }" nbButton></nb-icon>
+  <nb-icon class="mr-3 notifications-btn" icon="bell-outline" nbPopover="No Notifications!" nbPopoverPlacement="bottom" [options]="{ fill: '#8f9bb3' }" nbButton></nb-icon>
+  <button *ngIf="_router.url == '/'" class="p-2 mr-3 write-story-btn" size="tiny" status="success" routerLink="/new-story" outline nbButton>Write</button>
+
+  <anon-user-header></anon-user-header>
+
+</div>

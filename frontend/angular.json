@@ -34,8 +34,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/highlight.js/styles/atom-one-dark-reasonable.css"
+              "src/app/shared/styles/styles.scss",
+              "node_modules/highlight.js/styles/atom-one-dark-reasonable.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": []
           },
@@ -98,7 +99,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/app/shared/styles/styles.scss"
             ],
             "scripts": []
           }

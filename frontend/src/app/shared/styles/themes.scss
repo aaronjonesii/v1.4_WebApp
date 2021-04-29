@@ -1,6 +1,8 @@
 @import '~@nebular/theme/styles/theming';
 @import '~@nebular/theme/styles/themes/default';
-@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Zilla+Slab+Highlight:wght@700&display=swap');
+
+// Bootstrap
+@import 'custom-bootstrap';
 
 $nb-themes: nb-register-theme((
 

@@ -1,9 +1,28 @@
-@import '../../../../../themes';
+@import '../../../styles/themes';
 
 @include nb-install-component() {
-  .logo {
-    height: 75%!important;
-    width: 75%!important;
+  .story-header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
+  .header-container {
+    display: flex;
+    align-items: center;
+    width: auto;
+    .logo-img { height: 70%; }
+  }
+
+
+
+  // Small Media Breakpoint
+  @include media-breakpoint-down(sm) {
+    // Show Elements
+
+    // Hide Elements
+    .logo-text { display: none; }
+    .story-save-status-container { display: none; }
+    .notifications-btn { display: none; }
+  }
 }

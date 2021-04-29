@@ -5,6 +5,7 @@ import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { ExtrasService } from "../../../utils/services/extras.service";
 import { NbMenuService, NbPopoverDirective, NbWindowService } from "@nebular/theme";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'anon-new-story-header',
@@ -42,6 +43,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
     private extras: ExtrasService,
     private windowService: NbWindowService,
     private menuService: NbMenuService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -87,18 +89,20 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
         this.blogService.updateLastSavedStory(story);
         },
       error => {
-        // TODO: create handleErrors function in blog.service
         // TODO: updateAutoSaveStatus('Error saving')
-        // TODO: Create Toastr for error messages
         if (error.status === 400) {
           if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose another title.`, `${error.error.title}`, 'danger');
-          } else { this.extras.showToast(`Uncaught Exception: storyHeader#saveStory\n${JSON.stringify(error.error)}`, 'Please report this error', 'danger'); }
-          // console.error('Error occurred during post creation: ', error);
+          } else { this.extras.showToast(`${JSON.stringify(error.error)}`, 'Something went wrong', 'danger', 0); }
         }
-        if (error.status === 500) { alert(`Internal Server Error: storyHeader#saveStory\n${error.error}`); }
-        // TODO: Create Appealing Error Page
+        if (error.status === 500) {
+          this.extras.showToast('Sorry we were unable to save your story, please try again later.', 'Something went wrong', 'danger', 9000);
+          console.error(error.error);
+        }
       },
-      () => {this.blogService.updateAutoSaveStatus('Saved @');},
+      () => {
+        this.blogService.updateAutoSaveStatus('Saved @');
+        this.router.navigateByUrl(`/me/${story.id}`);
+        },
     )
   }
 

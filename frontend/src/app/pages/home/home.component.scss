@@ -1,13 +1,43 @@
-@import '../../../themes.scss';
+@import '../../shared/styles/themes';
 
 @include nb-install-component() {
-    .huge-header {
+    .huge-title {
         font-family: 'Zilla Slab Highlight', 'Open Sans';
+      //font-size: 6rem;
+      //line-height: normal;
+      //white-space: break-spaces;
     }
   .no-stories {
     display: flex;
-     min-height: 300px;
+    min-height: 300px;
     align-items: center;
     justify-content: center;
   }
+
+  .tag-section-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .tag-container {
+    height: 42px;
+    line-height: 38px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 99em;
+  }
+  .tag {
+    display: flex;
+    align-self: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  // Small Media Breakpoint
+  @include media-breakpoint-down(sm) {
+    .tag-section-container {
+      height: 150px;
+      display: flex;
+      overflow-x: auto;
+    }
+  }
+
 }
