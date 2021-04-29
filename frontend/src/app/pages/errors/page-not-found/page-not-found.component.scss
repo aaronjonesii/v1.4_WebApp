@@ -2,7 +2,6 @@
 
 @include nb-install-component() {
   .main-container {
-    width: 750px!important;
     justify-content: center;
     align-items: center;
     min-height: 500px;
@@ -10,5 +9,12 @@
   }
   .row {
     margin-bottom: 1.75rem!important;
+  }
+
+  // Small Media Breakpoint
+  @include media-breakpoint-down(sm) {
+    .main-container * {
+      max-width: 313px;
+    }
   }
 }
