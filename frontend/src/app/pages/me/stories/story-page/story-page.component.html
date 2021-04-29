@@ -1,35 +1,44 @@
-<div class="container" *ngIf="storyLoaded; else notLoaded">
-  <div class="container-fluid p-0">
+<ng-container class="container" *ngIf="!storyLoaded; else Loaded">
+  <anon-loading></anon-loading>
+</ng-container>
+
+<ng-template #Loaded>
+
+  <div class="container">
     <div class="blog-info mx-auto">
-      <h1 class="row"> {{ story.title}} </h1>
-      <div class="row"> <span class="lead"> {{ story.byline }} </span> </div>
-      <div class="row">
-        <div class="col p-0">
-          <div class="row mb-1 align-items-center">
-            <nb-user class="mr-2" [name]="story.author_name!"></nb-user>
-            <button class="h-50" shape="semi-round" size="tiny" status="success" outline nbButton disabled> Follow </button>
+
+      <h1 class="row story-title"> {{ story.title}} </h1>
+
+      <div class="row story-subtitle"> <span class="lead"> {{ story.byline }} </span> </div>
+
+      <div class="row justify-content-between mb-0 story-info">
+        <div class="top-story-info-container">
+          <div class="row mb-1 align-items-center story-author-container">
+            <nb-user class="mr-2 story-author" [name]="story.author_name!"></nb-user>
+            <button class="h-50 story-author-follow-btn" shape="semi-round" size="tiny" status="success" outline nbButton disabled> Follow </button>
           </div>
-          <div class="row ml-2 small text-muted"> {{story.created_on | date:'LLL d, yyyy' }} · {{story.read_time}} min read </div>
+          <div class="row ml-2 small text-muted story-dates"> {{story.created_on | date:'LLL d, yyyy' }} · {{story.read_time}} min read </div>
         </div>
-        <div class="col align-self-center">
-          <div class="row">
+
+        <div class="d-flex align-self-center">
+          <div class="row story-status-container">
             <anon-show-story-status [statusNumber]="story.status" [textEnabled]="true"></anon-show-story-status>
           </div>
         </div>
 
-        <anon-story-socials class="row align-items-center" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
-
+        <anon-story-socials class="d-flex align-items-center story-socials" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
       </div>
+
     </div>
-    <div *ngIf="this.story.background_image == ''; else storyImage" class="">
-<!--      <img class="img-fluid mx-auto" src="https://picsum.photos/3000/1500" />-->
-    </div>
+
+    <div *ngIf="this.story.background_image == ''; else storyImage" class=""> </div>
     <ng-template #storyImage>
       <div class="row w-100 m-0"> <img class="img-fluid mx-auto" [src]="story.background_image" /> </div>
     </ng-template>
-    <div class="mt-5 blog-content mx-auto row">
 
-      <div class="row w-100">
+    <div class="blog-content mx-auto row">
+
+      <div class="w-100 story-content-container">
         <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkup" tagName="story" class="w-100"></ckeditor>
       </div>
 
@@ -50,7 +59,7 @@
       </ng-container>
 
       <div class="d-flex row w-100 justify-content-between m-0">
-<!--        <div class="d-flex align-self-center"> <span class="border rounded-circle p-2 mx-2"> <nb-icon class="icon-size" icon="bell-outline"></nb-icon> </span> <span class="align-self-center">0 Bells Rung</span> </div>-->
+        <!--        <div class="d-flex align-self-center"> <span class="border rounded-circle p-2 mx-2"> <nb-icon class="icon-size" icon="bell-outline"></nb-icon> </span> <span class="align-self-center">0 Bells Rung</span> </div>-->
         <div class=""></div>
         <anon-story-socials class="d-flex" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
       </div>
@@ -68,8 +77,4 @@
 
   </div>
 
-</div>
-
-<ng-template #notLoaded>
-  <anon-loading></anon-loading>
 </ng-template>

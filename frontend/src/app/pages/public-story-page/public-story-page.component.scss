@@ -9,20 +9,30 @@
     max-width: 680px!important;
   }
 
-  .blog-post-content {
-    font-size: 1.4rem;
-    line-height: 1.6;
+  .blog-content {
+    margin-top: 3rem;
   }
 
   .icon-size {
     font-size: 1.5rem;
   }
+  .story-content-container {
+    margin-bottom: 1rem;
+  }
+  ::ng-deep .ck-placeholder { display: none; } // Hide Editor Placeholder
   ::ng-deep story > h1 {
-    font-size: 21px!important;
-    line-height: 21px!important;
+    font-size: 1.3rem!important;
+    line-height: 1.6!important;
     margin-block-start: 0;
     margin-block-end: 0;
     font-weight: normal;
     margin: 0!important;
+  }
+
+  // Small Media Breakpoint
+  @include media-breakpoint-down(sm) {
+    .blog-content { margin-top: 0; }
+    .story-status-container { display: none; }
+    .top-story-info-container { margin-left: 1rem; }
   }
 }

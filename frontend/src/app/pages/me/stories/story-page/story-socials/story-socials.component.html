@@ -1,5 +1,9 @@
-<div class="col d-flex p-1"> <a class="text-reset" [href]="this.twitterLink" target="_blank"><nb-icon icon="twitter-outline"></nb-icon></a> </div>
-<div class="col d-flex p-1"> <a class="text-reset" [href]="this.linkedinLink" target="_blank"><nb-icon icon="linkedin-outline"></nb-icon></a> </div>
-<div class="col d-flex p-1"> <a class="text-reset" [href]="this.facebookLink" target="_blank"><nb-icon icon="facebook-outline"></nb-icon></a> </div>
-<div class="col d-flex p-1"> <nb-icon icon="bookmark-outline"></nb-icon> </div>
-<div class="col d-flex p-1"> <nb-icon icon="more-horizontal-outline" [nbContextMenu]="contextMenuItems"></nb-icon> </div>
+<div class="row m-0 align-items-center">
+  <div class="share-btn">
+    <div class="col d-flex p-1"> <a class="text-reset" [href]="this.twitterLink" target="_blank"><nb-icon icon="twitter-outline"></nb-icon></a> </div>
+    <div class="col d-flex p-1"> <a class="text-reset" [href]="this.linkedinLink" target="_blank"><nb-icon icon="linkedin-outline"></nb-icon></a> </div>
+    <div class="col d-flex p-1"> <a class="text-reset" [href]="this.facebookLink" target="_blank"><nb-icon icon="facebook-outline"></nb-icon></a> </div>
+  </div>
+<!--  <div class="col d-flex p-1 bookmark-btn"> <nb-icon icon="bookmark-outline"></nb-icon> </div>-->
+  <div class="col d-flex p-1"> <nb-icon icon="more-horizontal-outline" [nbContextMenu]="contextMenuItems"></nb-icon> </div>
+</div>

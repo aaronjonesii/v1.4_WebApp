@@ -1,5 +1,11 @@
 @import '../../../../../shared/styles/themes';
 
 @include nb-install-component() {
+  .share-btn { display: flex; }
 
+  // Small Media Breakpoint
+  @include media-breakpoint-down(sm) {
+    .share-btn { display: none; }
+    .bookmark-btn { display: none; }
+  }
 }
