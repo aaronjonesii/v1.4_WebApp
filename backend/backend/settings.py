@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'blog',
     'films',
+    'crypto',
     'django_filters',
 ]
 

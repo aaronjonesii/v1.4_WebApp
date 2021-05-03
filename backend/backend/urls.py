@@ -19,11 +19,7 @@ from rest_framework import routers
 
 from blog.views import newsletter, weather, ip, post, auth0
 from films.views import films
-
-blog_list = post.PostViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
+from crypto.views import bsctoken
 
 public_blog_list = post.PublicPostViewSet.as_view({'get': 'list'})
 public_blog_detail = post.PublicPostViewSet.as_view({'get': 'retrieve'})
@@ -39,6 +35,10 @@ admin_animes_list = films.AnimeViewSet.as_view({'get': 'list'})
 admin_movies_list = films.MovieViewSet.as_view({'get': 'list'})
 admin_shows_list = films.ShowViewSet.as_view({'get': 'list'})
 
+blog_list = post.PostViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
 blog_detail = post.PostViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
@@ -57,6 +57,8 @@ newsletter_subscribe = newsletter.NewsletterSubscription.as_view({'post': 'creat
 router = routers.DefaultRouter()
 router.register(r'tags', post.TagViewSet)
 router.register(r'cats', post.CategoryViewSet)
+router.register(r'crypto/bsctokens', bsctoken.BSCTokenViewSet)
+router.register(r'crypto/swaps', bsctoken.SwapTransactionsViewSet)
 
 ipv4pattern = '(?:(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?)\.){3}(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?'
 ipv6pattern = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
