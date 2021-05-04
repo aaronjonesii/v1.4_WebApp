@@ -34,20 +34,26 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
             if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose a different title for your story`, `${error.error.title}`, 'danger', 0);
             } else { this.extras.showToast(` Please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Bad Request', 'danger', 0);console.error(error); }
           } else {
-            if (error.status === 500) {
-              // this.extras.showToast(`Please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, `Internal Server Error`, 'danger', 0);
-              console.error(error);
+            if (error.status == 403) {
+              this.extras.showError(error.error, 'Unknown')
+              this.router.navigateByUrl('/error/404/');
             } else {
-              if (error.status === 503) {
-                this.extras.showToast('Try again in 5 minutes...', 'Service Unavailable', 'danger', 0)
+              if (error.status === 500) {
+                // this.extras.showToast(`Please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, `Internal Server Error`, 'danger', 0);
+                console.error(error);
               } else {
-                if (error.message === 'Login required') {
-                  if (this.authenticated) {
-                    this.extras.showToast('Sorry, something went wrong authenticating your account. Try again...', 'Error Authenticating', 'danger', 0);
-                  } console.error('[!] Not authenticated and login required [!]');
+                if (error.status === 503) {
+                  this.extras.showToast('Try again in 5 minutes...', 'Service Unavailable', 'danger', 0)
                 } else {
-                  // this.extras.showError(`If you are seeing, this please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Exception');
-                  console.error(error.error);
+                  if (error.message === 'Login required') {
+                    if (this.authenticated) {
+                      this.extras.showToast('Sorry, something went wrong authenticating your account. Try again...', 'Error Authenticating', 'danger', 0);
+                    } console.error('[!] Not authenticated and login required [!]');
+                  } else {
+                    // this.extras.showError(`If you are seeing, this please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Exception');
+                    console.log(error);
+                    console.error(error.error);
+                  }
                 }
               }
             }

@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { filter } from "rxjs/operators";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { filter, takeUntil } from "rxjs/operators";
 import { AuthService } from "@auth0/auth0-angular";
 import { NavigationEnd, Router } from "@angular/router";
 import { UrlService } from "./shared/utils/services/url.service";
 import { ExtrasService } from "./shared/utils/services/extras.service";
 import { SIDEBAR_MENU_ITEMS } from "./shared/utils/menus/sidebar-menu";
+import { Subject } from "rxjs";
+import { AdminService } from "./shared/utils/services/admin.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit  {
+export class AppComponent implements OnInit, OnDestroy  {
+  private unsub$: Subject<any> = new Subject<any>();
+  is_frontend_admin = false;
   previousUrl!: string;
   currentUrl!: string;
   SIDEBAR_MENU = SIDEBAR_MENU_ITEMS;
@@ -20,6 +24,7 @@ export class AppComponent implements OnInit  {
     private auth: AuthService,
     public _router: Router,
     private urlService: UrlService,
+    private admin: AdminService,
     private extras: ExtrasService,
   ) { }
 
@@ -34,7 +39,20 @@ export class AppComponent implements OnInit  {
         this.urlService.setPreviousUrl(this.previousUrl);
       }
     );
+    // Auth0 idTokenClaims Subscriber
+    this.auth.idTokenClaims$.pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(
+      idTokenClaims => {
+        if (this.admin.is_frontend_admin(idTokenClaims)) { this.is_frontend_admin = true; }
+      }
+    );
   }
+  ngOnDestroy() {
+    this.unsub$.next();
+    this.unsub$.complete();
+  }
+
 
   showStoryHeader(): boolean {
     const paths = this._router.url.split('/')

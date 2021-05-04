@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<div class="container" *ngIf="!is_frontend_admin; else loaded">
+  <anon-loading></anon-loading>
+</div>
+
+<ng-template #loaded>
+  <router-outlet></router-outlet>
+</ng-template>
