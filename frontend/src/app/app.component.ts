@@ -9,6 +9,8 @@ import { Subject } from "rxjs";
 import { AdminService } from "./shared/utils/services/admin.service";
 import { NbIconLibraries } from '@nebular/theme';
 
+export const HOME_PAGE_TITLE = 'Anonymous Cybersecurity';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

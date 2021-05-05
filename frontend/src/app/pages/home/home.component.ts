@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AuthService } from "@auth0/auth0-angular";
+import { HOME_PAGE_TITLE } from "../../app.component";
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,7 @@ import { AuthService } from "@auth0/auth0-angular";
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
+  HOME_PAGE_TITLE = HOME_PAGE_TITLE;
   tags = [
     'Technology',
     'Future',
