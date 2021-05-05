@@ -1,3 +1,4 @@
+from rest_framework import permissions
 from rest_framework import viewsets
 from ..models import BSCToken, SwapTransaction
 from ..serializers import BSCTokenSerializer, SwapTransactionSerializer
@@ -5,8 +6,15 @@ from ..serializers import BSCTokenSerializer, SwapTransactionSerializer
 
 class BSCTokenViewSet(viewsets.ModelViewSet):
     """CRUD endpoint for Binance Smart Chain Tokens"""
-    queryset = BSCToken.objects.all()
     serializer_class = BSCTokenSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        user = self.request.user
+        return BSCToken.objects.filter(creator=user)
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
 
 
 class SwapTransactionsViewSet(viewsets.ModelViewSet):

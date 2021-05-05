@@ -1,0 +1,45 @@
+@import '../../../../../shared/styles/themes';
+
+@include nb-install-component() {
+  // Padding
+  .pb-35 { padding-bottom: 35px!important; }
+  .pt-30 { padding-top: 30px!important; }
+  .pb-8 { padding-bottom: 8px!important; }
+  // Margin
+  .mr-10 { margin-right: 10px!important; }
+  .mt-10 { margin-top: 10px!important; }
+  .mb-24 { margin-bottom: 24px!important; }
+  // Border
+  .borderBottomLightest { border-bottom: 1px solid rgba(0,0,0,.05)!important; }
+  .borderBottom { border-bottom: 1px solid rgba(0,0,0,.05); }
+  // Classes
+  .heading {
+    color: rgba(0,0,0,.84);
+    font-size: 18px;
+    letter-spacing: 0;
+    position: relative;
+  }
+  .window-container {
+    max-height: 400px;
+  }
+  .fieldName { max-width: 450px!important; width: 100%!important; }
+  .fieldSection { max-width: 480px!important; width: 100%!important; }
+  .listItemInput {
+    display: block;
+    font-size: 18px;
+    border: none;
+    padding: 0;
+    letter-spacing: 0;
+    font-weight: 400;
+    font-style: normal;
+    width: inherit;
+  }
+  .listItemInput:focus { outline: 0; }
+  .create-bsctoken-btn {
+    font-size: 0.75rem;
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    margin-bottom: 0!important;
+  }
+}

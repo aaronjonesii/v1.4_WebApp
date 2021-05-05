@@ -9,21 +9,21 @@ import json
 
 class BSCTokenSerializer(serializers.ModelSerializer):
     socials = SocialsSerializer(required=False, allow_null=True)
-    # swaps = serializers.SerializerMethodField('get_all_swaps') # Uncomment to enable swaps field
+    swaps = serializers.SerializerMethodField('get_all_swaps') # Uncomment to enable swaps field
 
-    # def get_all_swaps(self, token):
-    #     swaps_from_token = token.swaps_from_token.all().values()
-    #     serializer_swaps_from_token = SwapTransactionHashSerializer(swaps_from_token, many=True)
-    #     swaps_to_token = token.swaps_to_token.all().values()
-    #     serializer_swaps_to_token = SwapTransactionHashSerializer(swaps_to_token, many=True)
-    #     # return list(swaps_from_token) + list(swaps_to_token)
-    #     return serializer_swaps_from_token.data + serializer_swaps_to_token.data
+    def get_all_swaps(self, token):
+        swaps_from_token = token.swaps_from_token.all().values()
+        serializer_swaps_from_token = SwapTransactionHashSerializer(swaps_from_token, many=True)
+        swaps_to_token = token.swaps_to_token.all().values()
+        serializer_swaps_to_token = SwapTransactionHashSerializer(swaps_to_token, many=True)
+        # return list(swaps_from_token) + list(swaps_to_token)
+        return serializer_swaps_from_token.data + serializer_swaps_to_token.data
 
     class Meta:
         model = BSCToken
         fields = ['name', 'symbol', 'contract_address', 'launch_date',
                   'description', 'whitepaper', 'website', 'socials',
-                  'swaps_to_token', 'swaps_from_token']  # Add swap to enable swap field
+                  'swaps_to_token', 'swaps_from_token', 'swaps']  # Add swaps to enable swap field
         extra_kwargs = {'swaps_to_token': {'required': False}, "swaps_from_token": {'required': False}}
 
     def create(self, validated_data):

@@ -10,12 +10,18 @@ import { AdminFilmsAnimesComponent } from './admin-films/admin-films-animes/admi
 import { AdminFilmsMoviesComponent } from './admin-films/admin-films-movies/admin-films-movies.component';
 import { AdminFilmsShowsComponent } from './admin-films/admin-films-shows/admin-films-shows.component';
 import { SearchMoviesComponent } from './admin-films/admin-films-movies/search-movies/search-movies.component';
+import { AdminCryptoComponent } from './admin-crypto/admin-crypto.component';
+import { AdminCryptoBsctokensComponent } from './admin-crypto/admin-crypto-bsctokens/admin-crypto-bsctokens.component';
 
 
 const routes: Routes = [
   { path: '', component: AdminComponent, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'crypto', children: [
+          { path: '', component: AdminCryptoComponent, pathMatch: 'full' },
+          { path: 'bsctokens', component: AdminCryptoBsctokensComponent },
+        ] },
       { path: 'stories', component: AdminStoriesComponent },
       { path: 'films', children: [
           { path: '', component: AdminFilmsComponent, pathMatch: 'full' },

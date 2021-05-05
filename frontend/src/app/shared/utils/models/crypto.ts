@@ -7,8 +7,8 @@ export interface BSCToken {
   description?: string;
   whitepaper?: string;
   socials?: TokenSocials;
-  swaps_from_token?: object;
-  swaps_to_token?: object;
+  swaps_from_token?: [];
+  swaps_to_token?: [];
   swaps?: SwapTransaction[];
 }
 

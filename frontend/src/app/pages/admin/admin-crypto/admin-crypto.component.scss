@@ -1,0 +1,13 @@
+@import '../../../shared/styles/themes';
+
+@include nb-install-component() {
+  .card {
+    width: 20rem!important;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+    .card-body {
+      .card-icon { font-size: 2.25rem; }
+      .card-text { font-size: 0.8rem; font-weight: 300; }
+    }
+  }
+}

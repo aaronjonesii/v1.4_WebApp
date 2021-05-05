@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { BSCToken, SwapTransaction } from "../models/crypto";
 
@@ -10,7 +10,13 @@ import { BSCToken, SwapTransaction } from "../models/crypto";
 export class CryptoService {
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
+  private bsctokens = new BehaviorSubject<any>([]);
+
+  shared_bsctokens = this.bsctokens.asObservable();
+
   constructor( private http: HttpClient ) { }
+
+  update_bsctokens(bsctokens: BSCToken[]) { this.bsctokens.next(bsctokens); }
 
   /**
    * Get list of BSCTokens

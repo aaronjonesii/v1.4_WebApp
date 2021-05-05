@@ -1,0 +1,18 @@
+@import '../../../../../../shared/styles/themes';
+
+@include nb-install-component() {
+  // Margin
+  .mb-50 { margin-bottom: 50px!important; }
+  .mb-8 { margin-bottom: 8px!important; }
+  // Padding
+
+  // Border
+  .borderBottom { border-bottom: 1px solid rgba(0,0,0,.05); }
+  // Classes
+  .heading {
+    color: rgba(0,0,0,.84);
+    font-size: 1rem;
+    letter-spacing: 0;
+    position: relative;
+  }
+}

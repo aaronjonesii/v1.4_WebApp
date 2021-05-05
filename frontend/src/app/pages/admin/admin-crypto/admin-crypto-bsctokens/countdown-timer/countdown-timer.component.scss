@@ -1,0 +1,18 @@
+@import '../../../../../shared/styles/themes';
+
+@include nb-install-component() {
+  .timer {
+    text-align: center;
+    font-size: 1.3rem!important;
+    letter-spacing: -1px;
+    span {
+      font-size: 2rem!important;
+      margin: 0 3px 0 15px;
+    }
+  }
+  ::ng-deep anon-loading {
+    .loading {
+      min-height: 100px!important;
+    }
+  }
+}

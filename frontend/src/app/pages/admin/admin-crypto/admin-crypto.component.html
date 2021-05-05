@@ -1,0 +1,41 @@
+<div class="container-fluid content-row mx-auto">
+  <div class="row">
+
+    <!-- Header Section -->
+    <section class="container-fluid mb-3 ml-4">
+      <div class="row w-100">
+        <div class="col-12">
+          <span class="row display-4">Cryptocurrency</span>
+          <small class="row text-muted">Binance Smart Chain Tokens, Swap Transactions, Wallet Watchlist, and more.</small>
+        </div>
+      </div>
+    </section>
+
+    <!--   Cryptocurrency Section   -->
+    <section class="container-fluid content-row mx-auto mt-2">
+
+      <div class="row flex-row">
+
+        <a
+          *ngFor="let card of crypto_cards"
+          class="card mx-auto mb-3 align-self-center text-decoration-none text-reset"
+          [routerLink]="card.link">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-2 align-self-center">
+                <nb-icon class="p-0 card-icon" [icon]="card.icon"></nb-icon>
+              </div>
+              <div class="col-10">
+                <h5 class="card-title">{{card.title}}</h5>
+                <p class="card-text lead">{{card.text}}</p>
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+
+  </div>
+</div>

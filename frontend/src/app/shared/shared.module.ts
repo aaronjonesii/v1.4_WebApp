@@ -26,7 +26,7 @@ import {
   NbListModule,
   NbActionsModule,
   NbSearchModule,
-  NbTagModule, NbAutocompleteModule, NbToggleModule, NbAccordionModule, NbAlertModule
+  NbTagModule, NbAutocompleteModule, NbToggleModule, NbAccordionModule, NbAlertModule, NbTooltipModule
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -44,6 +44,7 @@ import { AppComponent } from "../app.component";
 import { UserHeaderComponent } from "./layout/headers/user-header/user-header.component";
 import { FilmImagePipe } from "./utils/pipes/film-image.pipe";
 import { FilmMovieLinkPipe } from "./utils/pipes/film-movie-link.pipe";
+import { BSCTokenSocialsPipe } from "./utils/pipes/bsctoken-socials.pipe";
 
 const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule, ];
 const NB_MODULES = [
@@ -51,12 +52,12 @@ const NB_MODULES = [
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
   NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule,
   NbSearchModule, NbTagModule, NbAutocompleteModule, NbSidebarModule, NbToggleModule,
-  NbAccordionModule, NbAlertModule,
+  NbAccordionModule, NbAlertModule, NbTooltipModule,
 ];
 const MAT_MODULES = []!;
 const COMPONENTS = []!;
 const ENTRY_COMPONENTS = []!;
-const PIPES = [SlugifyPipe, DateAgoPipe, FilmImagePipe, FilmMovieLinkPipe];
+const PIPES = [SlugifyPipe, DateAgoPipe, FilmImagePipe, FilmMovieLinkPipe, BSCTokenSocialsPipe];
 const SERVICES = [
   UrlService, StoriesService, ProfileSettingsService,
   ExtrasService,

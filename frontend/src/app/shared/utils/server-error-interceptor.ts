@@ -32,7 +32,10 @@ export class ServerErrorInterceptor extends AuthHttpInterceptor {
         } else {
           if (error.status == 400) {
             if (error.error.hasOwnProperty('title')) { this.extras.showToast(`Please choose a different title for your story`, `${error.error.title}`, 'danger', 0);
-            } else { this.extras.showToast(` Please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Bad Request', 'danger', 0);console.error(error); }
+            } else {
+              // this.extras.showToast(` Please send this to the support team(anonsys@protonmail.com): ${JSON.stringify(error.error)}`, 'Uncaught Bad Request', 'danger', 0);console.error(error);
+              console.error(error.error)
+            }
           } else {
             if (error.status == 403) {
               this.extras.showError(error.error, 'Unknown')

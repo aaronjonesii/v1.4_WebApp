@@ -57,6 +57,13 @@ import { AdminFilmsAnimesComponent } from "./pages/admin/admin-films/admin-films
 import { AdminFilmsMoviesComponent } from "./pages/admin/admin-films/admin-films-movies/admin-films-movies.component";
 import { AdminFilmsShowsComponent } from "./pages/admin/admin-films/admin-films-shows/admin-films-shows.component";
 import { SearchMoviesComponent } from "./pages/admin/admin-films/admin-films-movies/search-movies/search-movies.component";
+import { AdminCryptoComponent } from "./pages/admin/admin-crypto/admin-crypto.component";
+import { AdminCryptoBsctokensComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/admin-crypto-bsctokens.component";
+import { AdminHeaderSectionComponent } from "./pages/admin/admin-header-section/admin-header-section.component";
+import { CountdownTimerComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/countdown-timer/countdown-timer.component";
+import { CreateBsctokenComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/create-bsctoken/create-bsctoken.component";
+import { BsctokenSectionComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/create-bsctoken/bsctoken-section/bsctoken-section.component";
+import { BsctokenSectionItemComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/create-bsctoken/bsctoken-section/bsctoken-section-item/bsctoken-section-item.component";
 
 @NgModule({
   declarations: [
@@ -103,6 +110,13 @@ import { SearchMoviesComponent } from "./pages/admin/admin-films/admin-films-mov
     AdminFilmsMoviesComponent,
     AdminFilmsShowsComponent,
     SearchMoviesComponent,
+    AdminCryptoComponent,
+    AdminCryptoBsctokensComponent,
+    AdminHeaderSectionComponent,
+    CountdownTimerComponent,
+    CreateBsctokenComponent,
+    BsctokenSectionComponent,
+    BsctokenSectionItemComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -131,6 +145,7 @@ import { SearchMoviesComponent } from "./pages/admin/admin-films/admin-films-mov
             uri: environment.apiURL + '/frontend/admin/*',
             // tokenOptions: { scope: 'read:users_app_metadata' },
           },
+          { uri: environment.apiURL + '/crypto/*' },
         ]
       }
     }),

@@ -4,7 +4,6 @@
 
 @import '~@nebular/theme/styles/globals';
 
-
 @include nb-install() {
   @include nb-theme-global();
 };
@@ -13,4 +12,12 @@
 // Hide Header Bottom Shadow
 .nb-theme-default nb-layout-header nav {
   box-shadow: none!important;
+}
+
+
+// Small Media Breakpoint
+@include media-breakpoint-down(sm) {
+  .create-bsctoken-window {
+    max-width: 200px!important;
+  }
 }

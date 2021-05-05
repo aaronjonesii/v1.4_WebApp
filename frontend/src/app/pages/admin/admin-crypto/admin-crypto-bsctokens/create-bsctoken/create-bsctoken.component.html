@@ -1,0 +1,22 @@
+<form class="container window-container">
+
+  <div class="w-100 flex-column create-bsctoken-fields-container">
+    <anon-bsctoken-section
+      *ngFor="let section of bsctoken_sections"
+      [section]="section"
+      [bsctoken]="bsctoken"></anon-bsctoken-section>
+  </div>
+
+  <div class="d-flex flex-column justify-content-center align-self-center create-bsctoken-btn-container">
+    <input
+      nbButton
+      outline
+      class="mb-4 create-bsctoken-btn"
+      status="success"
+      type="submit"
+      value="Create"
+      (click)="add_bsctoken(this.bsctoken)"
+      />
+  </div>
+
+</form>

@@ -1,0 +1,39 @@
+<li class="field-container list-item d-flex align-items-center pb-35 pt-30">
+  <div class="mr-10 d-flex w-100 align-items-center">
+    <div class="d-block w-100">
+      <div class="h6 fieldName">{{fieldName}}</div>
+      <div class="w-100">
+        <div class="fieldSection mt-10 flex-column">
+          <ng-container *ngIf="!is_bsctoken_socials; else bsctoken_social">
+            <ng-container *ngIf="ngModel_key != 'description'; else is_description">
+              <input
+                #fieldInput
+                class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
+                [type]="field_type"
+                [required]="is_required"
+                [(ngModel)]="bsctoken[ngModel_key]"
+              />
+            </ng-container>
+            <ng-template #is_description>
+              <textarea
+                #fieldInput
+                class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
+                [required]="is_required"
+                [(ngModel)]="bsctoken[ngModel_key]"></textarea>
+            </ng-template>
+          </ng-container>
+          <ng-template #bsctoken_social>
+            <input
+              #fieldInput
+              class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
+              [type]="field_type"
+              [required]="is_required"
+              [(ngModel)]="bsctoken.socials[ngModel_key]"
+            />
+          </ng-template>
+          <small class="fieldDescription text-muted">{{fieldDescription}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

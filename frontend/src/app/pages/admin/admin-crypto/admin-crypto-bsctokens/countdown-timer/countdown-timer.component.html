@@ -1,0 +1,26 @@
+<ng-container class="container" *ngIf="!countdown_loaded; else loaded">
+  <anon-loading></anon-loading>
+</ng-container>
+<ng-template #loaded>
+  <ng-container *ngIf="!countdown_to_timestamp_is_in_past; else timestamp_is_in_past">
+    <div class="timer text-info">
+      <h4>Coming Soon</h4>
+      <ng-container *ngIf="countdown_to_timestamp_is_null; else show_countdown">
+        <span class="">TBC</span>
+      </ng-container>
+      <ng-template #show_countdown>
+        <span class="countdown-days">{{daysToDday}}</span>Day(s)
+        <span class="countdown-hours">{{hoursToDday}}</span>Hrs
+        <span class="countdown-minutes">{{minutesToDday}}</span>Min
+        <span class="countdown-seconds">{{secondsToDday}}</span>S
+      </ng-template>
+    </div>
+  </ng-container>
+  <ng-template #timestamp_is_in_past>
+    <div class="timer">
+      <h4 class="text-success">{{countdown_end_message}}</h4>
+      <span class="text-info">{{countdown_to_timestamp | date: 'medium'}}</span>
+    </div>
+  </ng-template>
+</ng-template>
+

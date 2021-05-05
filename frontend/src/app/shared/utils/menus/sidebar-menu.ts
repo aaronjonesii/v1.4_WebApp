@@ -14,20 +14,19 @@ export const SIDEBAR_MENU_ITEMS: NbMenuItem[] = [
     link: '/admin/stories',
     children: [
       { title: 'All Stories', link: '/admin/stories' },
-      { title: 'Categories', link: '' },
-      { title: 'Tags', link: '' },
+      { title: 'Categories' },
+      { title: 'Tags' },
     ]
   },
-  { title: 'Media', icon: 'image-outline' },
-  {
-    title: 'Films',
-    icon: 'film-outline',
-    link: '/admin/films/movies',
-    children: [
-      { title: 'Anime Shows', link: '/admin/films/animes' },
-      { title: 'Movies', link: '/admin/films/movies' },
-      { title: 'TV Shows', link: '/admin/films/shows' },
-      { title: 'Update Database', link: '/admin/films' },
-    ]
-  },
+
+  { title: 'CRYPTO', group: true },
+  { title: 'Binance Smart Chain Tokens', link: 'admin/crypto/' },
+  // { title: 'Cryptocurrency Watchlist' },
+  // { title: 'Wallet Watchlist' },
+
+  { title: 'FILMS', group: true},
+  { title: 'Anime Shows', link: '/admin/films/animes' },
+  { title: 'Movies', link: '/admin/films/movies' },
+  { title: 'TV Shows', link: '/admin/films/shows' },
+  { title: 'Update Database', link: '/admin/films' },
 ]
