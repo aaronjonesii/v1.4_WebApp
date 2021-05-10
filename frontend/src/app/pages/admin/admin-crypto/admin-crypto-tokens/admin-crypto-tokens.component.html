@@ -1,0 +1,27 @@
+<div class="container-fluid content-row mx-auto">
+  <div class="row">
+
+    <!-- Header Section -->
+    <anon-admin-header-section
+      class="container-fluid mb-3 ml-4"
+      page_title="All Cryptocurrency Tokens"
+      page_subtitle="Track all existing and upcoming tokens while also tracking swap transactions.">
+    </anon-admin-header-section>
+
+    <!--   BSCTokens Section   -->
+    <anon-admin-crypto-token-cards class="container-fluid content-row mx-auto"></anon-admin-crypto-token-cards>
+
+    <div class="add-token-btn">
+      <button
+        nbButton
+        class="rounded-circle"
+        status="success"
+        size="medium"
+        nbTooltip="Add BSC Token Card"
+        (click)="openCreateBSCTokenWindow()">
+        <nb-icon icon="plus-outline"></nb-icon>
+      </button>
+    </div>
+
+  </div>
+</div>

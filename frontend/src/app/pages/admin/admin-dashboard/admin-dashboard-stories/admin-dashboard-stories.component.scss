@@ -1,0 +1,7 @@
+@import '../../../../shared/styles/themes';
+
+@include nb-install-component() {
+  ::ng-deep .item-body {
+    padding: 0!important;
+  }
+}

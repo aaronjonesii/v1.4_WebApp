@@ -13,11 +13,33 @@
 .nb-theme-default nb-layout-header nav {
   box-shadow: none!important;
 }
+// Set Create Crypto Token Window Width & Height
+.create-cryptotoken-window {
+  width: 69vw;
+  nb-card {
+    height: 41vh;
+  }
+}
+
 
 
 // Small Media Breakpoint
 @include media-breakpoint-down(sm) {
-  .create-bsctoken-window {
-    max-width: 200px!important;
+  .create-cryptotoken-window {
+    min-width: 90vw!important;
+    nb-card:not(.step-card) {
+      min-height: 80vh!important;
+    }
   }
 }
+// Medium Media Breakpoint
+@include media-breakpoint-down(md) {
+  .create-cryptotoken-window {
+    min-width: 90vw!important;
+    nb-card:not(.step-card) {
+      min-height: 58vh!important;
+    }
+  }
+}
+// Large Media Breakpoint
+@include media-breakpoint-down(lg) {}

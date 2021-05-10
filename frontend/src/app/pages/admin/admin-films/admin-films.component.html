@@ -1,14 +1,14 @@
 <div class="container">
 
   <!-- Header Section -->
-  <section class="container mb-3">
-    <div class="row w-100 justify-content-start">
-      <div class="col">
-        <span class="row display-4">Films</span>
-        <small class="row text-muted">Anime shows, TV shows, and movies from the backend database.</small>
-      </div>
-    </div>
-  </section>
+  <anon-admin-header-section
+    class="container-fluid mb-3 ml-4"
+    page_title="Films"
+    page_subtitle="Anime shows, TV shows, and movies from the backend database."
+    [show_alert]="true"
+    alert_accent="danger"
+    alert_message="You need to update database manually from backend server until button below is fixed."
+  ></anon-admin-header-section>
 
   <ng-container class="container" *ngIf="!films_loaded; else loaded">
     <ng-template [ngIf]="database_updating">
@@ -38,7 +38,7 @@
         <ng-template #notNull>
           <div class="col-md-6 align-self-center">Film Database last updated: <nb-tag appearance="outline" status="warning" [text]="database_last_updated" size="tiny"></nb-tag></div>
         </ng-template>
-        <button (click)="update_database()" class="col-md-6" style="height: 25px!important;" nbButton status="warning" outline>Update Database</button>
+        <button disabled (click)="update_database()" class="col-md-6" style="height: 25px!important;" nbButton status="warning" outline>Update Database</button>
       </div>
     </section>
 

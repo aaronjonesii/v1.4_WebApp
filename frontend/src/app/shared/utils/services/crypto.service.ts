@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "../../../../environments/environment";
-import { BSCToken, SwapTransaction } from "../models/crypto";
+import { CryptoToken, SwapTransaction } from "../models/crypto";
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +10,30 @@ import { BSCToken, SwapTransaction } from "../models/crypto";
 export class CryptoService {
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
-  private bsctokens = new BehaviorSubject<any>([]);
+  private cryptotokens = new BehaviorSubject<any>([]);
 
-  shared_bsctokens = this.bsctokens.asObservable();
+  shared_cryptotokens = this.cryptotokens.asObservable();
 
   constructor( private http: HttpClient ) { }
 
-  update_bsctokens(bsctokens: BSCToken[]) { this.bsctokens.next(bsctokens); }
+  update_cryptotokens(cryptotokens: CryptoToken[]) { this.cryptotokens.next(cryptotokens); }
 
   /**
-   * Get list of BSCTokens
-   * @returns list(BSCTokens)
+   * Get list of all Tokens
+   * @returns list(Tokens)
    */
-  get_bsc_tokens(): Observable<BSCToken[]> {
-    return this.http.get<BSCToken[]>(
+  get_crypto_tokens(type_of_token: string): Observable<CryptoToken[]> {
+    let url = `${environment.apiURL}/crypto/`
+    if (type_of_token === 'all') url = url + `tokens/`
+    if (type_of_token === 'bsc') url = url + `bsctokens/`
+    return this.http.get<CryptoToken[]>(`${url}`, {headers: this.httpHeaders});
+  }
+  /**
+   * Get list of all BNB Tokens
+   * @returns list(Tokens)
+   */
+  get_bsc_tokens(): Observable<CryptoToken[]> {
+    return this.http.get<CryptoToken[]>(
       `${environment.apiURL}/crypto/bsctokens/`,
       {headers: this.httpHeaders}
     );
@@ -31,11 +41,11 @@ export class CryptoService {
 
   /**
    * Create Single BSCToken
-   * @returns BSCToken
+   * @returns CryptoToken
    */
-  create_bsc_token(bsc_token: BSCToken): Observable<BSCToken> {
-    return this.http.post<BSCToken>(
-      `${environment.apiURL}/crypto/bsctokens/`,
+  create_bsc_token(bsc_token: CryptoToken): Observable<CryptoToken> {
+    return this.http.post<CryptoToken>(
+      `${environment.apiURL}/crypto/tokens/`,
       bsc_token,
       {headers: this.httpHeaders}
     );
@@ -45,9 +55,9 @@ export class CryptoService {
    * Delete single BSCToken
    * @returns Status Code 204
    */
-  delete_bsc_token(bsc_token_contract_address: string): Observable<any> {
+  delete_bsc_token(crypto_token_contract_address: string): Observable<any> {
     return this.http.delete<any>(
-      `${environment.apiURL}/crypto/bsctokens/${bsc_token_contract_address}/`,
+      `${environment.apiURL}/crypto/tokens/${crypto_token_contract_address}/`,
       {headers: this.httpHeaders}
     );
   }

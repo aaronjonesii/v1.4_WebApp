@@ -9,17 +9,14 @@
 
 
       <!-- Header Section -->
-      <section class="container-fluid mb-3 ml-4">
-        <div class="row w-100">
-          <div class="col-md-6">
-            <span class="row display-4">Movies</span>
-            <small class="row text-muted">Most recent movies inside an infinite list.</small>
-          </div>
-          <div class="col-md-6 align-self-center">
-            <nb-alert class="m-0 align-items-center" accent="danger">Do NOT download any film before hiding your IP with a VPN!</nb-alert>
-          </div>
-        </div>
-      </section>
+      <anon-admin-header-section
+        class="container-fluid mb-3 ml-4"
+        page_title="Movies"
+        page_subtitle="Most recent movies inside an infinite list."
+        [show_alert]="true"
+        alert_accent="danger"
+        alert_message="Do NOT download any film before hiding your IP with a VPN!"
+      ></anon-admin-header-section>
 
       <!--   Film Section   -->
       <section class="container-fluid content-row mx-auto">
@@ -41,7 +38,7 @@
         </nb-list>
       </ng-container>
       <ng-template #noMovies>
-        <div class="display-4 text-center">No movies yet.</div>
+        <div class="display-4 text-center mt-4">No movies yet.</div>
       </ng-template>
 
       </section>

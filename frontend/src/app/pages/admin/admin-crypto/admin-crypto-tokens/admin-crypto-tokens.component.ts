@@ -3,14 +3,13 @@ import { Subject } from "rxjs";
 import { CryptoService } from "../../../../shared/utils/services/crypto.service";
 import { NbWindowService } from "@nebular/theme";
 import { CreateCryptotokenComponent } from "../create-cryptotoken/create-cryptotoken.component";
-import { ExtrasService } from "../../../../shared/utils/services/extras.service";
 
 @Component({
-  selector: 'anon-admin-crypto-bsctokens',
-  templateUrl: './admin-crypto-bsctokens.component.html',
-  styleUrls: ['./admin-crypto-bsctokens.component.scss']
+  selector: 'anon-admin-crypto-tokens',
+  templateUrl: './admin-crypto-tokens.component.html',
+  styleUrls: ['./admin-crypto-tokens.component.scss']
 })
-export class AdminCryptoBsctokensComponent implements OnInit, OnDestroy {
+export class AdminCryptoTokensComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
 
   constructor(

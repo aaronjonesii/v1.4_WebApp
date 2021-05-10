@@ -60,10 +60,14 @@ import { SearchMoviesComponent } from "./pages/admin/admin-films/admin-films-mov
 import { AdminCryptoComponent } from "./pages/admin/admin-crypto/admin-crypto.component";
 import { AdminCryptoBsctokensComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/admin-crypto-bsctokens.component";
 import { AdminHeaderSectionComponent } from "./pages/admin/admin-header-section/admin-header-section.component";
-import { CountdownTimerComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/countdown-timer/countdown-timer.component";
-import { CreateBsctokenComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/create-bsctoken/create-bsctoken.component";
-import { BsctokenSectionComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/create-bsctoken/bsctoken-section/bsctoken-section.component";
-import { BsctokenSectionItemComponent } from "./pages/admin/admin-crypto/admin-crypto-bsctokens/create-bsctoken/bsctoken-section/bsctoken-section-item/bsctoken-section-item.component";
+import { CountdownTimerComponent } from "./pages/admin/admin-crypto/admin-crypto-token-cards/countdown-timer/countdown-timer.component";
+import { CreateCryptotokenComponent } from "./pages/admin/admin-crypto/create-cryptotoken/create-cryptotoken.component";
+import { CryptotokenSectionComponent } from "./pages/admin/admin-crypto/create-cryptotoken/create-token-step/cryptotoken-section/cryptotoken-section.component";
+import { CryptotokenSectionItemComponent } from "./pages/admin/admin-crypto/create-cryptotoken/create-token-step/cryptotoken-section/cryptotoken-section-item/cryptotoken-section-item.component";
+import { AdminCryptoTokenCardsComponent } from "./pages/admin/admin-crypto/admin-crypto-token-cards/admin-crypto-token-cards.component";
+import { AdminCryptoTokensComponent } from "./pages/admin/admin-crypto/admin-crypto-tokens/admin-crypto-tokens.component";
+import { ClipboardModule } from "@angular/cdk/clipboard";
+import { CreateTokenStepComponent } from "./pages/admin/admin-crypto/create-cryptotoken/create-token-step/create-token-step.component";
 
 @NgModule({
   declarations: [
@@ -114,9 +118,12 @@ import { BsctokenSectionItemComponent } from "./pages/admin/admin-crypto/admin-c
     AdminCryptoBsctokensComponent,
     AdminHeaderSectionComponent,
     CountdownTimerComponent,
-    CreateBsctokenComponent,
-    BsctokenSectionComponent,
-    BsctokenSectionItemComponent,
+    CreateCryptotokenComponent,
+    CryptotokenSectionComponent,
+    CryptotokenSectionItemComponent,
+    AdminCryptoTokenCardsComponent,
+    AdminCryptoTokensComponent,
+    CreateTokenStepComponent,
   ],
   imports: [
     AppRoutingModule,

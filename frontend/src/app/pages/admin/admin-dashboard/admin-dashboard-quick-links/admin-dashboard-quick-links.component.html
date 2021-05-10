@@ -2,7 +2,11 @@
   <nb-accordion-item expanded>
     <nb-accordion-item-header>Quick Links</nb-accordion-item-header>
     <nb-accordion-item-body class="">
-      <nb-menu [items]="QUICK_LINKS"></nb-menu>
+      <nb-card class="border-0 m-0">
+        <nb-card-body class="p-0">
+          <nb-menu [items]="QUICK_LINKS"></nb-menu>
+        </nb-card-body>
+      </nb-card>
     </nb-accordion-item-body>
   </nb-accordion-item>
 </nb-accordion>

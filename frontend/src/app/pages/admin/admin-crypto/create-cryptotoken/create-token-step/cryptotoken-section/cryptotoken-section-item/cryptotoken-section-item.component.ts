@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'anon-bsctoken-section-item',
-  templateUrl: './bsctoken-section-item.component.html',
-  styleUrls: ['./bsctoken-section-item.component.scss']
+  templateUrl: './cryptotoken-section-item.component.html',
+  styleUrls: ['./cryptotoken-section-item.component.scss']
 })
-export class BsctokenSectionItemComponent implements OnInit {
+export class CryptotokenSectionItemComponent implements OnInit {
   @Input() bsctoken: any;
   @Input() fieldName: any;
   @Input() fieldDescription: any;
@@ -13,6 +13,7 @@ export class BsctokenSectionItemComponent implements OnInit {
   @Input() is_bsctoken_socials: any;
   @Input() is_required: boolean = false;
   @Input() field_type: string = 'text';
+  @Input() select_options: any;
 
   constructor() { }
 

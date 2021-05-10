@@ -10,7 +10,7 @@ export const SIDEBAR_MENU_ITEMS: NbMenuItem[] = [
   { title: 'BLOG', group: true },
   {
     title: 'Stories',
-    icon: 'text-outline',
+    icon: 'file-text-outline',
     link: '/admin/stories',
     children: [
       { title: 'All Stories', link: '/admin/stories' },
@@ -20,13 +20,13 @@ export const SIDEBAR_MENU_ITEMS: NbMenuItem[] = [
   },
 
   { title: 'CRYPTO', group: true },
-  { title: 'Binance Smart Chain Tokens', link: 'admin/crypto/' },
-  // { title: 'Cryptocurrency Watchlist' },
-  // { title: 'Wallet Watchlist' },
+  { title: 'Crypto LInks', link: 'admin/crypto', icon: 'grid-outline' },
+  { title: 'All Crypto Tokens', link: 'admin/crypto/tokens', icon: {icon: 'bitcoin', pack: 'custom-icons'} },
+  { title: 'Binance Smart Chain Tokens', link: 'admin/crypto/bsctokens', icon: {icon: 'bsc', pack: 'custom-icons'} },
 
   { title: 'FILMS', group: true},
-  { title: 'Anime Shows', link: '/admin/films/animes' },
-  { title: 'Movies', link: '/admin/films/movies' },
-  { title: 'TV Shows', link: '/admin/films/shows' },
-  { title: 'Update Database', link: '/admin/films' },
+  { title: 'Anime Shows', link: '/admin/films/animes', icon: {icon: 'video-camera', pack: 'font-awesome'} },
+  { title: 'Movies', link: '/admin/films/movies', icon: {icon: 'film', pack: 'font-awesome'} },
+  { title: 'TV Shows', link: '/admin/films/shows', icon: 'tv-outline' },
+  { title: 'Films Overview', link: '/admin/films', icon: {icon: 'database', pack: 'font-awesome'} },
 ]

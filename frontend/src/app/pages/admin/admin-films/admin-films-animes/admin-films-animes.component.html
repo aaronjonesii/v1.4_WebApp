@@ -8,31 +8,36 @@
     <ng-template #loaded>
 
       <!-- Header Section -->
-      <section class="container-fluid mb-3 ml-4">
-        <div class="row w-100 justify-content-start">
-          <div class="col">
-            <span class="row display-4">Anime Shows</span>
-            <small class="row text-muted">Most recent anime shows inside an infinite list.</small>
-          </div>
-        </div>
-      </section>
+      <anon-admin-header-section
+        class="container-fluid mb-3 ml-4"
+        page_title="Anime Shows"
+        page_subtitle="Most recent anime shows inside an infinite list."
+        [show_alert]="true"
+        alert_accent="danger"
+        alert_message="Do NOT download any film before hiding your IP with a VPN!"
+      ></anon-admin-header-section>
 
       <!--   Film Section   -->
       <section class="container-fluid content-row mx-auto">
-        <div class="row">
-          <div *ngFor="let anime of animes_results" class="card mx-auto mb-3 bg-dark" id="card" style="">
+        <ng-container *ngIf="animes_results.length > 0;else noAnimes">
+          <div class="row">
+            <div *ngFor="let anime of animes_results" class="card mx-auto mb-3 bg-dark" id="card" style="">
 
-            <a class="" target="_blank" href="https://myanimelist.net/anime/{{anime.mal_id}}" title="{{ anime.title }}">
-              <img class="card-img-top rounded" id="mov_img" src="https://www.mymovierack.com/images/title/4/6/9764/orig.jpg" alt="{{ anime?.title }}">
-            </a>
-            <div class="text-dark top-overlay font-weight-bold">{{ anime.title }}</div>
+              <a class="" target="_blank" href="https://myanimelist.net/anime/{{anime.mal_id}}" title="{{ anime.title }}">
+                <img class="card-img-top rounded" id="mov_img" src="https://www.mymovierack.com/images/title/4/6/9764/orig.jpg" alt="{{ anime?.title }}">
+              </a>
+              <div class="text-dark top-overlay font-weight-bold">{{ anime.title }}</div>
 
-            <!--Magnet Download Button-->
-            <a href="" id="download" class="down-link bottom-right-overlay badge badge-primary">Download</a>
-            <a href="" id="get-app" class="down-icon-link bottom-right-overlay badge badge-primary"><i id="down-icon" class="down-icon material-icons">get_app</i></a>
+              <!--Magnet Download Button-->
+              <a href="" id="download" class="down-link bottom-right-overlay badge badge-primary">Download</a>
+              <a href="" id="get-app" class="down-icon-link bottom-right-overlay badge badge-primary"><i id="down-icon" class="down-icon material-icons">get_app</i></a>
 
+            </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-template #noAnimes>
+          <div class="display-4 text-center mt-4">No anime shows yet.</div>
+        </ng-template>
       </section>
 
     </ng-template>

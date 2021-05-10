@@ -26,13 +26,17 @@
 
     <div class="row p-4">
       <div class="col-md-7">
-        <anon-admin-dashboard-stories class="" [stories]="all_stories" [is_stories_loaded]="is_stories_loaded"></anon-admin-dashboard-stories>
+        <anon-admin-dashboard-stories class="admin-dashboard-stories-card" [stories]="all_stories" [is_stories_loaded]="is_stories_loaded"></anon-admin-dashboard-stories>
 
         <nb-accordion class="mt-4">
           <nb-accordion-item expanded>
-            <nb-accordion-item-header>Something Here</nb-accordion-item-header>
+            <nb-accordion-item-header>Cryptocurrency</nb-accordion-item-header>
             <nb-accordion-item-body class="">
-              Something here
+              <nb-card class="border-0 m-0">
+                <nb-card-body class="p-0">
+                  <anon-admin-crypto [header_enabled]="false"></anon-admin-crypto>
+                </nb-card-body>
+              </nb-card>
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>

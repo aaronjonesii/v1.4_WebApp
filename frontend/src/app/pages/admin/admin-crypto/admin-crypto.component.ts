@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'anon-admin-crypto',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-crypto.component.scss']
 })
 export class AdminCryptoComponent implements OnInit {
+  @Input() header_enabled: boolean = true;
   crypto_cards = [
     {
       title: "Binance Smart Chain Tokens",

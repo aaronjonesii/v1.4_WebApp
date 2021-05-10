@@ -1,0 +1,14 @@
+<h4>{{step_title}}</h4>
+<hr />
+<nb-card class="step-card">
+  <nb-card-body>
+    <anon-cryptotoken-section
+      class="section-container"
+      [section]="step_section"
+      [bsctoken]="token"></anon-cryptotoken-section>
+  </nb-card-body>
+</nb-card>
+<div class="d-flex justify-content-around align-items-center">
+  <button class="d-flex" nbButton nbStepperPrevious>prev</button>
+  <button class="d-flex" nbButton nbStepperNext>next</button>
+</div>

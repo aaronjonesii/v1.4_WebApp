@@ -1,8 +1,4 @@
 <div class="mb-50 w-100">
-  <header class="heading borderBottom">
-    <div class="heading-content mb-8" [id]="section.id"><h4>{{section.header}}</h4></div>
-  </header>
-
   <ul class="p-0">
     <anon-bsctoken-section-item
       *ngFor="let item of section.items"
@@ -12,6 +8,7 @@
       [is_bsctoken_socials]="item.is_bsctoken_socials"
       [is_required]="item.is_required"
       [field_type]="item.field_type"
+      [select_options]="item.select_options"
       [ngModel_key]="item.ngModel_key"></anon-bsctoken-section-item>
   </ul>
 </div>

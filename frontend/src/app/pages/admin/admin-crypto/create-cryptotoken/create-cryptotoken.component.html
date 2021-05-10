@@ -1,0 +1,41 @@
+<form class="container window-container p-0">
+
+  <div class="w-100 flex-column create-bsctoken-fields-container">
+    <nb-stepper [orientation]="stepper_orientation">
+      <nb-step label="Required Info" class="p-0">
+        <anon-create-token-step
+          [step_title]="required_token_fields.header"
+          [id]="required_token_fields.id"
+          [step_section]="required_token_fields"
+          [token]="token"></anon-create-token-step>
+      </nb-step>
+      <nb-step label="Token Info">
+        <anon-create-token-step
+          [step_title]="token_info_fields.header"
+          [id]="token_info_fields.id"
+          [step_section]="token_info_fields"
+          [token]="token"></anon-create-token-step>
+      </nb-step>
+      <nb-step label="Token Socials">
+        <anon-create-token-step
+          [step_title]="token_social_fields.header"
+          [id]="token_social_fields.id"
+          [step_section]="token_social_fields"
+          [token]="token"></anon-create-token-step>
+      </nb-step>
+    </nb-stepper>
+  </div>
+
+  <div class="d-flex flex-column justify-content-center align-self-center create-bsctoken-btn-container">
+    <input
+      nbButton
+      outline
+      class="mb-4 create-bsctoken-btn"
+      status="success"
+      type="submit"
+      value="Create"
+      (click)="add_bsctoken(this.token)"
+      />
+  </div>
+
+</form>

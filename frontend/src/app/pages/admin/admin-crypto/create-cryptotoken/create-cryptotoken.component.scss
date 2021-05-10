@@ -1,4 +1,4 @@
-@import '../../../../../../../shared/styles/themes';
+@import '../../../../shared/styles/themes';
 
 @include nb-install-component() {
   // Padding
@@ -11,7 +11,15 @@
   .mb-24 { margin-bottom: 24px!important; }
   // Border
   .borderBottomLightest { border-bottom: 1px solid rgba(0,0,0,.05)!important; }
+  .borderBottom { border-bottom: 1px solid rgba(0,0,0,.05); }
   // Classes
+  .heading {
+    color: rgba(0,0,0,.84);
+    font-size: 18px;
+    letter-spacing: 0;
+    position: relative;
+  }
+  .window-container { max-height: 400px; }
   .fieldName { max-width: 450px!important; width: 100%!important; }
   .fieldSection { max-width: 480px!important; width: 100%!important; }
   .listItemInput {
@@ -25,4 +33,24 @@
     width: inherit;
   }
   .listItemInput:focus { outline: 0; }
+  .create-bsctoken-btn {
+    font-size: 0.75rem;
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    margin-bottom: 0!important;
+  }
+  ::ng-deep .step-content {
+    width: 100%;
+    max-height: 400px;
+    hr {
+      width: 100%;
+      margin: 0!important;
+    }
+    nb-card { border: 0!important; }
+  }
+  .section-container {
+    max-height: 400px;
+    overflow: auto;
+  }
 }

@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { BSCToken } from "../models/crypto";
+import { CryptoToken } from "../models/crypto";
 
 @Pipe({name: 'bsctoken_socials'})
 export class BSCTokenSocialsPipe implements PipeTransform {
-  transform(token: BSCToken): any[] {
+  transform(token: CryptoToken): any[] {
     let token_socials = [];
     if (token.website != "") {
       let website = { "name": "website", "link": token.website, "icon": "globe-outline", "icon_pack": "eva" };

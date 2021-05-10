@@ -1,8 +1,11 @@
 <section class="">
   <div class="row w-100">
-    <div class="col-12">
+    <div class="" [ngClass]="{'col-md-6': show_alert}">
       <span class="row display-4">{{page_title}}</span>
       <small class="row text-muted">{{page_subtitle}}</small>
+    </div>
+    <div class="col-md-6 align-self-center" *ngIf="show_alert">
+      <nb-alert class="m-0 align-items-center" [accent]="alert_accent">{{alert_message}}</nb-alert>
     </div>
   </div>
 </section>

@@ -1,3 +1,13 @@
 @import '../../../shared/styles/themes';
 
-@include nb-install-component() { }
+@include nb-install-component() {
+  // Make Crypto Cards all the same width
+  ::ng-deep anon-admin-crypto .card {
+    width: 100%;
+  }
+  ::ng-deep nb-accordion-item-body {
+       nb-card {
+         max-height: 33vh!important;
+       }
+     }
+}
