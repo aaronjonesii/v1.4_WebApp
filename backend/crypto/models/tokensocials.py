@@ -2,7 +2,7 @@ from django.db import models
 
 
 class TokenSocials(models.Model):
-    token = models.ForeignKey('BSCToken', on_delete=models.CASCADE, db_column='token')
+    token = models.ForeignKey('CryptoToken', on_delete=models.CASCADE, db_column='token')
     email = models.EmailField(blank=True)
     blog = models.URLField(blank=True)
     reddit = models.URLField(blank=True)

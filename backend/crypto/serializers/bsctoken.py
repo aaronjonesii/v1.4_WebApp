@@ -1,30 +1,34 @@
 from rest_framework import serializers
-from ..models.bsctoken import BSCToken
+from ..models.cryptotoken import CryptoToken, TokenBlockChain, TokenStatus
 from ..models import TokenSocials
 from ..models import SwapTransaction
 from .socials import SocialsSerializer
-from .swaptransaction import SwapTransactionSerializer, SwapTransactionHashSerializer
-import json
+from .swaptransaction import SwapTransactionHashSerializer
 
 
-class BSCTokenSerializer(serializers.ModelSerializer):
+class CryptoTokenSerializer(serializers.ModelSerializer):
+    blockchain = serializers.ChoiceField(choices=TokenBlockChain.choices, required=True)
+    status = serializers.ChoiceField(choices=TokenStatus.choices, required=True)
     socials = SocialsSerializer(required=False, allow_null=True)
-    swaps = serializers.SerializerMethodField('get_all_swaps') # Uncomment to enable swaps field
+    swaps = serializers.SerializerMethodField('get_all_swaps')
 
     def get_all_swaps(self, token):
         swaps_from_token = token.swaps_from_token.all().values()
         serializer_swaps_from_token = SwapTransactionHashSerializer(swaps_from_token, many=True)
         swaps_to_token = token.swaps_to_token.all().values()
         serializer_swaps_to_token = SwapTransactionHashSerializer(swaps_to_token, many=True)
-        # return list(swaps_from_token) + list(swaps_to_token)
         return serializer_swaps_from_token.data + serializer_swaps_to_token.data
 
     class Meta:
-        model = BSCToken
-        fields = ['name', 'symbol', 'contract_address', 'launch_date',
-                  'description', 'whitepaper', 'website', 'socials',
-                  'swaps_to_token', 'swaps_from_token', 'swaps']  # Add swaps to enable swap field
-        extra_kwargs = {'swaps_to_token': {'required': False}, "swaps_from_token": {'required': False}}
+        model = CryptoToken
+        fields = ['id', 'blockchain', 'name', 'symbol', 'contract_address',
+                  'launch_date', 'description', 'website', 'whitepaper',
+                  'socials', 'swaps_to_token', 'swaps_from_token',
+                  'swaps', 'is_flagged', 'balance', 'status']
+        extra_kwargs = {
+            "swaps_to_token": {"required": False},
+            "swaps_from_token": {"required": False},
+        }
 
     def create(self, validated_data):
         socials_exist = False; swap_transactions_exists = False
@@ -34,7 +38,7 @@ class BSCTokenSerializer(serializers.ModelSerializer):
         if 'swaps' in validated_data:
             swap_transactions = validated_data.pop('swaps')
             swap_transactions_exists = True
-        bsctoken = BSCToken.objects.create(**validated_data)
+        bsctoken = CryptoToken.objects.create(**validated_data)
         if socials_exist: add_socials_to_bsctoken(socials, bsctoken)
         if swap_transactions_exists: add_swap_transactions_to_bsctoken(swap_transactions, bsctoken)
         return bsctoken
@@ -42,7 +46,7 @@ class BSCTokenSerializer(serializers.ModelSerializer):
 
 def add_socials_to_bsctoken(socials, bsctoken_instance):
     new_socials = TokenSocials.objects.create(token=bsctoken_instance, **socials)
-    new_socials.bsctoken_set.add(bsctoken_instance)
+    new_socials.cryptotoken_set.add(bsctoken_instance)
 
 
 def add_swap_transactions_to_bsctoken(swap_transactions, bsctoken_instance):

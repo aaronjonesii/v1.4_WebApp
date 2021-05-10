@@ -46,16 +46,17 @@ blog_detail = post.PostViewSet.as_view({
     'delete': 'destroy'
 })
 
-bsctoken_list = bsctoken.BSCTokenViewSet.as_view({
+cryptotoken_list = bsctoken.CryptoTokenViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
-bsctoken_detail = bsctoken.BSCTokenViewSet.as_view({
+cryptotoken_detail = bsctoken.CryptoTokenViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
     'delete': 'destroy'
 })
+bsctoken_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'bsc_tokens'})
 
 related_post = post.PostViewSet.as_view({'get': 'related_posts'})
 
@@ -68,13 +69,10 @@ newsletter_subscribe = newsletter.NewsletterSubscription.as_view({'post': 'creat
 router = routers.DefaultRouter()
 router.register(r'tags', post.TagViewSet)
 router.register(r'cats', post.CategoryViewSet)
-# router.register(r'crypto/bsctokens', bsctoken.BSCTokenViewSet)
 router.register(r'crypto/swaps', bsctoken.SwapTransactionsViewSet)
 
 ipv4pattern = '(?:(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?)\.){3}(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?'
 ipv6pattern = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -98,8 +96,9 @@ urlpatterns = [
     path('blog/<uuid:pk>/byline/', post_byline, name='post_byline'),
     path('blog/<uuid:pk>/tags/', post_tags, name='post_tags'),
 
-    path('crypto/bsctokens/',  bsctoken_list, name='bsctoken_list'),
-    path('crypto/bsctokens/<str:pk>/', bsctoken_detail, name='bsctoken_detail'),
+    path('crypto/tokens/',  cryptotoken_list, name='list_all_tokens'),
+    path('crypto/tokens/<uuid:pk>/', cryptotoken_detail, name='token_detail'),
+    path('crypto/bsctokens/',  bsctoken_list, name='list_bsc_tokens'),
 
     path('weather/', weather.weatherView, name='weather'),  # Get Current Weather Conditions from requester
     path('weather/forecast/', weather.forecastWeatherView, name='forecast'),  # Get 5 day forecast from requester
@@ -113,5 +112,7 @@ urlpatterns = [
 
     path('', include(router.urls)),
 ]
+
+
 
 # https://www.django-rest-framework.org/tutorial/6-viewsets-and-routers/

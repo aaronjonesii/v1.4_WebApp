@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from ..models import SwapTransaction, BSCToken
+from ..models import SwapTransaction, CryptoToken
 
 
 class SwapTransactionSerializer(serializers.ModelSerializer):
-    from_token = serializers.SlugRelatedField(slug_field='symbol', queryset=BSCToken.objects.all())
-    to_token = serializers.SlugRelatedField(slug_field='symbol', queryset=BSCToken.objects.all())
+    from_token = serializers.SlugRelatedField(slug_field='symbol', queryset=CryptoToken.objects.all())
+    to_token = serializers.SlugRelatedField(slug_field='symbol', queryset=CryptoToken.objects.all())
 
     def __init__(self, *args, **kwargs):
         many = kwargs.pop('many', True)
