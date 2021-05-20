@@ -1,4 +1,5 @@
 export interface CryptoToken {
+  id?: string,
   blockchain: 'BTC'|'BCH'|'ETH'|'BNB-BEP2'|'BNB-BEP20'|'ADA'|'UNKNOWN',
   status: 'PUBLIC'|'PRIVATE'|'TRASH'|'ARCHIVE',
   name: string,

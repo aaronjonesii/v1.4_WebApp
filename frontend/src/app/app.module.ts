@@ -68,6 +68,9 @@ import { AdminCryptoTokenCardsComponent } from "./pages/admin/admin-crypto/admin
 import { AdminCryptoTokensComponent } from "./pages/admin/admin-crypto/admin-crypto-tokens/admin-crypto-tokens.component";
 import { ClipboardModule } from "@angular/cdk/clipboard";
 import { CreateTokenStepComponent } from "./pages/admin/admin-crypto/create-cryptotoken/create-token-step/create-token-step.component";
+import { CryptoTokenPageComponent } from "./pages/admin/admin-crypto/crypto-token-page/crypto-token-page.component";
+import { EditCryptoTokenComponent } from "./pages/admin/admin-crypto/edit-crypto-token/edit-crypto-token.component";
+import { CryptoTokenCardComponent } from "./pages/admin/admin-crypto/admin-crypto-token-cards/crypto-token-card/crypto-token-card.component";
 
 @NgModule({
   declarations: [
@@ -124,6 +127,9 @@ import { CreateTokenStepComponent } from "./pages/admin/admin-crypto/create-cryp
     AdminCryptoTokenCardsComponent,
     AdminCryptoTokensComponent,
     CreateTokenStepComponent,
+    CryptoTokenPageComponent,
+    EditCryptoTokenComponent,
+    CryptoTokenCardComponent,
   ],
   imports: [
     AppRoutingModule,

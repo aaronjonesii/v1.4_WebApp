@@ -29,7 +29,14 @@ export class CryptoService {
     return this.http.get<CryptoToken[]>(`${url}`, {headers: this.httpHeaders});
   }
   /**
-   * Get list of all BNB Tokens
+   * Get one Token
+   * @returns dict(Token)
+   */
+  get_one_token(token_id: string): Observable<CryptoToken> {
+    return this.http.get<CryptoToken>(`${environment.apiURL}/crypto/token/${token_id}`, {headers: this.httpHeaders});
+  }
+  /**
+   * Get list of all BSC Tokens
    * @returns list(Tokens)
    */
   get_bsc_tokens(): Observable<CryptoToken[]> {

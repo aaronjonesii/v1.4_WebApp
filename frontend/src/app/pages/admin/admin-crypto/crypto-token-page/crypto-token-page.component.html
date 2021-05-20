@@ -1,0 +1,40 @@
+<div class="container-fluid content-row mx-auto">
+  <div class="row">
+
+    <!-- Header Section -->
+    <anon-admin-header-section
+      class="container-fluid mb-3 ml-4"
+      page_title="Crypto Token Page"
+      page_subtitle="Track crypto token along with its swap transactions.">
+    </anon-admin-header-section>
+
+    <!--   Token Section   -->
+    <ng-container *ngIf="!token_loaded; else loaded">
+      <anon-loading class="container"></anon-loading>
+    </ng-container>
+    <ng-template #loaded>
+      <anon-crypto-token-card
+        class="mx-auto mb-3 align-self-center"
+        [token]="token"
+      ></anon-crypto-token-card>
+    </ng-template>
+
+
+    <!--  Swap Transactions  -->
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-4">Token Transactions</h1>
+        <p class="lead">Tracked transactions from the this token.</p>
+        <hr class="my-4">
+        <nb-card class="rounded-pill">
+          <nb-card-body>Transaction #1</nb-card-body>
+        </nb-card>
+        <nb-card class="rounded-pill">
+          <nb-card-body>Transaction #2</nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+
+  </div>
+</div>
