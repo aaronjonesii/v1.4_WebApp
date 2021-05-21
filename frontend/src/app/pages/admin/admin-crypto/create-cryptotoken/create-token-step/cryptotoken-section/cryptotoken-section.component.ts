@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./cryptotoken-section.component.scss']
 })
 export class CryptotokenSectionComponent implements OnInit {
-  @Input() bsctoken: any;
+  @Input() token: any;
   @Input() section: any;
 
   constructor() { }

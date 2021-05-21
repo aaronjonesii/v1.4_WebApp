@@ -60,6 +60,20 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 1rem;
+      }
+      .edit-btn-container {
+        position: absolute!important;
+        bottom: 5px!important;
+        right: 10px!important;
+      }
+      .trash-btn-container {
+        position: absolute!important;
+        bottom: 5px!important;
+        left: 10px!important;
+        .trash-btn {
+          cursor: pointer;
+        }
       }
     }
   }

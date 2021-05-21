@@ -16,21 +16,35 @@
           </ng-container>
           <ng-template #notSelectField>
             <ng-container *ngIf="!is_bsctoken_socials; else bsctoken_social">
-              <ng-container *ngIf="ngModel_key != 'description'; else is_description">
-                <input
-                  #fieldInput
-                  class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
-                  [type]="field_type"
-                  [required]="is_required"
-                  [(ngModel)]="bsctoken[ngModel_key]"
-                />
-              </ng-container>
-              <ng-template #is_description>
+              <ng-container *ngIf="ngModel_key != 'launch_date'; else is_launchdate">
+                <ng-container *ngIf="ngModel_key != 'description'; else is_description">
+                  <input
+                    #fieldInput
+                    class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
+                    [type]="field_type"
+                    [required]="is_required"
+                    [(ngModel)]="bsctoken[ngModel_key]"
+                  />
+                </ng-container>
+                <ng-template #is_description>
               <textarea
                 #fieldInput
                 class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent"
                 [required]="is_required"
                 [(ngModel)]="bsctoken[ngModel_key]"></textarea>
+                </ng-template>
+              </ng-container>
+              <ng-template #is_launchdate>
+                <input
+                  nbInput
+                  #fieldInput
+                  placeholder="Select Date & Time"
+                  [nbDatepicker]="dateTimePicker"
+                  [(ngModel)]="bsctoken[ngModel_key]"
+                  class="pb-8 mb-24 listItemInput borderBottomLightest bg-transparent">
+                <nb-date-timepicker
+                  #dateTimePicker
+                  singleColumn [step]="10"></nb-date-timepicker>
               </ng-template>
             </ng-container>
             <ng-template #bsctoken_social>

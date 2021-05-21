@@ -33,7 +33,7 @@ export class CryptoService {
    * @returns dict(Token)
    */
   get_one_token(token_id: string): Observable<CryptoToken> {
-    return this.http.get<CryptoToken>(`${environment.apiURL}/crypto/token/${token_id}`, {headers: this.httpHeaders});
+    return this.http.get<CryptoToken>(`${environment.apiURL}/crypto/token/${token_id}/`, {headers: this.httpHeaders});
   }
   /**
    * Get list of all BSC Tokens
@@ -57,14 +57,25 @@ export class CryptoService {
       {headers: this.httpHeaders}
     );
   }
+  /**
+   * Update Single BSCToken
+   * @returns Updated_CryptoToken
+   */
+  update_token(token: CryptoToken): Observable<CryptoToken> {
+    return this.http.put<CryptoToken>(
+      `${environment.apiURL}/crypto/token/${token.id}/`,
+      token,
+      {headers: this.httpHeaders}
+    );
+  }
 
   /**
    * Delete single BSCToken
    * @returns Status Code 204
    */
-  delete_bsc_token(crypto_token_contract_address: string): Observable<any> {
+  delete_one_token(token_id: string): Observable<any> {
     return this.http.delete<any>(
-      `${environment.apiURL}/crypto/tokens/${crypto_token_contract_address}/`,
+      `${environment.apiURL}/crypto/token/${token_id}/`,
       {headers: this.httpHeaders}
     );
   }

@@ -15,7 +15,7 @@ export class CryptotokenSectionItemComponent implements OnInit {
   @Input() field_type: string = 'text';
   @Input() select_options: any;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {}
 

@@ -4,7 +4,6 @@ import { Subject } from "rxjs";
 import { CryptoService } from "../../../../shared/utils/services/crypto.service";
 import { ExtrasService } from "../../../../shared/utils/services/extras.service";
 import { takeUntil } from "rxjs/operators";
-import { Clipboard } from "@angular/cdk/clipboard";
 
 @Component({
   selector: 'anon-admin-crypto-token-cards',
@@ -20,7 +19,6 @@ export class AdminCryptoTokenCardsComponent implements OnInit, OnDestroy {
   constructor(
     private crypto: CryptoService,
     private extras: ExtrasService,
-    private clipboard: Clipboard,
   ) {
     // BSCToken Cards Subscriber
     this.crypto.shared_cryptotokens.pipe(takeUntil(this.unsub$))
@@ -47,13 +45,6 @@ export class AdminCryptoTokenCardsComponent implements OnInit, OnDestroy {
   }
   complete_get_tokens() {
     this.tokens_loaded = true;
-  }
-
-  copy_to_clipboard(text: string) {
-    this.clipboard.copy(text);
-    this.extras.showToast(
-      '',
-      'Address copied to clipboard', 'success', 2000);
   }
 
 }

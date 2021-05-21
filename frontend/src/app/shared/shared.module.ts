@@ -26,7 +26,14 @@ import {
   NbListModule,
   NbActionsModule,
   NbSearchModule,
-  NbTagModule, NbAutocompleteModule, NbToggleModule, NbAccordionModule, NbAlertModule, NbTooltipModule, NbStepperModule
+  NbTagModule,
+  NbAutocompleteModule,
+  NbToggleModule,
+  NbAccordionModule,
+  NbAlertModule,
+  NbTooltipModule,
+  NbStepperModule,
+  NbDatepickerModule, NbTimepickerModule
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -45,13 +52,15 @@ import { FilmMovieLinkPipe } from "./utils/pipes/film-movie-link.pipe";
 import { BSCTokenSocialsPipe } from "./utils/pipes/bsctoken-socials.pipe";
 import { ClipboardModule } from "@angular/cdk/clipboard";
 
+
 const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule ];
 const NB_MODULES = [
   NbLayoutModule, NbButtonModule, NbCardModule, NbSelectModule, NbIconModule,
   NbUserModule, NbContextMenuModule, NbInputModule, FormsModule, NbFormFieldModule,
   NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule,
   NbSearchModule, NbTagModule, NbAutocompleteModule, NbSidebarModule, NbToggleModule,
-  NbAccordionModule, NbAlertModule, NbTooltipModule, NbStepperModule,
+  NbAccordionModule, NbAlertModule, NbTooltipModule, NbStepperModule, NbDatepickerModule,
+  NbTimepickerModule,
 ];
 const MAT_MODULES = [ClipboardModule];
 const COMPONENTS = []!;

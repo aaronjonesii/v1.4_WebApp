@@ -5,7 +5,7 @@ export interface CryptoToken {
   name: string,
   symbol: string,
   contract_address: string,
-  launch_date?: string,
+  launch_date?: string | Date,
   website?: string,
   description?: string,
   whitepaper?: string,

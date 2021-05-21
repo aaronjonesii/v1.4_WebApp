@@ -7,10 +7,12 @@
       <div class="col-9">
         <ng-container *ngIf="token.contract_address; else no_contract_address">
           <div class="d-flex">
-            <a class="text-decoration-none text-reset" [href]="'https://bscscan.com/token/'+token.contract_address" target="_blank">
-              <div class="token-name mb-2">{{token.name}}
-                &nbsp;<nb-icon status="basic" icon="external-link-outline"></nb-icon>
+
+              <div class="token-name mb-2">
+                <a class="text-decoration-none text-reset" [routerLink]="'/admin/crypto/token/'+token.id">{{token.name}}</a>
               </div>
+            <a class="text-decoration-none text-reset" [href]="'https://bscscan.com/token/'+token.contract_address" target="_blank">
+            &nbsp;<nb-icon status="basic" icon="external-link-outline"></nb-icon>
             </a>
             <a class="text-decoration-none text-reset"
                style="cursor: pointer"
@@ -22,7 +24,9 @@
           </div>
         </ng-container>
         <ng-template #no_contract_address>
-          <div class="token-name mb-2">{{token.name}}</div>
+          <div class="token-name mb-2">
+            <a class="text-decoration-none text-reset" [routerLink]="'/admin/crypto/token/'+token.id">{{token.name}}</a>
+          </div>
         </ng-template>
 
         <div class="token-socials mb-2">
@@ -70,5 +74,30 @@
         countdown_end_message="Token launched!"
       ></anon-countdown-timer>
     </div>
+
+    <!--  Edit Card Icon  -->
+    <div class="edit-btn-container">
+      <a class="text-decoration-none text-reset" [routerLink]="'/admin/crypto/token/'+token.id+'/edit'">
+        <nb-icon icon="edit-outline" status="basic"></nb-icon>
+      </a>
+    </div>
+
+    <!--  Trash Card Icon  -->
+    <div class="trash-btn-container">
+      <a class="text-decoration-none text-reset trash-btn" [nbPopover]="templateRef">
+        <nb-icon icon="trash-2-outline" status="basic"></nb-icon>
+      </a>
+      <ng-template #templateRef>
+        <div class="text-center">
+          <div class="m-2">
+            <div>Trash {{token.name}}?</div>
+          </div>
+          <div class="m-2">
+            <button nbButton status="success" (click)="trash_token(token.id)">Yes</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
   </div>
+
 </div>

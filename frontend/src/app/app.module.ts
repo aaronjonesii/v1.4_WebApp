@@ -27,7 +27,7 @@ import { EditStoryComponent } from "./pages/me/edit-story/edit-story.component";
 import { ProfileSettingsComponent } from "./pages/me/profile-settings/profile-settings.component";
 import { ProfileSettingsSectionComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section.component";
 import { ProfileSettingsSectionItemComponent } from "./pages/me/profile-settings/profile-settings-section/profile-settings-section-item/profile-settings-section-item.component";
-import { NbMenuModule, NbToastrModule } from "@nebular/theme";
+import { NbDatepickerModule, NbMenuModule, NbTimepickerModule, NbToastrModule } from "@nebular/theme";
 import { PublicStoryPageComponent } from './pages/public-story-page/public-story-page.component';
 import { PublicStoriesListComponent } from "./pages/public-stories-list/public-stories-list.component";
 import { StatusStoriesListComponent } from "./pages/me/stories/status-stories-list/status-stories-list.component";
@@ -137,6 +137,8 @@ import { CryptoTokenCardComponent } from "./pages/admin/admin-crypto/admin-crypt
     SharedModule.forRoot(),
     NbToastrModule.forRoot(),
     NbMenuModule.forRoot(),
+    NbDatepickerModule.forRoot(),
+    NbTimepickerModule.forRoot(),
     NbEvaIconsModule,
     HttpClientModule,
 

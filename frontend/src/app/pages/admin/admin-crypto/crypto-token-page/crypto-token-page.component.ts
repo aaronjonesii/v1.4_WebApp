@@ -13,6 +13,8 @@ import { ExtrasService } from "../../../../shared/utils/services/extras.service"
 })
 export class CryptoTokenPageComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
+  header_title: string = 'Crypto Token Page';
+  header_subtitle: string = 'Track crypto token along with its swap transactions.';
   token: CryptoToken = {
     blockchain: 'UNKNOWN',
     status: 'PRIVATE',
@@ -50,7 +52,11 @@ export class CryptoTokenPageComponent implements OnInit, OnDestroy {
     ).subscribe(
       token => {this.token = token},
       error => this.extras.goBack(),
-      () => {this.token_loaded = true;}
+      () => {
+        this.token_loaded = true;
+        this.header_title = `${this.token.name}`;
+        if (this.token.symbol != '') this.header_title += ` (${this.token.symbol})`
+      }
     );
   }
 

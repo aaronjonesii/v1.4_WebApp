@@ -1,0 +1,28 @@
+<div class="container-fluid content-row mx-auto">
+  <div class="row">
+
+    <!-- Header Section -->
+    <anon-admin-header-section
+      class="container-fluid mb-3 ml-4"
+      [page_title]="header_title"
+      [page_subtitle]="header_subtitle">
+    </anon-admin-header-section>
+
+    <!--  Edit Crypto Token Section -->
+    <ng-container *ngIf="!token_loaded; else loaded">
+      <anon-loading class="container"></anon-loading>
+    </ng-container>
+    <ng-template #loaded>
+    <anon-cryptotoken-section
+      class="container"
+      [section]="all_token_fields_section"
+      [token]="token"></anon-cryptotoken-section>
+    </ng-template>
+
+    <div class="row w-100 justify-content-around">
+      <button nbButton outline status="danger" (click)="go_back()">Go Back</button>
+      <button nbButton outline status="success" (click)="update_token(token)">Save</button>
+    </div>
+
+  </div>
+</div>

@@ -13,10 +13,8 @@ import { SearchMoviesComponent } from './admin-films/admin-films-movies/search-m
 import { AdminCryptoComponent } from './admin-crypto/admin-crypto.component';
 import { AdminCryptoBsctokensComponent } from './admin-crypto/admin-crypto-bsctokens/admin-crypto-bsctokens.component';
 import { AdminCryptoTokensComponent } from "./admin-crypto/admin-crypto-tokens/admin-crypto-tokens.component";
-import { CreateTokenStepComponent } from './admin-crypto/create-cryptotoken/create-token-step/create-token-step.component';
 import { CryptoTokenPageComponent } from './admin-crypto/crypto-token-page/crypto-token-page.component';
 import { EditCryptoTokenComponent } from './admin-crypto/edit-crypto-token/edit-crypto-token.component';
-import { CryptoTokenCardComponent } from './admin-crypto/admin-crypto-token-cards/crypto-token-card/crypto-token-card.component';
 
 
 const routes: Routes = [
@@ -27,7 +25,7 @@ const routes: Routes = [
           { path: '', component: AdminCryptoComponent, pathMatch: 'full' },
           { path: 'tokens', component: AdminCryptoTokensComponent },
           { path: 'token/:token_id', component: CryptoTokenPageComponent },
-          // { path: 'token/:token_id/edit', component:  },
+          { path: 'token/:token_id/edit', component: EditCryptoTokenComponent },
           { path: 'bsctokens', component: AdminCryptoBsctokensComponent },
         ] },
       { path: 'stories', component: AdminStoriesComponent },

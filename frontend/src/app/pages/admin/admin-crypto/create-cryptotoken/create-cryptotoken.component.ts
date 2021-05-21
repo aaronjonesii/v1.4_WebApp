@@ -10,6 +10,7 @@ import {
   token_info_fields,
   token_social_fields
 } from "../../../../shared/utils/cryptotoken-field-sections";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'anon-create-bsctoken',
@@ -37,6 +38,7 @@ export class CreateCryptotokenComponent implements OnInit, OnDestroy {
     private extras: ExtrasService,
     private themeService: NbThemeService,
     private breakpointService: NbMediaBreakpointsService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -74,7 +76,8 @@ export class CreateCryptotokenComponent implements OnInit, OnDestroy {
         0),
       () => {
         this.close();
-        this.get_bsctokens();
+        // this.router.navigate([this.router.url]);
+        window.location.reload();
       }
     );
   }

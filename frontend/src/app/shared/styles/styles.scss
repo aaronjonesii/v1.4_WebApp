@@ -16,8 +16,8 @@
 // Set Create Crypto Token Window Width & Height
 .create-cryptotoken-window {
   width: 69vw;
-  nb-card {
-    height: 41vh;
+  nb-card:not(.step-card) {
+    height: 66vh;
   }
 }
 

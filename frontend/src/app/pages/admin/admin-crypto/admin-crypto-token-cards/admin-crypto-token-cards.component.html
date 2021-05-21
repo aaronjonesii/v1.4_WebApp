@@ -13,7 +13,19 @@
       </div>
     </ng-container>
     <ng-template #empty>
-      <div class="container empty">You have no cryptocurrency token cards.</div>
+      <ng-container *ngIf="type_of_tokens === 'all'; else notAll">
+        <div class="container empty">
+          You have no cryptocurrency token cards.
+        </div>
+      </ng-container>
+
+      <ng-template #notAll>
+        <ng-container *ngIf="type_of_tokens === 'bsc'">
+          <div class="container empty">
+            You have no Binance Smart Chain cryptocurrency token cards.
+          </div>
+        </ng-container>
+      </ng-template>
     </ng-template>
 
   </section>
