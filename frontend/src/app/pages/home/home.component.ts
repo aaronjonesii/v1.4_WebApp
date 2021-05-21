@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     'Cryptocurrency',
     'Artificial Intelligence',
     'Computers',
-    'Operating Systems'
+    'Operating Systems',
+    'CyberSecurity',
   ];
 
   constructor(
