@@ -1,7 +1,7 @@
 from rest_framework import permissions
 from rest_framework import viewsets
-from ..models import CryptoToken, SwapTransaction, TokenBlockChain, TokenStatus
-from ..serializers import CryptoTokenSerializer, SwapTransactionSerializer
+from ..models import CryptoToken, SwapTransaction, TokenBlockChain, TokenStatus, Tag
+from ..serializers import CryptoTokenSerializer, SwapTransactionSerializer, TagSerializer
 
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -40,3 +40,12 @@ class SwapTransactionsViewSet(viewsets.ModelViewSet):
             if isinstance(data, list):
                 kwargs["many"] = True
         return super(SwapTransactionsViewSet, self).get_serializer(*args, **kwargs)
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    """
+    CRUD endpoint for token tags.
+    """
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    permission_classes = (permissions.IsAuthenticated,)

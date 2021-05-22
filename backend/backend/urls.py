@@ -56,6 +56,7 @@ cryptotoken_detail = bsctoken.CryptoTokenViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
+cryptotoken_tags = bsctoken.TagViewSet.as_view({'get': 'list'})
 bsctoken_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'bsc_tokens'})
 
 related_post = post.PostViewSet.as_view({'get': 'related_posts'})
@@ -99,6 +100,7 @@ urlpatterns = [
     path('crypto/tokens/',  cryptotoken_list, name='list_all_tokens'),
     path('crypto/tokens/<uuid:pk>/', cryptotoken_detail, name='token_detail'),
     path('crypto/bsctokens/',  bsctoken_list, name='list_bsc_tokens'),
+    path('crypto/tags/',  cryptotoken_tags, name='list_all_token_tags'),
 
     path('weather/', weather.weatherView, name='weather'),  # Get Current Weather Conditions from requester
     path('weather/forecast/', weather.forecastWeatherView, name='forecast'),  # Get 5 day forecast from requester

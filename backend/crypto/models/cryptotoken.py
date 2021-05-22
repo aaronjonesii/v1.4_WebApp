@@ -48,3 +48,19 @@ class CryptoToken(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def tags(self):
+        return self.tag_set.all()
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True, blank=False)
+    tokens = models.ManyToManyField(CryptoToken, blank=True)
+
+    class Meta:
+        verbose_name = "Token Tag"
+        verbose_name_plural = "Token Tags"
+
+    def __str__(self):
+        return self.name
