@@ -34,7 +34,7 @@
         }
         .token-charts {
           display: flex;
-          .token-chart-item, .trade-icon-item {
+          .token-chart-item {
             //background-color: #edf1f7;
             //border-color: #edf1f7;
             font-size: 13px;
@@ -76,5 +76,8 @@
         }
       }
     }
+  }
+  ::ng-deep .nb-tag-list-tags-wrapper {
+    justify-content: center;
   }
 }

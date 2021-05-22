@@ -73,6 +73,21 @@
       <div class="token-description">
         {{token.description}}
       </div>
+      <div class="token-tags">
+        <ng-container *ngIf="token.tags">
+          <div class="" *ngIf="token.tags.length > 0">
+            <nb-tag-list class="d-flex justify-content-center">
+              <nb-tag
+                class=""
+                *ngFor="let tag of token.tags"
+                [text]="tag.name"
+                appearance="outline"
+                status="basic"
+                size="tiny"></nb-tag>
+            </nb-tag-list>
+          </div>
+        </ng-container>
+      </div>
     </div>
 
     <!-- Card Bottom Section -->
