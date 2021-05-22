@@ -18,7 +18,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Post.objects.filter(author=user)
+        return Post.objects.order_by('-updated_on').filter(author=user)
 
     @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     def byline(self, request, *args, **kwargs):
@@ -56,7 +56,7 @@ class PublicPostViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
-        return Post.objects.filter(public=True)
+        return Post.objects.order_by('-updated_on').filter(public=True)
 
 
 class TagViewSet(viewsets.ModelViewSet):
