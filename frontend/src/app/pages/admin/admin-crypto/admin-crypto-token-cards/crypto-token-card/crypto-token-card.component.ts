@@ -6,6 +6,7 @@ import { CryptoService } from "../../../../../shared/utils/services/crypto.servi
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { UrlService } from "../../../../../shared/utils/services/url.service";
 
 @Component({
   selector: 'anon-crypto-token-card',
@@ -27,7 +28,7 @@ export class CryptoTokenCardComponent implements OnInit, OnDestroy {
     private clipboard: Clipboard,
     private crypto: CryptoService,
     private router: Router,
-  ) { }
+  ) {}
 
   ngOnInit(): void {}
   ngOnDestroy() {
@@ -54,7 +55,10 @@ export class CryptoTokenCardComponent implements OnInit, OnDestroy {
         this.extras.showToast(`Sorry, we ran into an error while trying to delete ${this.token.name}`,
           `Failed to delete token`, 'danger', 0);
       },
-      () => {window.location.reload();}
+      () => {
+        let page_url = this.router.url
+        this.router.navigateByUrl('/').then(() => this.router.navigateByUrl(page_url))
+      }
     );
   }
 

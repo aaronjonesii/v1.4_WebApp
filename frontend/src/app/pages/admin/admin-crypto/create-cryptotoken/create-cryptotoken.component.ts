@@ -76,8 +76,8 @@ export class CreateCryptotokenComponent implements OnInit, OnDestroy {
         0),
       () => {
         this.close();
-        // this.router.navigate([this.router.url]);
-        window.location.reload();
+        let page_url = this.router.url
+        this.router.navigateByUrl('/').then(() => this.router.navigateByUrl(page_url))
       }
     );
   }
