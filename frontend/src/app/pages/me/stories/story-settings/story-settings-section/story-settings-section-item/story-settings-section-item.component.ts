@@ -28,8 +28,8 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
   storyTags: Set<any> = new Set<any>();
   allTags: any;
   storyCategory: any;
-  categoryOptions: any;
-  filteredCategoryOptions$: any;
+  allCategories: any;
+  allCategories$: any;
   public statuses = [
     { name: 'Trash', number: 1 },
     { name: 'Draft', number: 2 },
@@ -55,7 +55,9 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
     if (this.item_key === 'category') {
       this.getAllCategories();
       if (this.story.category) this.storyCategory = this.story.category.name;
-      this.filteredCategoryOptions$ = of(this.categoryOptions);
+      setTimeout(() => {
+        this.allCategories$ = of(this.allCategories);
+      },1000);
     }
   }
   ngOnDestroy() {
@@ -139,7 +141,6 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
     }
   }
   onTagRemove(tagToRemove: NbTagComponent): void {
-    // console.log(`Removing ${tagToRemove.text} from => `,this.storyTags);
     this.storyTags.forEach((tag:Tag) => {
       if (tag.name == tagToRemove.text) {this.storyTags.delete(tag)}
     })
@@ -150,8 +151,6 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
   onTagAdd(value: string): void {
     if (value) {
       this.storyTags.add({'name': value});
-      // console.log('Added tag => ', Array.from(this.storyTags));
-      // console.log('filter => ', this.allTags.filter((tag:Tag) => tag.name !== value));
       this.allTags = this.allTags.filter((tag:Tag) => tag.name !== value);
     }
     this.tagInput.nativeElement.value = '';
@@ -161,19 +160,18 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
     this.blogService.getAllCategories().pipe(
       takeUntil(this.unsub$)
     ).subscribe(
-      allCategories => this.categoryOptions = allCategories,
+      allCategories => this.allCategories = allCategories,
       error => this.extras.showError(error, 'storySettingsSectionItem#getAllTags'),
       () => {},
     );
   }
   private filterCategory(value: string) {
     const filterValue = value.toLowerCase();
-    setTimeout(() => {
-      return this.categoryOptions.filter((catOptionValue: any) => catOptionValue.name.toLowerCase().includes(filterValue))
-    }, 999)
+    return this.allCategories.filter((categoryValue: any) => categoryValue.name.toLowerCase().includes(filterValue))
   }
   onCategoryChange(value: string) {
-    this.filteredCategoryOptions$ = of(this.filterCategory(value));
+    // console.log(this.filterCategory(value));
+    this.allCategories$ = of(this.filterCategory(value));
   }
 
   resetField() {
@@ -181,6 +179,7 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
       this.storyTags = new Set<any>(this.fieldSnapshot);
     } else {
       if (this.item_key === 'category') {
+        if (this.fieldSnapshot === undefined) this.fieldSnapshot = ''
         this.fieldInput.nativeElement.value = this.fieldSnapshot;
       } else {
         this.story[this.item_key] = this.fieldSnapshot;
@@ -189,6 +188,9 @@ export class StorySettingsSectionItemComponent implements OnInit, OnDestroy {
   }
 
   updateStory() {
+    if (this.story.category) {
+      if (this.story.category.name === '') this.story.category = null;
+    }
     this.blogService.updatePost(this.story.id, this.story).pipe(
       takeUntil(this.unsub$)
     ).subscribe(

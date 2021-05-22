@@ -27,6 +27,8 @@ export interface TokenSocials {
   telegram?: string,
   linkedin?: string,
   discord?: string,
+  instagram?: string,
+  youtube?: string,
 }
 
 export interface SwapTransaction {

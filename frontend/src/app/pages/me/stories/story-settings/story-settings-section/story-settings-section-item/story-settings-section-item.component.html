@@ -37,7 +37,7 @@
                 [disabled]="!canEdit"
               />
               <nb-autocomplete #categoryAutocomplete>
-                <nb-option *ngFor="let categoryOption of filteredCategoryOptions$ | async" [value]="categoryOption.name">{{categoryOption.name}}</nb-option>
+                <nb-option *ngFor="let category of allCategories$ | async" [value]="category.name">{{category.name}}</nb-option>
               </nb-autocomplete>
             </ng-container>
             <ng-template #notCategory>
