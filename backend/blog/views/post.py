@@ -61,11 +61,11 @@ class PublicPostViewSet(viewsets.ModelViewSet):
 
 class TagViewSet(viewsets.ModelViewSet):
     """
-    CRUD endpoint for tags.
+    CRUD endpoint for story tags.
     """
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -74,7 +74,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 
 class IsFrontendAdmin(permissions.BasePermission):
