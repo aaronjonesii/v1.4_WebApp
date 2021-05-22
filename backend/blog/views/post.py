@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 
-from ..serializers import PostSerializer, TagSerializer, CategorySerializer
+from ..serializers import PostSerializer, TagSerializer, CategorySerializer, PublicPostSerializer
 from ..models import Post, Tag, Category
 from .auth0 import is_frontend_admin
 
@@ -52,7 +52,7 @@ class PublicPostViewSet(viewsets.ModelViewSet):
     """
     CRUD endpoint for public posts.
     """
-    serializer_class = PostSerializer
+    serializer_class = PublicPostSerializer
     permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
