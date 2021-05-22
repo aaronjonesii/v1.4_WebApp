@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { CryptoToken, SwapTransaction } from "../models/crypto";
+import { Tag } from "../models/crypto";
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,10 @@ export class CryptoService {
       `${environment.apiURL}/crypto/token/${token_id}/`,
       {headers: this.httpHeaders}
     );
+  }
+
+  get_all_token_tags(): Observable<Tag[]> {
+    return this.http.get<Tag[]>(`${environment.apiURL}/crypto/tags/`, {headers: this.httpHeaders});
   }
 
   /**

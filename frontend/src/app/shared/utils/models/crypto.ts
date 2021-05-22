@@ -15,6 +15,11 @@ export interface CryptoToken {
   swaps?: SwapTransaction[],
   balance?: number,
   is_flagged?: boolean,
+  tags?: Tag[],
+}
+
+export interface Tag {
+  name: string;
 }
 
 export interface TokenSocials {

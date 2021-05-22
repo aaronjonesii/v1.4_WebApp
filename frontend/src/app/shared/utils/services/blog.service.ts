@@ -69,11 +69,11 @@ export class BlogService {
   }
 
   getAllTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(`${environment.apiURL}/tags/`, {headers: this.httpHeaders});
+    return this.http.get<Tag[]>(`${environment.apiURL}/blog/tags/`, {headers: this.httpHeaders});
   }
 
   getAllCategories(): Observable<Tag[]> {
-    return this.http.get<Category[]>(`${environment.apiURL}/cats/`, {headers: this.httpHeaders});
+    return this.http.get<Category[]>(`${environment.apiURL}/blog/cats/`, {headers: this.httpHeaders});
   }
 
   adminGetAllStories(): Observable<Post[]> {
