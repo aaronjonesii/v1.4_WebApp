@@ -28,9 +28,11 @@ class AnimeViewSet(viewsets.ModelViewSet):
     """
         CRUD endpoint for frontend admin anime shows.
     """
-    queryset = Anime.objects.order_by('-last_updated')[:500]
+    queryset = Anime.objects.order_by('-last_updated')
     serializer_class = AnimeSerializer
     permission_classes = (permissions.IsAuthenticated, IsFrontendAdmin)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
     pagination_class = StandardResultsSetPagination
 
 
@@ -50,13 +52,16 @@ class ShowViewSet(viewsets.ModelViewSet):
     """
         CRUD endpoint for frontend admin tv shows.
     """
-    queryset = Show.objects.order_by('-last_updated')[:500]
+    queryset = Show.objects.order_by('-last_updated')
     serializer_class = ShowSerializer
     permission_classes = (permissions.IsAuthenticated, IsFrontendAdmin)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
     pagination_class = StandardResultsSetPagination
 
-
-@permission_classes([permissions.IsAuthenticated, IsFrontendAdmin])
+# TODO: Combine below into Viewset for films get and update methods
+# TODO: Fix the below line to work
+# @permission_classes([permissions.IsAuthenticated, IsFrontendAdmin])
 async def admin_films_view(request):
     """ Returns number of films in database and last time it was updated """
     try:
