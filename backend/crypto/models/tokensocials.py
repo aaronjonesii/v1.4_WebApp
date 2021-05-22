@@ -12,6 +12,8 @@ class TokenSocials(models.Model):
     telegram = models.URLField(blank=True)
     linkedin = models.URLField(blank=True)
     discord = models.URLField(blank=True)
+    instagram = models.URLField(blank=True)
+    youtube = models.URLField(blank=True)
 
     class Meta:
         verbose_name = 'Socials'
@@ -28,4 +30,6 @@ class TokenSocials(models.Model):
         if self.telegram != '': entered_socials.append('telegram')
         if self.linkedin != '': entered_socials.append('linkedin')
         if self.discord != '': entered_socials.append('discord')
-        return f'{self.token.symbol} Social Links({len(entered_socials)})'
+        if self.instagram != '': entered_socials.append('instagram')
+        if self.youtube != '': entered_socials.append('youtube')
+        return f'{self.token.name} Social Links({len(entered_socials)})'
