@@ -5,4 +5,14 @@
     margin: 100px 0 0 0;
     text-align: center;
   }
+  // Triple-Extra-Large Media Breakpoint
+  @include media-breakpoint-up(xxxl) {
+    .tags-group {
+      display: grid!important;
+    }
+    button {
+      border: none!important;
+    }
+  }
+
 }

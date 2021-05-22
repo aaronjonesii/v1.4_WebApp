@@ -2,59 +2,65 @@
   <anon-loading class="container"></anon-loading>
 </ng-container>
 <ng-template #loaded>
-  <section class="tags-filter-container mb-4" *ngIf="all_tags_from_tokens.length > 0">
-    <nb-card>
-      <nb-card-header>
-        <div class="text-center lead text-basic">Filter Tokens by tags:</div>
-      </nb-card-header>
-      <nb-card-body>
-        <nb-button-group class="" ghost multiple size="small">
-          <button
-            class="tag"
-            nbButtonToggle
-            appearance="ghost"
-            size="small"
-            (pressedChange)="select_tag(tag, $event)"
-            *ngFor="let tag of all_tags_from_tokens">
-            {{tag}}
-          </button>
-        </nb-button-group>
-      </nb-card-body>
-    </nb-card>
-  </section>
-  <section class="token-cards-container">
+  <div class="page-container row">
+    <div class="filter-tags-container col-xxxl-3">
+      <section class="tags-filter-container mb-4 filter-tags-section" *ngIf="all_tags_from_tokens.length > 0">
+        <nb-card>
+          <nb-card-header>
+            <div class="text-center lead text-basic">Filter Tokens by tags:</div>
+          </nb-card-header>
+          <nb-card-body>
+            <nb-button-group class="tags-group" ghost multiple size="small">
+              <button
+                class="tag"
+                nbButtonToggle
+                appearance="ghost"
+                size="small"
+                (pressedChange)="select_tag(tag, $event)"
+                *ngFor="let tag of all_tags_from_tokens">
+                {{tag}}
+              </button>
+            </nb-button-group>
+          </nb-card-body>
+        </nb-card>
+      </section>
+    </div>
+    <div class="token-cards-container col-xxxl-9">
+      <section class="token-cards-section">
 
-    <ng-container *ngIf="tokens.length > 0 else empty">
-      <div class="row flex-row">
-        <ng-container *ngIf="tags_selected.length == 0">
-          <anon-crypto-token-card
-            class="mx-auto mb-3 align-self-center"
-            *ngFor="let token of tokens"
-            [token]="token"></anon-crypto-token-card>
-        </ng-container>
-        <ng-container *ngIf="tags_selected.length > 0">
-          <anon-crypto-token-card
-            class="mx-auto mb-3 align-self-center"
-            *ngFor="let token of filtered_tokens"
-            [token]="token"></anon-crypto-token-card>
-        </ng-container>
-      </div>
-    </ng-container>
-    <ng-template #empty>
-      <ng-container *ngIf="type_of_tokens === 'all'; else notAll">
-        <div class="container empty">
-          You have no cryptocurrency token cards.
-        </div>
-      </ng-container>
-
-      <ng-template #notAll>
-        <ng-container *ngIf="type_of_tokens === 'bsc'">
-          <div class="container empty">
-            You have no Binance Smart Chain cryptocurrency token cards.
+        <ng-container *ngIf="tokens.length > 0 else empty">
+          <div class="row flex-row">
+            <ng-container *ngIf="tags_selected.length == 0">
+              <anon-crypto-token-card
+                class="mx-auto mb-3 align-self-center"
+                *ngFor="let token of tokens"
+                [token]="token"></anon-crypto-token-card>
+            </ng-container>
+            <ng-container *ngIf="tags_selected.length > 0">
+              <anon-crypto-token-card
+                class="mx-auto mb-3 align-self-center"
+                *ngFor="let token of filtered_tokens"
+                [token]="token"></anon-crypto-token-card>
+            </ng-container>
           </div>
         </ng-container>
-      </ng-template>
-    </ng-template>
+        <ng-template #empty>
+          <ng-container *ngIf="type_of_tokens === 'all'; else notAll">
+            <div class="container empty">
+              You have no cryptocurrency token cards.
+            </div>
+          </ng-container>
 
-  </section>
+          <ng-template #notAll>
+            <ng-container *ngIf="type_of_tokens === 'bsc'">
+              <div class="container empty">
+                You have no Binance Smart Chain cryptocurrency token cards.
+              </div>
+            </ng-container>
+          </ng-template>
+        </ng-template>
+
+      </section>
+    </div>
+  </div>
 </ng-template>

@@ -14,4 +14,8 @@
   @include media-breakpoint-down(lg) {}
   // Extra-Large Media Breakpoint
   @include media-breakpoint-down(xl) {}
+  // Double-Extra-Large Media Breakpoint
+  @include media-breakpoint-down(xxl) {}
+  // Triple-Extra-Large Media Breakpoint
+  @include media-breakpoint-down(xxxl) {}
 }

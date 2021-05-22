@@ -1,4 +1,13 @@
 $enable-responsive-font-sizes: true;
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1600px,
+);
 
 // Required
 @import '~bootstrap/scss/functions';
@@ -10,4 +19,4 @@ $enable-responsive-font-sizes: true;
 @import '~bootstrap/scss/type';
 //@import '~bootstrap/scss/images';
 //@import '~bootstrap/scss/code';
-//@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/grid';
