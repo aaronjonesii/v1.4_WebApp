@@ -45,6 +45,8 @@ blog_detail = post.PostViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
+blog_tags = post.TagViewSet.as_view({'get': 'list'})
+blog_cats = post.CategoryViewSet.as_view({'get': 'list'})
 
 cryptotoken_list = bsctoken.CryptoTokenViewSet.as_view({
     'get': 'list',
@@ -68,8 +70,6 @@ post_tags = post.PostViewSet.as_view({'get': 'tags'})
 newsletter_subscribe = newsletter.NewsletterSubscription.as_view({'post': 'create',})
 
 router = routers.DefaultRouter()
-router.register(r'tags', post.TagViewSet)
-router.register(r'cats', post.CategoryViewSet)
 router.register(r'crypto/swaps', bsctoken.SwapTransactionsViewSet)
 
 ipv4pattern = '(?:(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?)\.){3}(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?'
@@ -96,9 +96,11 @@ urlpatterns = [
     path('blog/<uuid:pk>/related_posts/', related_post, name='related_post'),
     path('blog/<uuid:pk>/byline/', post_byline, name='post_byline'),
     path('blog/<uuid:pk>/tags/', post_tags, name='post_tags'),
+    path('blog/tags/', blog_tags, name='list_all_story_tags'),
+    path('blog/cats/', blog_cats, name='list_all_story_cats'),
 
     path('crypto/tokens/',  cryptotoken_list, name='list_all_tokens'),
-    path('crypto/tokens/<uuid:pk>/', cryptotoken_detail, name='token_detail'),
+    path('crypto/token/<uuid:pk>/', cryptotoken_detail, name='token_detail'),
     path('crypto/bsctokens/',  bsctoken_list, name='list_bsc_tokens'),
     path('crypto/tags/',  cryptotoken_tags, name='list_all_token_tags'),
 
