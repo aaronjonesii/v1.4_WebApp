@@ -44,18 +44,27 @@
       <!-- Card Top-Right Section -->
       <div class="col-3 text-center">
         <div class="token-swaps text-hint">{{token?.swaps?.length}} Swaps</div>
-        <div class="token-charts" *ngIf="token.contract_address">
-          <a href="https://dex.guru/token/{{token.contract_address}}-bsc"
-             target="_blank"
-             class="token-chart-item text-decoration-none text-reset">
-            <nb-icon icon="dex-guru" pack="custom-icons" nbTooltip="dex.guru"></nb-icon>
-          </a>
-          <a href="https://poocoin.app/tokens/{{token.contract_address}}"
-             target="_blank"
-             class="token-chart-item text-decoration-none text-reset">
-            <nb-icon icon="poocoin" pack="custom-icons" nbTooltip="poocoin.app"></nb-icon>
-          </a>
-        </div>
+        <ng-container *ngIf="token.contract_address">
+          <div class="token-charts">
+            <a href="https://dex.guru/token/{{token.contract_address}}"
+               target="_blank"
+               class="token-chart-item text-decoration-none text-reset">
+              <nb-icon icon="dex-guru" pack="custom-icons" nbTooltip="dex.guru"></nb-icon>
+            </a>
+            <a href="https://poocoin.app/tokens/{{token.contract_address}}"
+               target="_blank"
+               class="token-chart-item text-decoration-none text-reset">
+              <nb-icon icon="poocoin" pack="custom-icons" nbTooltip="poocoin.app"></nb-icon>
+            </a>
+          </div>
+          <div class="trade-icons">
+            <a href="https://exchange.pancakeswap.finance/#/swap?inputCurrency={{token.contract_address}}"
+               target="_blank"
+               class="trade-icon-item text-decoration-none text-reset">
+              <nb-icon icon="pancakeswap" pack="custom-icons" nbTooltip="pancakeswap"></nb-icon>
+            </a>
+          </div>
+        </ng-container>
       </div>
     </div>
 
