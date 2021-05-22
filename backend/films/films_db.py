@@ -59,7 +59,6 @@ def get_films(film_type):
     elif data.status_code == 503:
         if 'Retry-After' in data.headers:
             raise ValueError(f"{data.status_code} {data.reason} @ {url}\nRetry in {data.headers['Retry-After']} minutes.")
-            raise ValueError(f"{data.status_code} {data.reason} @ {url}\nRetry in {data.headers['Retry-After']} minutes.")
         raise ValueError(f"{data.status_code} {data.reason} @ {url}")
     else: raise ValueError(f"{data.status_code} {data.reason} @ {url}")
 
