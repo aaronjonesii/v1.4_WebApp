@@ -14,17 +14,35 @@ class CryptoTokenViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
+        """
+            Return all Tokens created from the user
+            while excluding tokens that are TokenStatus.TRASH
+        """
         user = self.request.user
-        return CryptoToken.objects.filter(creator=user)
+        return CryptoToken.objects.exclude(status=TokenStatus.TRASH.value).filter(creator=user)
 
     def perform_create(self, serializer):
+        # Assign user to token
         serializer.save(creator=self.request.user)
+
+    def perform_destroy(self, instance):
+        # Move Token to Trash instead of full delete
+        instance.status = TokenStatus.TRASH.value
+        instance.save(update_fields=['status'])
 
     @action(detail=False)
     def bsc_tokens(self, request, *args, **kwargs):
-        bsc_tokens = CryptoToken.objects.filter(Q(creator=self.request.user),
-                                                Q(blockchain=TokenBlockChain.BINANCE_SMART_CHAIN_BLOCKCHAIN.value)
-                                                )
+        """
+            Return all Tokens created from the user
+            that are  TokenBlockChain.BINANCE_SMART_CHAIN_BLOCKCHAIN
+            also excluding tokens that are TokenStatus.TRASH
+        """
+        bsc_tokens = CryptoToken.objects.exclude(
+            status=TokenStatus.TRASH.value
+        ).filter(
+            Q(creator=self.request.user),
+            Q(blockchain=TokenBlockChain.BINANCE_SMART_CHAIN_BLOCKCHAIN.value)
+        )
         serializer = CryptoTokenSerializer(bsc_tokens, many=True)
         return Response(serializer.data)
 
