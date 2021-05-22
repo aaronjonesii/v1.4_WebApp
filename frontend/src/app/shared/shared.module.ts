@@ -33,7 +33,7 @@ import {
   NbAlertModule,
   NbTooltipModule,
   NbStepperModule,
-  NbDatepickerModule, NbTimepickerModule
+  NbDatepickerModule, NbTimepickerModule, NbButtonGroupModule
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -60,7 +60,7 @@ const NB_MODULES = [
   NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule,
   NbSearchModule, NbTagModule, NbAutocompleteModule, NbSidebarModule, NbToggleModule,
   NbAccordionModule, NbAlertModule, NbTooltipModule, NbStepperModule, NbDatepickerModule,
-  NbTimepickerModule,
+  NbTimepickerModule, NbButtonGroupModule,
 ];
 const MAT_MODULES = [ClipboardModule];
 const COMPONENTS = []!;

@@ -2,14 +2,42 @@
   <anon-loading class="container"></anon-loading>
 </ng-container>
 <ng-template #loaded>
-  <section>
+  <section class="tags-filter-container mb-4" *ngIf="all_tags_from_tokens.length > 0">
+    <nb-card>
+      <nb-card-header>
+        <div class="text-center lead text-basic">Filter Tokens by tags:</div>
+      </nb-card-header>
+      <nb-card-body>
+        <nb-button-group class="" ghost multiple size="small">
+          <button
+            class="tag"
+            nbButtonToggle
+            appearance="ghost"
+            size="small"
+            (pressedChange)="select_tag(tag, $event)"
+            *ngFor="let tag of all_tags_from_tokens">
+            {{tag}}
+          </button>
+        </nb-button-group>
+      </nb-card-body>
+    </nb-card>
+  </section>
+  <section class="token-cards-container">
 
     <ng-container *ngIf="tokens.length > 0 else empty">
       <div class="row flex-row">
-        <anon-crypto-token-card
-          class="mx-auto mb-3 align-self-center"
-          *ngFor="let token of tokens"
-          [token]="token"></anon-crypto-token-card>
+        <ng-container *ngIf="tags_selected.length == 0">
+          <anon-crypto-token-card
+            class="mx-auto mb-3 align-self-center"
+            *ngFor="let token of tokens"
+            [token]="token"></anon-crypto-token-card>
+        </ng-container>
+        <ng-container *ngIf="tags_selected.length > 0">
+          <anon-crypto-token-card
+            class="mx-auto mb-3 align-self-center"
+            *ngFor="let token of filtered_tokens"
+            [token]="token"></anon-crypto-token-card>
+        </ng-container>
       </div>
     </ng-container>
     <ng-template #empty>

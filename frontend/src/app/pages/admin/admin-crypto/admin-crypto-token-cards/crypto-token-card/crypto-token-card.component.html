@@ -70,7 +70,7 @@
 
     <!-- Card Middle Section -->
     <div class="row card-body-middle">
-      <div class="token-description">
+      <div class="token-description" *ngIf="token.description">
         {{token.description}}
       </div>
       <div class="token-tags">
