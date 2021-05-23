@@ -5,71 +5,75 @@
 
 <ng-template #Loaded>
 
-  <div class="container">
-    <div class="blog-info mx-auto">
+  <nb-card class="border-0 m-0">
+    <nb-card-body class="p-0">
+      <div class="container">
+        <div class="blog-info mx-auto">
 
-      <h1 class="row story-title"> {{ story.title}} </h1>
+          <h1 class="row story-title"> {{ story.title}} </h1>
 
-      <div class="row story-subtitle"> <span class="lead"> {{ story.byline }} </span> </div>
+          <div class="row story-subtitle"> <span class="lead"> {{ story.byline }} </span> </div>
 
-      <div class="row justify-content-between mb-0 story-info">
-        <div class="top-story-info-container">
-          <div class="row mb-1 align-items-center story-author-container">
-            <nb-user class="mr-2 story-author" [name]="story.author_name!"></nb-user>
-            <button class="h-50 story-author-follow-btn" shape="semi-round" size="tiny" status="success" outline nbButton disabled> Follow </button>
-          </div>
-          <div class="row ml-2 small text-muted story-dates"> {{story.created_on | date:'LLL d, yyyy' }} · {{story.read_time}} min read </div>
-        </div>
-        <div class="d-flex align-self-center"> </div>
+          <div class="row justify-content-between mb-0 story-info">
+            <div class="top-story-info-container">
+              <div class="row mb-1 align-items-center story-author-container">
+                <nb-user class="mr-2 story-author" [name]="story.author_name!"></nb-user>
+                <button class="h-50 story-author-follow-btn" shape="semi-round" size="tiny" status="success" outline nbButton disabled> Follow </button>
+              </div>
+              <div class="row ml-2 small text-muted story-dates"> {{story.created_on | date:'LLL d, yyyy' }} · {{story.read_time}} min read </div>
+            </div>
+            <div class="d-flex align-self-center"> </div>
 
-        <anon-story-socials class="d-flex align-items-center story-socials" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
+            <anon-story-socials class="d-flex align-items-center story-socials" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
 
-      </div>
-    </div>
-
-    <div *ngIf="this.story.background_image == ''; else storyImage" class=""> </div>
-    <ng-template #storyImage>
-      <div class="row w-100 m-0"> <img class="img-fluid mx-auto" [src]="story.background_image" /> </div>
-    </ng-template>
-
-    <div class="blog-content mx-auto row">
-
-      <div class="w-100 story-content-container">
-        <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkUp" tagName="story" class="w-100"></ckeditor>
-      </div>
-
-      <ng-container *ngIf="story.category">
-        <div class="row w-100">
-          <div class="d-inline-flex pr-3 m-1 p1 h5 text-muted" style="height: 42px; line-height: 38px; background-color: rgba(0, 0, 0, 0.05); border-radius: 99em;">
-            <div class="d-flex align-self-center mx-1 p-1 rounded-circle bg-dark text-white" style="height: fit-content; box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.2);"> <nb-icon icon="hash-outline"></nb-icon> </div>
-            {{story.category.name}}
           </div>
         </div>
-      </ng-container>
-      <ng-container *ngIf="story.tags">
-        <div class="row w-100" *ngIf="story.tags.length > 0">
-          <nb-tag-list>
-            <nb-tag *ngFor="let tag of story.tags" [text]="tag.name" appearance="outline" status="basic"></nb-tag>
-          </nb-tag-list>
+
+        <div *ngIf="this.story.background_image == ''; else storyImage" class=""> </div>
+        <ng-template #storyImage>
+          <div class="row w-100 m-0"> <img class="img-fluid mx-auto" [src]="story.background_image" /> </div>
+        </ng-template>
+
+        <div class="blog-content mx-auto row">
+
+          <div class="w-100 story-content-container text-break">
+            <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkUp" tagName="story" class="w-100"></ckeditor>
+          </div>
+
+          <ng-container *ngIf="story.category">
+            <div class="row w-100">
+              <div class="d-inline-flex pr-3 m-1 p1 h5 text-muted" style="height: 42px; line-height: 38px; background-color: rgba(0, 0, 0, 0.05); border-radius: 99em;">
+                <div class="d-flex align-self-center mx-1 p-1 rounded-circle bg-dark text-white" style="height: fit-content; box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.2);"> <nb-icon icon="hash-outline"></nb-icon> </div>
+                {{story.category.name}}
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="story.tags">
+            <div class="row w-100" *ngIf="story.tags.length > 0">
+              <nb-tag-list>
+                <nb-tag *ngFor="let tag of story.tags" [text]="tag.name" appearance="outline" status="basic"></nb-tag>
+              </nb-tag-list>
+            </div>
+          </ng-container>
+          <div class="d-flex row w-100 justify-content-between m-0">
+            <!--        <div class="d-flex align-self-center"> <span class="border rounded-circle p-2 mx-2"> <nb-icon class="icon-size" icon="bell-outline"></nb-icon> </span> <span class="align-self-center">0 Bells Rung</span> </div>-->
+            <div class=""></div>
+            <anon-story-socials class="d-flex" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
+          </div>
+          <hr class="w-100" />
+          <div class="d-flex row w-100 justify-content-between m-0">
+            <nb-user class="d-flex" size="giant" [name]="story.author_name!"> </nb-user>
+            <div class="d-flex align-items-center"> <button class="" shape="semi-round" size="small" status="success" outline nbButton disabled> Follow </button> </div>
+          </div>
+          <hr class="w-100" />
+          <div class="row w-100">
+            <button disabled class="w-100" size="medium" nbButton outline status="success"> See responses (0) - COMING SOON </button>
+          </div>
+
         </div>
-      </ng-container>
-      <div class="d-flex row w-100 justify-content-between m-0">
-        <!--        <div class="d-flex align-self-center"> <span class="border rounded-circle p-2 mx-2"> <nb-icon class="icon-size" icon="bell-outline"></nb-icon> </span> <span class="align-self-center">0 Bells Rung</span> </div>-->
-        <div class=""></div>
-        <anon-story-socials class="d-flex" [contextMenuItems]="menu_items" [story]="story"></anon-story-socials>
-      </div>
-      <hr class="w-100" />
-      <div class="d-flex row w-100 justify-content-between m-0">
-        <nb-user class="d-flex" size="giant" [name]="story.author_name!"> </nb-user>
-        <div class="d-flex align-items-center"> <button class="" shape="semi-round" size="small" status="success" outline nbButton disabled> Follow </button> </div>
-      </div>
-      <hr class="w-100" />
-      <div class="row w-100">
-        <button disabled class="w-100" size="medium" nbButton outline status="success"> See responses (0) - COMING SOON </button>
-      </div>
 
-    </div>
-
-  </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
 
 </ng-template>
