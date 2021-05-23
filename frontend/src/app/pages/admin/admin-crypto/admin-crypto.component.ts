@@ -9,16 +9,23 @@ export class AdminCryptoComponent implements OnInit {
   @Input() header_enabled: boolean = true;
   crypto_cards = [
     {
-      title: "Binance Smart Chain Tokens",
+      title: "All Crypto Tokens",
       text: "Track existing and upcoming tokens while also tracking swap transactions.",
-      icon: "pricetags",
-      link: "/admin/crypto/bsctokens/",
+      icon: "bitcoin",
+      icon_pack: "custom-icons",
+      link: "/admin/crypto/bsc-tokens/",
+    },
+    {
+      title: "Binance Smart Chain Tokens",
+      text: "View all Binance Smart Chain Tokens also tracking their swap transactions.",
+      icon: "bsc",
+      icon_pack: "custom-icons",
+      link: "/admin/crypto/bsc-tokens/",
     },
     {
       title: "Wallet Watchlist",
       text: "Follow your favorite wallet's activities",
-      icon: "book",
-      link: "/admin/crypto/wallet-watchlist/",
+      icon: "list-outline",
     },
   ];
 

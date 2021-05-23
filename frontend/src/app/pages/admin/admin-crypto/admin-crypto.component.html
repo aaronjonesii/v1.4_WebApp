@@ -22,8 +22,13 @@
           [routerLink]="card.link">
           <div class="card-body">
             <div class="row">
-              <div class="col-2 align-self-center">
-                <nb-icon class="p-0 card-icon" [icon]="card.icon"></nb-icon>
+              <div class="col-2 align-self-center text-center">
+                <ng-container *ngIf="card.icon_pack; else defaultIconPack">
+                  <nb-icon class="p-0 card-icon" [icon]="card.icon" [pack]="card.icon_pack"></nb-icon>
+                </ng-container>
+                <ng-template #defaultIconPack>
+                  <nb-icon class="p-0 card-icon" [icon]="card.icon"></nb-icon>
+                </ng-template>
               </div>
               <div class="col-10">
                 <h5 class="card-title">{{card.title}}</h5>
