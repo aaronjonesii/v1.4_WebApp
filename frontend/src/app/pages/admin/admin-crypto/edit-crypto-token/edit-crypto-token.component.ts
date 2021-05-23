@@ -76,7 +76,12 @@ export class EditCryptoTokenComponent implements OnInit, OnDestroy {
       error => {this.extras.showToast(
         `Sorry, we ran into an error while trying to update your token: ${JSON.stringify(error.error)}`,
         `Error Updating Token`, 'danger', 0)},
-      () => {this.router.navigateByUrl(`/admin/crypto/token/${token.id}`);}
+      () => {
+        this.router.navigateByUrl(`/admin/crypto/token/${token.id}`);
+        // if ((token.status != 'TRASH') && (token.status != 'ARCHIVE')) {
+        //   this.router.navigateByUrl(`/admin/crypto/token/${token.id}`);
+        // } else {this.go_back();}
+      }
     );
   }
 

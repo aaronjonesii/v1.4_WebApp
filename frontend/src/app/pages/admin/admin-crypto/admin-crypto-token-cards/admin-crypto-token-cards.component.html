@@ -3,11 +3,11 @@
 </ng-container>
 <ng-template #loaded>
   <div class="page-container row">
-    <div class="filter-tags-container col-xxxl-3">
+    <div class="filter-tags-container" [ngClass]="{'col-xxxl-3': all_tags_from_tokens.length > 0}">
       <section class="tags-filter-container mb-4 filter-tags-section" *ngIf="all_tags_from_tokens.length > 0">
         <nb-card>
           <nb-card-header>
-            <div class="text-center lead text-basic">Filter Tokens by tags:</div>
+            <div class="text-center lead text-basic"><nb-icon icon="funnel-outline"></nb-icon> &nbsp;Filter Tokens by tags:</div>
           </nb-card-header>
           <nb-card-body>
             <nb-button-group class="tags-group" ghost multiple size="small">
@@ -25,11 +25,11 @@
         </nb-card>
       </section>
     </div>
-    <div class="token-cards-container col-xxxl-9">
-      <section class="token-cards-section">
+    <div class="token-cards-container mx-auto w-100" [ngClass]="{'col-xxxl-9': all_tags_from_tokens.length > 0}">
+      <section class="token-cards-section w-100">
 
         <ng-container *ngIf="tokens.length > 0 else empty">
-          <div class="row flex-row">
+          <div class="row flex-row mx-auto">
             <ng-container *ngIf="tags_selected.length == 0">
               <anon-crypto-token-card
                 class="mx-auto mb-3 align-self-center"

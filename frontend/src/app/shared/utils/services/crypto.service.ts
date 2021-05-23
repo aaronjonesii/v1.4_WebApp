@@ -20,13 +20,16 @@ export class CryptoService {
   update_cryptotokens(cryptotokens: CryptoToken[]) { this.cryptotokens.next(cryptotokens); }
 
   /**
-   * Get list of all Tokens
+   * Get list of requested Tokens
+   * @param type_of_token
    * @returns list(Tokens)
    */
   get_crypto_tokens(type_of_token: string): Observable<CryptoToken[]> {
     let url = `${environment.apiURL}/crypto/`
-    if (type_of_token === 'all') url = url + `tokens/`
-    if (type_of_token === 'bsc') url = url + `bsctokens/`
+    if (type_of_token === 'all') url = url + `all-tokens/`
+    if (type_of_token === 'bsc') url = url + `bsc-tokens/`
+    if (type_of_token === 'trashed') url = url + `trashed-tokens/`
+    if (type_of_token === 'archived') url = url + `archived-tokens/`
     return this.http.get<CryptoToken[]>(`${url}`, {headers: this.httpHeaders});
   }
   /**
@@ -42,7 +45,7 @@ export class CryptoService {
    */
   get_bsc_tokens(): Observable<CryptoToken[]> {
     return this.http.get<CryptoToken[]>(
-      `${environment.apiURL}/crypto/bsctokens/`,
+      `${environment.apiURL}/crypto/bsc-tokens/`,
       {headers: this.httpHeaders}
     );
   }

@@ -16,10 +16,9 @@ class CryptoTokenViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """
             Return all Tokens created from the user
-            while excluding tokens that are TokenStatus.TRASH
         """
         user = self.request.user
-        return CryptoToken.objects.exclude(status=TokenStatus.TRASH.value).filter(creator=user)
+        return CryptoToken.objects.filter(creator=user)
 
     def perform_create(self, serializer):
         # Assign user to token
@@ -31,19 +30,53 @@ class CryptoTokenViewSet(viewsets.ModelViewSet):
         instance.save(update_fields=['status'])
 
     @action(detail=False)
+    def exclude_tokens(self, request, *args, **kwargs):
+        """
+            Return all Tokens created from the user
+            also excluding tokens that are TokenStatus.TRASH OR TokenStatus.ARCHIVE
+        """
+        all_tokens = CryptoToken.objects\
+            .exclude(Q(status=TokenStatus.ARCHIVE.value) | Q(status=TokenStatus.TRASH.value)) \
+            .filter(creator=self.request.user)
+        serializer = CryptoTokenSerializer(all_tokens, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False)
     def bsc_tokens(self, request, *args, **kwargs):
         """
             Return all Tokens created from the user
             that are  TokenBlockChain.BINANCE_SMART_CHAIN_BLOCKCHAIN
-            also excluding tokens that are TokenStatus.TRASH
+            also excluding tokens that are TokenStatus.TRASH OR TokenStatus.ARCHIVE
         """
-        bsc_tokens = CryptoToken.objects.exclude(
-            status=TokenStatus.TRASH.value
-        ).filter(
-            Q(creator=self.request.user),
-            Q(blockchain=TokenBlockChain.BINANCE_SMART_CHAIN_BLOCKCHAIN.value)
-        )
+        bsc_tokens = CryptoToken.objects\
+            .exclude(Q(status=TokenStatus.ARCHIVE.value) | Q(status=TokenStatus.TRASH.value))\
+            .filter(Q(creator=self.request.user),
+                    Q(blockchain=TokenBlockChain.BINANCE_SMART_CHAIN_BLOCKCHAIN.value))
         serializer = CryptoTokenSerializer(bsc_tokens, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False)
+    def trashed_tokens(self, request, *args, **kwargs):
+        """
+            Return all Tokens created from the user
+            that are TokenStatus.TRASH
+        """
+        trashed_tokens = CryptoToken.objects \
+            .filter(Q(creator=self.request.user),
+                    Q(status=TokenStatus.TRASH.value))
+        serializer = CryptoTokenSerializer(trashed_tokens, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False)
+    def archived_tokens(self, request, *args, **kwargs):
+        """
+            Return all Tokens created from the user
+            that are TokenStatus.ARCHIVE
+        """
+        archived_tokens = CryptoToken.objects \
+            .filter(Q(creator=self.request.user),
+                    Q(status=TokenStatus.ARCHIVE.value))
+        serializer = CryptoTokenSerializer(archived_tokens, many=True)
         return Response(serializer.data)
 
 

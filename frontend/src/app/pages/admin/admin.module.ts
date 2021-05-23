@@ -15,6 +15,8 @@ import { AdminCryptoBsctokensComponent } from './admin-crypto/admin-crypto-bscto
 import { AdminCryptoTokensComponent } from "./admin-crypto/admin-crypto-tokens/admin-crypto-tokens.component";
 import { CryptoTokenPageComponent } from './admin-crypto/crypto-token-page/crypto-token-page.component';
 import { EditCryptoTokenComponent } from './admin-crypto/edit-crypto-token/edit-crypto-token.component';
+import { CryptoTrashedTokensComponent } from './admin-crypto/crypto-trashed-tokens/crypto-trashed-tokens.component';
+import { CryptoArchivedTokensComponent } from './admin-crypto/crypto-archived-tokens/crypto-archived-tokens.component';
 
 
 const routes: Routes = [
@@ -26,7 +28,9 @@ const routes: Routes = [
           { path: 'tokens', component: AdminCryptoTokensComponent },
           { path: 'token/:token_id', component: CryptoTokenPageComponent },
           { path: 'token/:token_id/edit', component: EditCryptoTokenComponent },
-          { path: 'bsctokens', component: AdminCryptoBsctokensComponent },
+          { path: 'bsc-tokens', component: AdminCryptoBsctokensComponent },
+          { path: 'trashed-tokens', component: CryptoTrashedTokensComponent },
+          { path: 'archived-tokens', component: CryptoArchivedTokensComponent },
         ] },
       { path: 'stories', component: AdminStoriesComponent },
       { path: 'films', children: [

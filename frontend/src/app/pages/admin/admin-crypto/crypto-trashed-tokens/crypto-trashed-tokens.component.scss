@@ -1,0 +1,11 @@
+@import '../../../../shared/styles/themes';
+
+@include nb-install-component() {
+  .add-token-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    margin-bottom: 0px;
+    cursor: pointer;
+  }
+}

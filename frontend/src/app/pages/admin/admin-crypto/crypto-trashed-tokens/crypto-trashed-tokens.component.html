@@ -4,12 +4,12 @@
     <!-- Header Section -->
     <anon-admin-header-section
       class="container-fluid mb-3 ml-4"
-      page_title="All Cryptocurrency Tokens"
-      page_subtitle="Track all existing and upcoming tokens while also tracking swap transactions.">
+      [page_title]="page_title"
+      [page_subtitle]="page_subtitle">
     </anon-admin-header-section>
 
     <!--   Tokens Section   -->
-    <anon-admin-crypto-token-cards type_of_tokens="all" class="container-fluid content-row mx-auto"></anon-admin-crypto-token-cards>
+    <anon-admin-crypto-token-cards type_of_tokens='trashed' class="container-fluid content-row mx-auto"></anon-admin-crypto-token-cards>
 
     <div class="add-token-btn">
       <button

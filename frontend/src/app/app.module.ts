@@ -71,6 +71,8 @@ import { CreateTokenStepComponent } from "./pages/admin/admin-crypto/create-cryp
 import { CryptoTokenPageComponent } from "./pages/admin/admin-crypto/crypto-token-page/crypto-token-page.component";
 import { EditCryptoTokenComponent } from "./pages/admin/admin-crypto/edit-crypto-token/edit-crypto-token.component";
 import { CryptoTokenCardComponent } from "./pages/admin/admin-crypto/admin-crypto-token-cards/crypto-token-card/crypto-token-card.component";
+import { CryptoTrashedTokensComponent } from "./pages/admin/admin-crypto/crypto-trashed-tokens/crypto-trashed-tokens.component";
+import { CryptoArchivedTokensComponent } from "./pages/admin/admin-crypto/crypto-archived-tokens/crypto-archived-tokens.component";
 
 @NgModule({
   declarations: [
@@ -130,6 +132,8 @@ import { CryptoTokenCardComponent } from "./pages/admin/admin-crypto/admin-crypt
     CryptoTokenPageComponent,
     EditCryptoTokenComponent,
     CryptoTokenCardComponent,
+    CryptoTrashedTokensComponent,
+    CryptoArchivedTokensComponent,
   ],
   imports: [
     AppRoutingModule,

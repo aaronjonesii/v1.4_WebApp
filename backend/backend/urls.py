@@ -59,7 +59,10 @@ cryptotoken_detail = bsctoken.CryptoTokenViewSet.as_view({
     'delete': 'destroy'
 })
 cryptotoken_tags = bsctoken.TagViewSet.as_view({'get': 'list'})
-bsctoken_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'bsc_tokens'})
+exclude_tokens_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'exclude_tokens'})
+bsc_tokens_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'bsc_tokens'})
+trashed_tokens_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'trashed_tokens'})
+archived_tokens_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'archived_tokens'})
 
 related_post = post.PostViewSet.as_view({'get': 'related_posts'})
 
@@ -101,7 +104,10 @@ urlpatterns = [
 
     path('crypto/tokens/',  cryptotoken_list, name='list_all_tokens'),
     path('crypto/token/<uuid:pk>/', cryptotoken_detail, name='token_detail'),
-    path('crypto/bsctokens/',  bsctoken_list, name='list_bsc_tokens'),
+    path('crypto/all-tokens/', exclude_tokens_list, name='list_exclude_tokens'),  # Excludes Trash and Archived
+    path('crypto/bsc-tokens/', bsc_tokens_list, name='list_bsc_tokens'),
+    path('crypto/trashed-tokens/', trashed_tokens_list, name='list_trashed_tokens'),
+    path('crypto/archived-tokens/', archived_tokens_list, name='list_archived_tokens'),
     path('crypto/tags/',  cryptotoken_tags, name='list_all_token_tags'),
 
     path('weather/', weather.weatherView, name='weather'),  # Get Current Weather Conditions from requester
