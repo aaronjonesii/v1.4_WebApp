@@ -1,0 +1,26 @@
+<nb-card class="fancy-card">
+  <nb-card-body class="row">
+    <div class="col-8 text-container">
+      <div class="row title" [ngStyle]="{'color': color}">{{title}}</div>
+      <div class="row message">{{message}}</div>
+    </div>
+    <div class="col-4 icon-container"
+         [ngStyle]="{'background': background_color}">
+      <div class="custom-icon-box">
+        <ng-container *ngIf="icon_pack != ''; else default_icon_pack">
+          <nb-icon
+            class="icon"
+            [icon]="icon"
+            [pack]="icon_pack"
+            [ngStyle]="{'color': color}"></nb-icon>
+        </ng-container>
+        <ng-template #default_icon_pack>
+          <nb-icon
+            class="icon"
+            [icon]="icon"
+            [ngStyle]="{'color': color}"></nb-icon>
+        </ng-template>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

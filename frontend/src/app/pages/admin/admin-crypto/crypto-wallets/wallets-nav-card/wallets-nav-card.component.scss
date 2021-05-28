@@ -1,0 +1,51 @@
+@import '../../../../../shared/styles/themes';
+
+@include nb-install-component() {
+  .left-column-card {
+    nb-card-body {
+      padding: 2rem;
+      .avatar-container {
+        display: flex;
+        justify-content: center;
+        margin: 0.5rem 0 2rem 0;
+        .avatar {
+          width: 90px;
+          height: 90px;
+          background-color: #dee2e6;
+          border-radius: 3rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+      .menu-container {
+        justify-content: center;
+        .menu-item {
+          display: flex;
+          justify-content: center;
+          width: 75%!important;
+        }
+        .menu-item-btn {
+          border-radius: 1.25rem;
+          width: 100%;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  // Triple-Extra-Large Media Breakpoint
+  @include media-breakpoint-down(xxl) {
+    .menu-container {
+      .menu-item {
+        width: 85%;
+        .card-icon {
+          font-size: 1.5rem;
+        }
+      }
+      .menu-item-btn {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

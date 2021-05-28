@@ -1,0 +1,80 @@
+<section class="top-section row">
+  <div class="left-column col-xxxl-3">
+    <anon-wallets-nav-card></anon-wallets-nav-card>
+  </div>
+  <div class="middle-column col-xxxl-9">
+    <nb-card class="middle-column-card">
+      <nb-card-body class="row">
+        <div class="col-lg-7 wallets-column">
+          <nb-card class="wallet-card">
+            <nb-card-body>
+              <div class="row wallet-name-container">
+                <nb-icon icon="bnb" pack="custom-icons"></nb-icon>
+                &nbsp;&nbsp;<span class="wallet-name">Wallet Name</span>
+              </div>
+              <div class="row wallet-address">
+                Wallet Address &nbsp;<nb-icon icon="clipboard-outline" status="basic"></nb-icon>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+        <div class="col-lg-5 wallets-overview-column">
+          <anon-fancy-card
+            title="Net Worth"
+            message="$354.844"
+            icon="equals"
+            icon_pack="new-font-awesome"
+            color="rgb(255, 57, 188)"
+          ></anon-fancy-card>
+          <anon-fancy-card
+            title="Total Assets"
+            message="$354.844"
+            icon="plus"
+            icon_pack="new-font-awesome"
+            color="rgb(186, 40, 255)"
+            class="total-assets-card"
+          ></anon-fancy-card>
+          <anon-fancy-card
+            title="Total Debts"
+            message="$0"
+            icon="minus"
+            icon_pack="new-font-awesome"
+            color="rgb(254, 129, 95)"
+            class="total-debts-card"
+          ></anon-fancy-card>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card class="wallet-overview-card">
+      <nb-card-body>
+        <div class="row first-row">
+          <div class="col-3 p-0 d-flex align-items-center font-weight-bold">
+            <nb-icon icon="wallet" pack="new-font-awesome"></nb-icon>&nbsp; Wallet
+          </div>
+          <div class="col-3 p-0 d-flex align-items-center">
+            <nb-checkbox
+              class="d-flex align-items-center"
+              (checkedChange)="toggle_hide_small_balances($event)">Hide small Balances</nb-checkbox>
+          </div>
+          <div class="col-3 p-0 d-flex align-items-center"></div>
+          <div class="col-3 p-0 d-flex justify-content-end align-items-center">Assets &nbsp;<span class="text-primary">$0.00</span></div>
+        </div>
+        <div class="row sub-header-row">
+          <div class="col-3 p-0 d-flex align-items-center">ASSETS</div>
+          <div class="col-3 p-0 d-flex align-items-center">BALANCES</div>
+          <div class="col-3 p-0 d-flex align-items-center">PRICE</div>
+          <div class="col-3 p-0 d-flex justify-content-end align-items-center">VALUE</div>
+        </div>
+        <div class="row asset-row">
+          <div class="col-3 p-0 d-flex align-items-center">
+            <nb-icon icon="bnb" pack="custom-icons"></nb-icon>&nbsp;&nbsp;BNB
+          </div>
+          <div class="col-3 p-0 d-flex align-items-center">0.401</div>
+          <div class="col-3 p-0 d-flex align-items-center">$371.11</div>
+          <div class="col-3 p-0 d-flex justify-content-end align-items-center">$148.727</div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</section>

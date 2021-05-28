@@ -33,7 +33,7 @@ import {
   NbAlertModule,
   NbTooltipModule,
   NbStepperModule,
-  NbDatepickerModule, NbTimepickerModule, NbButtonGroupModule
+  NbDatepickerModule, NbTimepickerModule, NbButtonGroupModule, NbCheckboxModule
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -61,12 +61,11 @@ const NB_MODULES = [
   NbPopoverModule, NbTabsetModule, NbRouteTabsetModule, NbListModule, NbActionsModule,
   NbSearchModule, NbTagModule, NbAutocompleteModule, NbSidebarModule, NbToggleModule,
   NbAccordionModule, NbAlertModule, NbTooltipModule, NbStepperModule, NbDatepickerModule,
-  NbTimepickerModule, NbButtonGroupModule,
+  NbTimepickerModule, NbButtonGroupModule, NbCheckboxModule,
 ];
 const MAT_MODULES = [ClipboardModule];
 const COMPONENTS = []!;
 const ENTRY_COMPONENTS = []!;
-const PIPES = [SlugifyPipe, DateAgoPipe, FilmImagePipe, FilmMovieLinkPipe, BSCTokenSocialsPipe];
 const PIPES = [SlugifyPipe, DateAgoPipe, FilmImagePipe, FilmMovieLinkPipe, BSCTokenSocialsPipe, CryptoTokenPricePipe,];
 const SERVICES = [
   UrlService, StoriesService, ProfileSettingsService,

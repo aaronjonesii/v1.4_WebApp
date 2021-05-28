@@ -1,0 +1,45 @@
+@import '../../../../../shared/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+  }
+  .left-column {
+    padding: 1rem;
+  }
+  .middle-column {
+    padding: 1rem;
+    .wallet-card {
+      padding: 1rem;
+      .wallet-name-container {
+        .wallet-name {}
+      }
+      .wallet-address {
+        padding: 1rem 0 0 2.5rem;
+        font-family: 'Zilla Slab Highlight', 'Open Sans', serif;
+      }
+    }
+    .wallet-overview-card {
+      padding: 1rem;
+      .first-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 0 1rem 0;
+        border-bottom: 1px solid #dee2e6;
+      }
+      .sub-header-row {
+        padding: 1rem;
+        font-family: 'Zilla Slab Highlight', 'Open Sans', serif;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+      .asset-row {
+        padding: 1rem;
+        border-bottom: 1px solid #dee2e6;
+      ;
+      }
+    }
+  }
+}

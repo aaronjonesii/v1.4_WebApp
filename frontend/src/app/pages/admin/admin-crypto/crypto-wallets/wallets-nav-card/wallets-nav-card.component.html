@@ -1,0 +1,24 @@
+<nb-card class="left-column-card">
+  <nb-card-body>
+    <div class="row avatar-container">
+      <div class="avatar">
+        <img class="logo-img" src="./assets/favicon.png">
+      </div>
+    </div>
+    <div class="row menu-container">
+      <div class="row w-100 menu-item" *ngFor="let menu_item of menu_items">
+        <button nbButton ghost status="basic" class="menu-item-btn" [routerLink]="menu_item.link">
+          <div class="col-2">
+            <ng-container *ngIf="menu_item.icon_pack; else defaultIconPack">
+              <nb-icon class="p-0 card-icon" [icon]="menu_item.icon" [pack]="menu_item.icon_pack"></nb-icon>
+            </ng-container>
+            <ng-template #defaultIconPack>
+              <nb-icon class="p-0 card-icon" [icon]="menu_item.icon"></nb-icon>
+            </ng-template>
+          </div>
+          <div class="col-10 text-left">{{menu_item.title}}</div>
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

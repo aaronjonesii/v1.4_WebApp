@@ -1,0 +1,35 @@
+<div class="row justify-content-between w-100 m-0">
+  <!--   Story Title   -->
+  <div class="col-10 text-truncate w-100 p-0">
+    <div class="p-2 text-truncate">
+      <a class="text-decoration-none">
+        <h6 class="">{{story.title}}</h6>
+      </a>
+
+      <div class="font-weight-lighter m-0 text-hint">
+        {{story.updated_on | dateAgo}}
+      </div>
+    </div>
+  </div>
+  <!--   Story Toggle Menu   -->
+  <div class="col-2 w-100">
+    <div class="row justify-content-end">
+      <div class="p-2">
+        <div class="row justify-content-center">
+          <nb-icon class="" [nbPopover]="dropdown" nbPopoverPlacement="bottom" icon="more-horizontal" [options]="{ fill: '#8f9bb3',width: '2.25rem' }" nbButton></nb-icon>
+          <ng-template #dropdown>
+            <nb-list>
+              <nb-list-item class=""><nb-toggle [(ngModel)]="story.public" (checkedChange)="update_story(story, 'public')" status="warning" [disabled]="story.status != 5">Public</nb-toggle></nb-list-item>
+              <nb-list-item class=""><nb-toggle [(ngModel)]="story.featured" (checkedChange)="update_story(story, 'featured')" status="success" [disabled]="story.status != 5">Featured</nb-toggle></nb-list-item>
+            </nb-list>
+          </ng-template>
+        </div>
+          <ng-container *ngIf="story.public" class="">
+            <div class="row justify-content-center">
+              <nb-tag size="tiny" text="public" status="warning" appearance="outline"></nb-tag>
+            </div>
+          </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

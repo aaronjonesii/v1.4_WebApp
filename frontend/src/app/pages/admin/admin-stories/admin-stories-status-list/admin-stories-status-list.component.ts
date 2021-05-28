@@ -15,7 +15,6 @@ export class AdminStoriesStatusListComponent implements OnInit, OnDestroy {
   @Input() stories: any;
 
   constructor(
-    private blogService: BlogService,
     private extras: ExtrasService,
   ) { }
 
@@ -23,16 +22,6 @@ export class AdminStoriesStatusListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
-  }
-
-  update_story(story: Post, field_name: string) {
-    this.blogService.adminUpdateStory(story.id!, story).pipe(
-      takeUntil(this.unsub$)
-    ).subscribe(
-      response => {
-        this.extras.showToast(`Updated the ${field_name} field on ${story.title}`, 'Story updated', 'success', 7000);
-      }
-    );
   }
 
 

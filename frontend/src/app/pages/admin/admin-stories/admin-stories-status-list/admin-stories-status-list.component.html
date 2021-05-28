@@ -1,38 +1,17 @@
 <nb-card class="">
 
   <nb-card-header class="d-flex">
-    <div class="d-flex mr-auto align-items-center font-weight-lighter">Stories</div>
+    <h3 class="d-flex mr-auto align-items-center font-weight-lighter">Stories</h3>
     <div class="d-flex"><button class="" status="info" routerLink="/new-story" outline nbButton>Add new story</button></div>
   </nb-card-header>
 
   <nb-list class="">
 
 <!--  Individual Story  -->
-    <nb-list-item class="d-flex w-100" *ngFor="let story of stories">
-<!--   Story Title   -->
-      <div class="d-flex justify-content-start text-truncate w-100">
-        <div class="p-2 text-truncate">
-            <a class="text-decoration-none">
-              <h6 class="">{{story.title}}</h6>
-            </a>
-
-          <div class="row font-weight-lighter m-0 text-hint">
-            {{story.updated_on}}
-          </div>
-        </div>
-      </div>
-<!--   Story Toggle Menu   -->
-      <div class="d-flex justify-content-end">
-        <div class="p-2">
-          <nb-icon class="" [nbPopover]="dropdown" nbPopoverPlacement="bottom" icon="more-horizontal" [options]="{ fill: '#8f9bb3',width: '2.25rem' }" nbButton></nb-icon>
-          <ng-template #dropdown>
-            <nb-list>
-              <nb-list-item class=""><nb-toggle [(ngModel)]="story.public" (checkedChange)="update_story(story, 'public')" status="warning" [disabled]="story.status != 5">Public</nb-toggle></nb-list-item>
-              <nb-list-item class=""><nb-toggle [(ngModel)]="story.featured" (checkedChange)="update_story(story, 'featured')" status="success" [disabled]="story.status != 5">Featured</nb-toggle></nb-list-item>
-            </nb-list>
-          </ng-template>
-        </div>
-      </div>
+    <nb-list-item class="" *ngFor="let story of stories">
+      <anon-admin-story-list-item
+        class="d-flex w-100"
+        [story]="story"></anon-admin-story-list-item>
     </nb-list-item>
 
   </nb-list>

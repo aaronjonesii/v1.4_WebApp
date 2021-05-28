@@ -1,0 +1,51 @@
+<section class="top-section row">
+  <div class="left-column col-xxxl-3">
+    <anon-wallets-nav-card></anon-wallets-nav-card>
+  </div>
+  <div class="middle-column col-xxxl-9">
+    <div class="row title-container">
+      <div class="col-10">
+        <anon-admin-header-section
+          page_title="My Wallets"
+          page_subtitle=""></anon-admin-header-section>
+      </div>
+      <div class="col-2 d-flex align-items-center justify-content-end">
+        <button
+          nbButton
+          status="primary"
+          class="rounded-pill align-items-baseline">
+          <nb-icon
+            icon="plus"
+            pack="new-font-awesome"></nb-icon>
+          &nbsp;Add
+
+        </button>
+      </div>
+    </div>
+    <nb-card class="middle-column-card">
+      <nb-card-body class="row">
+        <div class="wallets-column">
+          <nb-card class="wallet-card">
+            <nb-card-body>
+              <div class="row d-flex justify-content-between">
+                <div class="wallet-name-container">
+                  <nb-icon icon="bnb" pack="custom-icons"></nb-icon>
+                  &nbsp;&nbsp;<span class="wallet-name">Wallet Name</span>
+                </div>
+                <div class="empty-container"></div>
+                <div class="wallet-icon-container">
+                  <nb-icon icon="trash-outline" status="basic"></nb-icon>
+                  <nb-icon icon="edit-outline" status="basic"></nb-icon>
+                </div>
+              </div>
+              <div class="row wallet-address">
+                Wallet Address &nbsp;<nb-icon icon="clipboard-outline" status="basic"></nb-icon>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+</section>

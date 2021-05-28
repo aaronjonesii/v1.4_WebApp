@@ -1,0 +1,6 @@
+<ng-container *ngIf="icon_pack; else defaultIconPack">
+  <nb-icon class="p-0 card-icon" [icon]="icon" [pack]="icon_pack" [ngStyle]="{'font-size': '{{icon_size}}rem'}"></nb-icon>
+</ng-container>
+<ng-template #defaultIconPack>
+  <nb-icon class="p-0 card-icon" [icon]="icon" [ngStyle]="{'font-size': '{{icon_size}}rem'}"></nb-icon>
+</ng-template>

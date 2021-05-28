@@ -18,14 +18,16 @@ export class AdminCryptoComponent implements OnInit {
     {
       title: "Binance Smart Chain Tokens",
       text: "View all Binance Smart Chain Tokens also tracking their swap transactions.",
-      icon: "bsc",
+      icon: "bnb",
       icon_pack: "custom-icons",
       link: "/admin/crypto/bsc-tokens/",
     },
     {
-      title: "Wallet Watchlist",
-      text: "Follow your favorite wallet's activities",
-      icon: "list-outline",
+      title: "Crypto Wallets",
+      text: "Look at your wallets net worth with all assets inside.",
+      icon: 'wallet',
+      icon_pack: 'new-font-awesome',
+      link: '/admin/crypto/wallets/',
     },
   ];
 

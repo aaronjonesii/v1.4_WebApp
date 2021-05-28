@@ -73,6 +73,12 @@ import { EditCryptoTokenComponent } from "./pages/admin/admin-crypto/edit-crypto
 import { CryptoTokenCardComponent } from "./pages/admin/admin-crypto/admin-crypto-token-cards/crypto-token-card/crypto-token-card.component";
 import { CryptoTrashedTokensComponent } from "./pages/admin/admin-crypto/crypto-trashed-tokens/crypto-trashed-tokens.component";
 import { CryptoArchivedTokensComponent } from "./pages/admin/admin-crypto/crypto-archived-tokens/crypto-archived-tokens.component";
+import { AdminStoryListItemComponent } from "./pages/admin/admin-stories/admin-stories-status-list/admin-story-list-item/admin-story-list-item.component";
+import { CryptoWalletsComponent } from "./pages/admin/admin-crypto/crypto-wallets/crypto-wallets.component";
+import { FancyCardComponent } from "./pages/admin/admin-crypto/crypto-wallets/fancy-card/fancy-card.component";
+import { IconComponent } from "./shared/layout/icon/icon.component";
+import { CryptoWalletComponent } from "./pages/admin/admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet.component";
+import { WalletsNavCardComponent } from "./pages/admin/admin-crypto/crypto-wallets/wallets-nav-card/wallets-nav-card.component";
 
 @NgModule({
   declarations: [
@@ -134,6 +140,12 @@ import { CryptoArchivedTokensComponent } from "./pages/admin/admin-crypto/crypto
     CryptoTokenCardComponent,
     CryptoTrashedTokensComponent,
     CryptoArchivedTokensComponent,
+    AdminStoryListItemComponent,
+    CryptoWalletsComponent,
+    FancyCardComponent,
+    IconComponent,
+    CryptoWalletComponent,
+    WalletsNavCardComponent,
   ],
   imports: [
     AppRoutingModule,

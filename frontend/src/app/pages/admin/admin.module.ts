@@ -17,6 +17,11 @@ import { CryptoTokenPageComponent } from './admin-crypto/crypto-token-page/crypt
 import { EditCryptoTokenComponent } from './admin-crypto/edit-crypto-token/edit-crypto-token.component';
 import { CryptoTrashedTokensComponent } from './admin-crypto/crypto-trashed-tokens/crypto-trashed-tokens.component';
 import { CryptoArchivedTokensComponent } from './admin-crypto/crypto-archived-tokens/crypto-archived-tokens.component';
+import { AdminStoryListItemComponent } from './admin-stories/admin-stories-status-list/admin-story-list-item/admin-story-list-item.component';
+import { CryptoWalletsComponent } from './admin-crypto/crypto-wallets/crypto-wallets.component';
+import { FancyCardComponent } from './admin-crypto/crypto-wallets/fancy-card/fancy-card.component';
+import { CryptoWalletComponent } from './admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet.component';
+import { WalletsNavCardComponent } from './admin-crypto/crypto-wallets/wallets-nav-card/wallets-nav-card.component';
 
 
 const routes: Routes = [
@@ -31,6 +36,9 @@ const routes: Routes = [
           { path: 'bsc-tokens', component: AdminCryptoBsctokensComponent },
           { path: 'trashed-tokens', component: CryptoTrashedTokensComponent },
           { path: 'archived-tokens', component: CryptoArchivedTokensComponent },
+          { path: 'wallets', component: CryptoWalletsComponent },
+          { path: 'wallets/dashboard', component: CryptoWalletComponent },
+          { path: 'wallet/:wallet_address', component: CryptoWalletComponent },
         ] },
       { path: 'stories', component: AdminStoriesComponent },
       { path: 'films', children: [
