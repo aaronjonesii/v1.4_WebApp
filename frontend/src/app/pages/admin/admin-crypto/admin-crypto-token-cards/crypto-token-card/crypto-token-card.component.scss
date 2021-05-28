@@ -7,6 +7,7 @@
     border-radius: 1rem;
     box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
     .card-body {
+      padding: 1.25rem 1.25rem 0.3rem 1.25rem;
       .card-body-top {
         margin-bottom: 1rem;
         .token-name {
@@ -65,19 +66,20 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 1rem;
-      }
-      .edit-btn-container {
-        position: absolute!important;
-        bottom: 5px!important;
-        right: 10px!important;
-      }
-      .trash-btn-container {
-        position: absolute!important;
-        bottom: 5px!important;
-        left: 10px!important;
+        .countdown-container {
+          display: flex;
+          margin-bottom: 1rem;
+        }
         .trash-btn {
           cursor: pointer;
+        }
+        .archive-btn {
+          cursor: pointer;
+          margin-left: 0.5rem;
+        }
+        .token-price {
+          font-size: 1rem;
+          font-weight: bold;
         }
       }
     }

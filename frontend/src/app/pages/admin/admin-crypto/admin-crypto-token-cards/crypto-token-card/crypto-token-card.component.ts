@@ -4,7 +4,7 @@ import { ExtrasService } from "../../../../../shared/utils/services/extras.servi
 import { Clipboard } from "@angular/cdk/clipboard";
 import { CryptoService } from "../../../../../shared/utils/services/crypto.service";
 import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { map, takeUntil } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { UrlService } from "../../../../../shared/utils/services/url.service";
 
@@ -22,6 +22,7 @@ export class CryptoTokenCardComponent implements OnInit, OnDestroy {
     symbol: '',
     contract_address: '',
   };
+  token_price = {};
 
   constructor(
     private extras: ExtrasService,
@@ -30,7 +31,9 @@ export class CryptoTokenCardComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.get_token_price_data(this.token);
+  }
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
@@ -60,6 +63,42 @@ export class CryptoTokenCardComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/').then(() => this.router.navigateByUrl(page_url))
       }
     );
+  }
+
+  archive_token(crypto_token: CryptoToken) {
+    crypto_token.status = 'ARCHIVE';
+    this.crypto.update_token(crypto_token).pipe(
+      takeUntil(this.unsub$)
+    ).subscribe(
+      response => {
+        this.extras.showToast(`Successfully archived ${this.token.name}`, 'Token archived', 'success', 5000);
+      },
+      error => {
+        console.error(error);
+        this.extras.showToast(`Sorry, we ran into an error while trying to archive ${this.token.name}`,
+          `Failed to archive token`, 'danger', 0);
+      },
+      () => {
+        let page_url = this.router.url
+        this.router.navigateByUrl('/').then(() => this.router.navigateByUrl(page_url))
+      }
+    );
+  }
+
+  get_token_price_data(token: CryptoToken) {
+    if (token.contract_address != '') {
+      if (token.blockchain === 'BNB-BEP20') {
+        this.crypto.get_token_price(token).pipe(
+          takeUntil(this.unsub$)
+        ).subscribe(
+          response => {
+            this.token_price = response
+          },
+          console.error,
+          () => {}
+        );
+      }
+    }
   }
 
 }

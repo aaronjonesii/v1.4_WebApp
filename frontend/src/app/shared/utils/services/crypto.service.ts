@@ -87,6 +87,17 @@ export class CryptoService {
   get_all_token_tags(): Observable<Tag[]> {
     return this.http.get<Tag[]>(`${environment.apiURL}/crypto/tags/`, {headers: this.httpHeaders});
   }
+  /**
+   * Get Token Price
+   * @returns number
+   */
+  get_token_price(token: CryptoToken): Observable<any> {
+    let token_blockchain = ''
+    if (token.blockchain === 'BNB-BEP20') token_blockchain = 'binance-smart-chain'
+    let token_vs_currency = 'usd'
+    let url = `https://api.coingecko.com/api/v3/simple/token_price/${token_blockchain}?contract_addresses=${token.contract_address}&vs_currencies=${token_vs_currency}`
+    return this.http.get<any>(`${url}`, {headers: this.httpHeaders});
+  }
 
   /**
    * Get list of swap transactions

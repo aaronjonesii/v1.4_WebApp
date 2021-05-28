@@ -92,36 +92,65 @@
 
     <!-- Card Bottom Section -->
     <div class="row card-body-bottom">
-      <anon-countdown-timer
-        *ngIf="token.launch_date"
-        [countdown_to_timestamp]="token.launch_date"
-        countdown_end_message="Token launched!"
-      ></anon-countdown-timer>
-    </div>
-
-    <!--  Edit Card Icon  -->
-    <div class="edit-btn-container">
-      <a class="text-decoration-none text-reset" [routerLink]="'/admin/crypto/token/'+token.id+'/edit'">
-        <nb-icon icon="edit-outline" status="basic"></nb-icon>
-      </a>
-    </div>
-
-    <!--  Trash Card Icon  -->
-    <div class="trash-btn-container">
-      <a class="text-decoration-none text-reset trash-btn" [nbPopover]="templateRef">
-        <nb-icon icon="trash-2-outline" status="basic"></nb-icon>
-      </a>
-      <ng-template #templateRef>
-        <div class="text-center">
-          <div class="m-2">
-            <div>Trash {{token.name}}?</div>
-          </div>
-          <div class="m-2">
-            <button nbButton status="success" (click)="trash_token(token.id)">Yes</button>
-          </div>
+      <div class="countdown-container">
+        <anon-countdown-timer
+          *ngIf="token.launch_date"
+          [countdown_to_timestamp]="token.launch_date"
+          countdown_end_message="Token launched!"
+        ></anon-countdown-timer>
+      </div>
+      <div class="icons-container row w-100 justify-content-between">
+        <!--   Left section   -->
+        <div class="col-4 d-flex justify-content-start p-0">
+          <ng-container
+            *ngIf="token.status != 'TRASH'"
+            class="trash-icon-container">
+            <a class="text-decoration-none text-reset trash-btn" [nbPopover]="trash_templateRef">
+              <nb-icon icon="trash-2-outline" status="basic"></nb-icon>
+            </a>
+            <ng-template #trash_templateRef>
+              <div class="text-center">
+                <div class="m-2">
+                  <div>Trash {{token.name}}?</div>
+                </div>
+                <div class="m-2">
+                  <button nbButton status="success" (click)="trash_token(token.id)">Yes</button>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+          <ng-container
+            *ngIf="token.status != 'ARCHIVE'"
+            class="archive-icon-container">
+            <a class="text-decoration-none text-reset archive-btn" [nbPopover]="archive_templateRef">
+              <nb-icon icon="archive-outline" status="basic"></nb-icon>
+            </a>
+            <ng-template #archive_templateRef>
+              <div class="text-center">
+                <div class="m-2">
+                  <div>Archive {{token.name}}?</div>
+                </div>
+                <div class="m-2">
+                  <button nbButton status="success" (click)="archive_token(token)">Yes</button>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
         </div>
-      </ng-template>
+        <!--   Middle section   -->
+        <div class="col-4 d-flex justify-content-center p-0 token-price text-info">
+          {{token_price | cryptoTokenPrice | currency}}
+        </div>
+        <!--   Right section   -->
+        <div class="col-4 d-flex justify-content-end p-0">
+          <a class="text-decoration-none text-reset" [routerLink]="'/admin/crypto/token/'+token.id+'/edit'">
+            <nb-icon icon="edit-outline" status="basic"></nb-icon>
+          </a>
+        </div>
+
+      </div>
     </div>
+
   </div>
 
 </div>
