@@ -34,11 +34,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/app/shared/styles/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/highlight.js/styles/atom-one-dark-reasonable.css",
-              "node_modules/bootstrap/dist/css/bootstrap.css"
+              "src/app/shared/styles/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.slim.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -48,13 +48,13 @@ export class AdminStoriesComponent implements OnInit, OnDestroy {
       name: 'trash', past_name: 'trashed', plural_name: 'Trashed', number: 1, number_of_stories: 0, default: false, stories: []
     },
     drafts: {
-      name: 'drafts', past_name: 'drafted', plural_name: 'Drafts', number: 2, number_of_stories: 0, default: false, stories: []
+      name: 'drafts', past_name: 'drafted', plural_name: 'Drafted', number: 2, number_of_stories: 0, default: false, stories: []
     },
     pending: {
       name: 'pending', past_name: 'pending', plural_name: 'Pending', number: 3, number_of_stories: 0, default: false, stories: []
     },
     review: {
-      name: 'review', past_name: 'reviewed', plural_name: 'Review', number: 4, number_of_stories: 0, default: false, stories: []
+      name: 'review', past_name: 'reviewed', plural_name: 'Reviewing', number: 4, number_of_stories: 0, default: false, stories: []
     },
     publish: {
       name: 'publish', past_name: 'published', plural_name: 'Published', number: 5, number_of_stories: 0, default: true, stories: []

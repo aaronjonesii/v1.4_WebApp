@@ -52,7 +52,7 @@
           id="nav-{{status.key}}"
           role="tabpanel"
         >
-          <anon-admin-stories-status-list [stories]="status.value.stories"></anon-admin-stories-status-list>
+          <anon-admin-stories-status-list [status_name]="status.value.plural_name" [stories]="status.value.stories"></anon-admin-stories-status-list>
         </div>
       </div>
     </section>

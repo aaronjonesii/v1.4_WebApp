@@ -13,6 +13,7 @@ import { ExtrasService } from "../../../../shared/utils/services/extras.service"
 export class AdminStoriesStatusListComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   @Input() stories: any;
+  @Input() status_name: string = '';
 
   constructor(
     private extras: ExtrasService,

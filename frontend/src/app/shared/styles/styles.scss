@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Zilla+Slab+Highlight:wght@700&display=swap');
 
+// themes - our custom or/and out of the box themes
 @import 'themes';
 
+// framework component themes (styles tied to theme variables)
 @import '~@nebular/theme/styles/globals';
+
+// Bootstrap 4
+@import 'custom-bootstrap';
 
 @include nb-install() {
   @include nb-theme-global();

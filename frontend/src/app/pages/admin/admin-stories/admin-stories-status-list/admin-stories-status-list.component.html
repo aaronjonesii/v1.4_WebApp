@@ -1,7 +1,9 @@
 <nb-card class="">
 
   <nb-card-header class="d-flex">
-    <h3 class="d-flex mr-auto align-items-center font-weight-lighter">Stories</h3>
+    <h3 class="d-flex mr-auto align-items-center font-weight-lighter">
+      <span *ngIf="status_name != ''">{{status_name}}&nbsp;</span>Stories
+    </h3>
     <div class="d-flex"><button class="" status="info" routerLink="/new-story" outline nbButton>Add new story</button></div>
   </nb-card-header>
 

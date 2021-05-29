@@ -1,5 +1,8 @@
 @import 'shared/styles/themes';
 
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
 @include nb-install-component() {
   // TODO: Uncomment to fix height of header
   //::ng-deep nb-layout-header nav {

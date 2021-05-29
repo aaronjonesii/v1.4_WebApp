@@ -1,5 +1,8 @@
 @import '../../shared/styles/themes';
 
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
 @include nb-install-component() {
   .row {
     margin-bottom: 2rem;
