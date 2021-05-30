@@ -8,27 +8,35 @@ export const SIDEBAR_MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   { title: 'BLOG', group: true },
-  {
-    title: 'Stories',
-    icon: 'file-text-outline',
-    link: '/admin/stories',
-    children: [
-      { title: 'All Stories', link: '/admin/stories' },
-      { title: 'Categories' },
-      { title: 'Tags' },
-    ]
-  },
+  { title: 'Stories', icon: 'file-text-outline', link: 'admin/stories' },
+  // {
+  //   title: 'Stories',
+  //   icon: 'file-text-outline',
+  //   link: '/admin/stories',
+  //   children: [
+  //     { title: 'All Stories', link: '/admin/stories' },
+  //     { title: 'Categories' },
+  //     { title: 'Tags' },
+  //   ]
+  // },
 
   { title: 'CRYPTOCURRENCY', group: true },
-  { title: 'Crypto', icon: {icon: 'bitcoin', pack: 'custom-icons'}, children: [
-      { title: 'Crypto Dashboard', link: 'admin/crypto' },
-      { title: 'Crypto Wallets', link: 'admin/crypto/wallets/dashboard' },
+  { title: 'Dashboard', link: '/admin/crypto', icon: {icon: 'grip-horizontal', pack: 'new-font-awesome'} },
+  { title: 'Tokens', icon: {icon: 'bitcoin', pack: 'custom-icons'}, children: [
       { title: 'All Crypto Tokens', link: 'admin/crypto/tokens' },
       { title: 'Binance Smart Chain Tokens', link: 'admin/crypto/bsc-tokens' },
       // { title: 'Public Tokens' },
       { title: 'Hidden', children: [
           { title: 'Archived Tokens', link: 'admin/crypto/archived-tokens' },
           { title: 'Trashed Tokens', link: 'admin/crypto/trashed-tokens' },
+        ] },
+    ] },
+  { title: 'Wallets', icon: {icon: 'wallet', pack: 'new-font-awesome'}, children: [
+      { title: 'Dashboard', link: 'admin/crypto/wallets/dashboard' },
+      { title: 'All Wallets', link: 'admin/crypto/wallets' },
+      { title: 'Hidden', children: [
+          { title: 'Archived Wallets' },
+          { title: 'Trashed Wallets' },
         ] },
     ] },
 
