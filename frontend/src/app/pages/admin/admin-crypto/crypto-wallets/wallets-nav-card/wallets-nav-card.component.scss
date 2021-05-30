@@ -4,6 +4,10 @@
 @import '~@nebular/theme/styles/global/breakpoints';
 
 @include nb-install-component() {
+  nb-card {
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+  }
   .left-column-card {
     nb-card-body {
       padding: 2rem;

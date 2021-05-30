@@ -1,0 +1,39 @@
+@import '../../../../../../shared/styles/themes';
+
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  nb-card {
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+  }
+  .wallet-card {
+    padding: 1rem;
+    .wallet-name-container {
+      .wallet-name {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+    }
+    .wallet-address-container {
+      padding: 1rem 0 0 2.5rem;
+      .wallet-address {
+        font-family: 'Zilla Slab Highlight', 'Open Sans', serif;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  // Medium Media Breakpoint
+  @include media-breakpoint-down(md) {
+    .wallet-card {
+      .wallet-name-container {
+        .wallet-name {}
+      }
+      .wallet-address {
+        font-size: 1.25rem!important;
+      }
+    }
+  }
+}

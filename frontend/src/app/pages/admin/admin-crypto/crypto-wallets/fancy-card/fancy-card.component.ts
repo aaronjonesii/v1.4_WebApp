@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class FancyCardComponent implements OnInit {
   @Input() title: string = 'Default string';
-  @Input() message: string = 'Default message';
+  @Input() message: any = 'Default message';
   @Input() icon: string = '';
   @Input() icon_pack: string = '';
   @Input() color: string = '';

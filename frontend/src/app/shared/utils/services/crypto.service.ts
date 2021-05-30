@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "../../../../environments/environment";
-import { CryptoToken, SwapTransaction } from "../models/crypto";
+import { CryptoToken, CryptoWallet, SwapTransaction } from "../models/crypto";
 import { Tag } from "../models/crypto";
 
 @Injectable({
@@ -20,7 +20,7 @@ export class CryptoService {
   update_cryptotokens(cryptotokens: CryptoToken[]) { this.cryptotokens.next(cryptotokens); }
 
   /**
-   * Get list of requested Tokens
+   * Get list of requested crypto tokens
    * @param type_of_token
    * @returns list(Tokens)
    */
@@ -97,6 +97,63 @@ export class CryptoService {
     let token_vs_currency = 'usd'
     let url = `https://api.coingecko.com/api/v3/simple/token_price/${token_blockchain}?contract_addresses=${token.contract_address}&vs_currencies=${token_vs_currency}`
     return this.http.get<any>(`${url}`, {headers: this.httpHeaders});
+  }
+
+  /**
+   * Get list of requested crypto wallets
+   * @param type_of_wallet
+   * @returns list(Wallets)
+   */
+  get_crypto_wallets(type_of_wallet: string): Observable<CryptoWallet[]> {
+    let url = `${environment.apiURL}/crypto/`
+    if (type_of_wallet === 'all') url = url + `all-wallets/`
+    if (type_of_wallet === 'trashed') url = url + `trashed-wallets/`
+    if (type_of_wallet === 'archived') url = url + `archived-wallets/`
+    return this.http.get<CryptoWallet[]>(`${url}`, {headers: this.httpHeaders});
+  }
+  // Create crypto wallet
+  /**
+   * Create single crypto wallet
+   * @returns CryptoWallet
+   */
+  create_crypto_wallet(crypto_wallet: CryptoWallet): Observable<CryptoWallet> {
+    return this.http.post<CryptoWallet>(
+      `${environment.apiURL}/crypto/wallets/`,
+      crypto_wallet,
+      {headers: this.httpHeaders}
+    );
+  }
+  // Update crypto wallet
+  /**
+   * Update single crypto wallet
+   * @returns Updated_CryptoWallet
+   */
+  update_crypto_wallet(crypto_wallet: CryptoWallet): Observable<CryptoWallet> {
+    return this.http.put<CryptoWallet>(
+      `${environment.apiURL}/crypto/wallet/${crypto_wallet.id}/`,
+      crypto_wallet,
+      {headers: this.httpHeaders}
+    );
+  }
+  // Delete crypto wallet
+  /**
+   * Delete single crypto wallet
+   * @returns Status Code 204
+   */
+  delete_crypto_wallet(crypto_wallet_id: string): Observable<any> {
+    return this.http.delete<any>(
+      `${environment.apiURL}/crypto/wallet/${crypto_wallet_id}/`,
+      {headers: this.httpHeaders}
+    );
+  }
+
+  /**
+   * Get list of bsc tokens from crypto wallet address
+   * @param wallet_address
+   * @returns list(Tokens)
+   */
+  get_crypto_wallet_tokens(wallet_address: string): Observable<any> {
+    return this.http.get<any>(`https://api.apeboard.finance/wallet/bsc/${wallet_address}`, {headers: this.httpHeaders});
   }
 
   /**

@@ -79,6 +79,9 @@ import { FancyCardComponent } from "./pages/admin/admin-crypto/crypto-wallets/fa
 import { IconComponent } from "./shared/layout/icon/icon.component";
 import { CryptoWalletComponent } from "./pages/admin/admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet.component";
 import { WalletsNavCardComponent } from "./pages/admin/admin-crypto/crypto-wallets/wallets-nav-card/wallets-nav-card.component";
+import { CreateCryptoWalletComponent } from "./pages/admin/admin-crypto/crypto-wallets/create-crypto-wallet/create-crypto-wallet.component";
+import { EditCryptoWalletComponent } from "./pages/admin/admin-crypto/crypto-wallets/edit-crypto-wallet/edit-crypto-wallet.component";
+import { CryptoWalletCardComponent } from "./pages/admin/admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet-card/crypto-wallet-card.component";
 
 @NgModule({
   declarations: [
@@ -146,6 +149,9 @@ import { WalletsNavCardComponent } from "./pages/admin/admin-crypto/crypto-walle
     IconComponent,
     CryptoWalletComponent,
     WalletsNavCardComponent,
+    CreateCryptoWalletComponent,
+    EditCryptoWalletComponent,
+    CryptoWalletCardComponent,
   ],
   imports: [
     AppRoutingModule,

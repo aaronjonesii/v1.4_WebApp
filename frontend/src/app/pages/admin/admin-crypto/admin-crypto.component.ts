@@ -27,7 +27,7 @@ export class AdminCryptoComponent implements OnInit {
       text: "Look at your wallets net worth with all assets inside.",
       icon: 'wallet',
       icon_pack: 'new-font-awesome',
-      link: '/admin/crypto/wallets/',
+      link: '/admin/crypto/wallets/dashboard',
     },
   ];
 

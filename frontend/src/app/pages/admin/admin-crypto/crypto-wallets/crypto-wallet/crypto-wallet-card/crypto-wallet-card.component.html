@@ -1,0 +1,46 @@
+<ng-container *ngIf="!crypto_wallet; else NoEmptyAddress">
+  <div class="my-4 text-center h4 text-warning">
+    No wallet to display!
+  </div>
+</ng-container>
+<ng-template #NoEmptyAddress>
+  <nb-card class="wallet-card">
+    <nb-card-body>
+      <div class="row d-flex justify-content-between">
+        <div class="wallet-name-container">
+          <a
+            routerLink="/admin/crypto/wallet/{{crypto_wallet.address}}"
+            class="text-decoration-none text-reset">
+            <nb-icon icon="bnb" pack="custom-icons"></nb-icon>
+            &nbsp;&nbsp;<span class="wallet-name">{{crypto_wallet.name}}</span>
+          </a>
+        </div>
+        <div class="empty-container"></div>
+        <div class="wallet-icon-container">
+          <ng-container
+            *ngIf="crypto_wallet.status != 'TRASH'"
+            class="trash-icon-container">
+            <a class="text-decoration-none text-reset trash-btn" [nbPopover]="trash_templateRef">
+              <nb-icon icon="trash-2-outline" status="basic"></nb-icon>
+            </a>
+            <ng-template #trash_templateRef>
+              <div class="text-center">
+                <div class="m-2">
+                  <div>Trash {{crypto_wallet.name}}?</div>
+                </div>
+                <div class="m-2">
+                  <button nbButton status="success" (click)="trash_crypto_wallet(crypto_wallet)">Yes</button>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+          <nb-icon icon="edit-outline" status="basic"></nb-icon>
+        </div>
+      </div>
+      <div class="row wallet-address-container">
+        <div class="col-1"><nb-icon icon="clipboard-outline" status="basic"></nb-icon></div>
+        <div class="col-11 wallet-address">{{crypto_wallet.address}}</div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

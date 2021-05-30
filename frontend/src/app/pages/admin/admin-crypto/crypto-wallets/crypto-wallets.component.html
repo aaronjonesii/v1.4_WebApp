@@ -13,6 +13,7 @@
         <button
           nbButton
           status="primary"
+          routerLink="/admin/crypto/create-wallet"
           class="rounded-pill align-items-baseline">
           <nb-icon
             icon="plus"
@@ -25,24 +26,17 @@
     <nb-card class="middle-column-card">
       <nb-card-body class="row">
         <div class="wallets-column">
-          <nb-card class="wallet-card">
-            <nb-card-body>
-              <div class="row d-flex justify-content-between">
-                <div class="wallet-name-container">
-                  <nb-icon icon="bnb" pack="custom-icons"></nb-icon>
-                  &nbsp;&nbsp;<span class="wallet-name">Wallet Name</span>
-                </div>
-                <div class="empty-container"></div>
-                <div class="wallet-icon-container">
-                  <nb-icon icon="trash-outline" status="basic"></nb-icon>
-                  <nb-icon icon="edit-outline" status="basic"></nb-icon>
-                </div>
-              </div>
-              <div class="row wallet-address">
-                Wallet Address &nbsp;<nb-icon icon="clipboard-outline" status="basic"></nb-icon>
-              </div>
-            </nb-card-body>
-          </nb-card>
+          <ng-container *ngIf="!wallets_loaded; else loaded">
+            <anon-loading class="container"></anon-loading>
+          </ng-container>
+          <ng-template #loaded>
+            <ng-container *ngIf="all_wallets.length < 1; else showWallets">
+              <div class="container text-center"><span class="h3 text-secondary">You have no wallets saved yet.</span></div>
+            </ng-container>
+            <ng-template #showWallets>
+              <anon-crypto-wallet-card *ngFor="let wallet of all_wallets" [crypto_wallet]="wallet"></anon-crypto-wallet-card>
+            </ng-template>
+          </ng-template>
         </div>
       </nb-card-body>
     </nb-card>

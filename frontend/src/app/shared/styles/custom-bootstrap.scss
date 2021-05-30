@@ -16,7 +16,7 @@ $grid-breakpoints: (
 // Optional
 //@import "~bootstrap/scss/root";
 //@import "~bootstrap/scss/reboot";
-//@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/type";
 //@import "~bootstrap/scss/images";
 //@import "~bootstrap/scss/code";
 @import "~bootstrap/scss/grid";
@@ -46,5 +46,5 @@ $grid-breakpoints: (
 //@import "~bootstrap/scss/popover";
 //@import "~bootstrap/scss/carousel";
 //@import "~bootstrap/scss/spinners";
-//@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/utilities";
 //@import "~bootstrap/scss/print";

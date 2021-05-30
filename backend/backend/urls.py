@@ -19,7 +19,7 @@ from rest_framework import routers
 
 from blog.views import newsletter, weather, ip, post, auth0
 from films.views import films
-from crypto.views import bsctoken
+from crypto.views import bsctoken, cryptowallet
 
 public_blog_list = post.PublicPostViewSet.as_view({'get': 'list'})
 public_blog_detail = post.PublicPostViewSet.as_view({'get': 'retrieve'})
@@ -63,6 +63,20 @@ exclude_tokens_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'exclude_token
 bsc_tokens_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'bsc_tokens'})
 trashed_tokens_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'trashed_tokens'})
 archived_tokens_list = bsctoken.CryptoTokenViewSet.as_view({'get': 'archived_tokens'})
+
+cryptowallet_list = cryptowallet.CryptoWalletViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+cryptowallet_detail = cryptowallet.CryptoWalletViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+exclude_wallets_list = cryptowallet.CryptoWalletViewSet.as_view({'get': 'exclude_wallets'})
+trashed_wallets_list = cryptowallet.CryptoWalletViewSet.as_view({'get': 'trashed_wallets'})
+archived_wallets_list = cryptowallet.CryptoWalletViewSet.as_view({'get': 'archived_wallets'})
 
 related_post = post.PostViewSet.as_view({'get': 'related_posts'})
 
@@ -109,6 +123,12 @@ urlpatterns = [
     path('crypto/trashed-tokens/', trashed_tokens_list, name='list_trashed_tokens'),
     path('crypto/archived-tokens/', archived_tokens_list, name='list_archived_tokens'),
     path('crypto/tags/',  cryptotoken_tags, name='list_all_token_tags'),
+
+    path('crypto/wallets/',  cryptowallet_list, name='list_all_crypto_wallets'),
+    path('crypto/wallet/<str:pk>/',  cryptowallet_detail, name='crypto_wallet_detail'),
+    path('crypto/all-wallets/',  exclude_wallets_list, name='list_exclude_wallets'),
+    path('crypto/trashed-wallets/',  trashed_wallets_list, name='list_trashed_wallets'),
+    path('crypto/archived-wallets/',  archived_wallets_list, name='list_archived_wallets'),
 
     path('weather/', weather.weatherView, name='weather'),  # Get Current Weather Conditions from requester
     path('weather/forecast/', weather.forecastWeatherView, name='forecast'),  # Get 5 day forecast from requester

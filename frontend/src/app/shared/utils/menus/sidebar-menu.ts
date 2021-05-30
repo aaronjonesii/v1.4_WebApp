@@ -22,6 +22,7 @@ export const SIDEBAR_MENU_ITEMS: NbMenuItem[] = [
   { title: 'CRYPTOCURRENCY', group: true },
   { title: 'Crypto', icon: {icon: 'bitcoin', pack: 'custom-icons'}, children: [
       { title: 'Crypto Dashboard', link: 'admin/crypto' },
+      { title: 'Crypto Wallets', link: 'admin/crypto/wallets/dashboard' },
       { title: 'All Crypto Tokens', link: 'admin/crypto/tokens' },
       { title: 'Binance Smart Chain Tokens', link: 'admin/crypto/bsc-tokens' },
       // { title: 'Public Tokens' },

@@ -6,42 +6,37 @@
     <nb-card class="middle-column-card">
       <nb-card-body class="row">
         <div class="col-lg-7 wallets-column">
-          <nb-card class="wallet-card">
-            <nb-card-body>
-              <div class="row wallet-name-container">
-                <nb-icon icon="bnb" pack="custom-icons"></nb-icon>
-                &nbsp;&nbsp;<span class="wallet-name">Wallet Name</span>
-              </div>
-              <div class="row wallet-address">
-                Wallet Address &nbsp;<nb-icon icon="clipboard-outline" status="basic"></nb-icon>
-              </div>
-            </nb-card-body>
-          </nb-card>
+          <anon-crypto-wallet-card [crypto_wallet]="crypto_wallet"></anon-crypto-wallet-card>
         </div>
         <div class="col-lg-5 wallets-overview-column">
-          <anon-fancy-card
-            title="Net Worth"
-            message="$354.844"
-            icon="equals"
-            icon_pack="new-font-awesome"
-            color="rgb(255, 57, 188)"
-          ></anon-fancy-card>
-          <anon-fancy-card
-            title="Total Assets"
-            message="$354.844"
-            icon="plus"
-            icon_pack="new-font-awesome"
-            color="rgb(186, 40, 255)"
-            class="total-assets-card"
-          ></anon-fancy-card>
-          <anon-fancy-card
-            title="Total Debts"
-            message="$0"
-            icon="minus"
-            icon_pack="new-font-awesome"
-            color="rgb(254, 129, 95)"
-            class="total-debts-card"
-          ></anon-fancy-card>
+          <ng-container *ngIf="!wallet_tokens_loaded; else showOverview">
+            <anon-loading class="container"></anon-loading>
+          </ng-container>
+          <ng-template #showOverview>
+            <anon-fancy-card
+              title="Net Worth"
+              [message]="net_worth | currency"
+              icon="equals"
+              icon_pack="new-font-awesome"
+              color="rgb(255, 57, 188)"
+            ></anon-fancy-card>
+            <anon-fancy-card
+              title="Total Assets"
+              [message]="total_assets | currency"
+              icon="plus"
+              icon_pack="new-font-awesome"
+              color="rgb(186, 40, 255)"
+              class="total-assets-card"
+            ></anon-fancy-card>
+            <anon-fancy-card
+              title="Total Debts"
+              [message]="total_debts | currency"
+              icon="minus"
+              icon_pack="new-font-awesome"
+              color="rgb(254, 129, 95)"
+              class="total-debts-card"
+            ></anon-fancy-card>
+          </ng-template>
         </div>
       </nb-card-body>
     </nb-card>
@@ -55,10 +50,11 @@
           <div class="col-3 p-0 d-flex align-items-center">
             <nb-checkbox
               class="d-flex align-items-center"
+              disabled
               (checkedChange)="toggle_hide_small_balances($event)">Hide small Balances</nb-checkbox>
           </div>
           <div class="col-3 p-0 d-flex align-items-center"></div>
-          <div class="col-3 p-0 d-flex justify-content-end align-items-center">Assets &nbsp;<span class="text-primary">$0.00</span></div>
+          <div class="col-3 p-0 d-flex justify-content-end align-items-center">Assets &nbsp;<span class="text-info font-weight-bold">{{total_assets | currency}}</span></div>
         </div>
         <div class="row sub-header-row">
           <div class="col-3 p-0 d-flex align-items-center">ASSETS</div>
@@ -66,14 +62,26 @@
           <div class="col-3 p-0 d-flex align-items-center">PRICE</div>
           <div class="col-3 p-0 d-flex justify-content-end align-items-center">VALUE</div>
         </div>
-        <div class="row asset-row">
-          <div class="col-3 p-0 d-flex align-items-center">
-            <nb-icon icon="bnb" pack="custom-icons"></nb-icon>&nbsp;&nbsp;BNB
-          </div>
-          <div class="col-3 p-0 d-flex align-items-center">0.401</div>
-          <div class="col-3 p-0 d-flex align-items-center">$371.11</div>
-          <div class="col-3 p-0 d-flex justify-content-end align-items-center">$148.727</div>
-        </div>
+        <ng-container *ngIf="!wallet_tokens_loaded; else loaded">
+          <anon-loading class="container"></anon-loading>
+        </ng-container>
+        <ng-template #loaded>
+          <ng-container *ngIf="crypto_wallet_tokens.length > 0; else empty">
+            <div class="row asset-row" *ngFor="let asset of crypto_wallet_tokens">
+              <div class="col-3 p-0 d-flex align-items-center">
+                <img class="d-flex asset-logo" [src]="asset.logo" />&nbsp;&nbsp;{{asset.symbol}}
+              </div>
+              <div class="col-3 p-0 d-flex align-items-center">{{asset.balance | number}}</div>
+              <div class="col-3 p-0 d-flex align-items-center">{{asset.price | currency}}</div>
+              <div class="col-3 p-0 d-flex justify-content-end align-items-center">{{asset.balance * asset.price | currency}}</div>
+            </div>
+          </ng-container>
+          <ng-template #empty>
+            <div class="container h4 text-center text-secondary my-1">
+              There's no balances in your wallet.
+            </div>
+          </ng-template>
+        </ng-template>
       </nb-card-body>
     </nb-card>
   </div>

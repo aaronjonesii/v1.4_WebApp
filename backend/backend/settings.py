@@ -165,6 +165,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',  # Used by Auth0
     ),
 }
+# Disable Django REST APIBrowsable Renderer for production
+if not DEBUG: REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ('rest_framework.renderers.JSONRenderer',)
 
 # SIMPLE_JWT = {
 #     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),

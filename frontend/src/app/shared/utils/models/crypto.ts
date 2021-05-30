@@ -47,3 +47,11 @@ export interface SwapTransaction {
   to_price?: number,
   fee?: number,
 }
+
+export interface CryptoWallet {
+  id?: string,
+  status: 'PRIVATE' | 'TRASH' | 'ARCHIVE',
+  name: string,
+  description: string,
+  address: string,
+}

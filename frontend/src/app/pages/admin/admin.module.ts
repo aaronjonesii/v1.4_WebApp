@@ -17,11 +17,11 @@ import { CryptoTokenPageComponent } from './admin-crypto/crypto-token-page/crypt
 import { EditCryptoTokenComponent } from './admin-crypto/edit-crypto-token/edit-crypto-token.component';
 import { CryptoTrashedTokensComponent } from './admin-crypto/crypto-trashed-tokens/crypto-trashed-tokens.component';
 import { CryptoArchivedTokensComponent } from './admin-crypto/crypto-archived-tokens/crypto-archived-tokens.component';
-import { AdminStoryListItemComponent } from './admin-stories/admin-stories-status-list/admin-story-list-item/admin-story-list-item.component';
 import { CryptoWalletsComponent } from './admin-crypto/crypto-wallets/crypto-wallets.component';
-import { FancyCardComponent } from './admin-crypto/crypto-wallets/fancy-card/fancy-card.component';
 import { CryptoWalletComponent } from './admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet.component';
-import { WalletsNavCardComponent } from './admin-crypto/crypto-wallets/wallets-nav-card/wallets-nav-card.component';
+import { CreateCryptoWalletComponent } from "./admin-crypto/crypto-wallets/create-crypto-wallet/create-crypto-wallet.component";
+import { EditCryptoWalletComponent } from "./admin-crypto/crypto-wallets/edit-crypto-wallet/edit-crypto-wallet.component";
+import { CryptoWalletCardComponent } from './admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet-card/crypto-wallet-card.component';
 
 
 const routes: Routes = [
@@ -39,6 +39,8 @@ const routes: Routes = [
           { path: 'wallets', component: CryptoWalletsComponent },
           { path: 'wallets/dashboard', component: CryptoWalletComponent },
           { path: 'wallet/:wallet_address', component: CryptoWalletComponent },
+          { path: 'create-wallet', component: CreateCryptoWalletComponent },
+          { path: 'edit-wallet/:wallet_address', component: EditCryptoWalletComponent },
         ] },
       { path: 'stories', component: AdminStoriesComponent },
       { path: 'films', children: [
