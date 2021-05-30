@@ -69,7 +69,7 @@
           <ng-container *ngIf="crypto_wallet_tokens.length > 0; else empty">
             <div class="row asset-row" *ngFor="let asset of crypto_wallet_tokens">
               <div class="col-3 p-0 d-flex align-items-center">
-                <img class="d-flex asset-logo" [src]="asset.logo" />&nbsp;&nbsp;{{asset.symbol}}
+                <img class="d-flex asset-logo" [src]="asset.logo" />&nbsp;&nbsp;{{asset.symbol | uppercase}}
               </div>
               <div class="col-3 p-0 d-flex align-items-center">{{asset.balance | number}}</div>
               <div class="col-3 p-0 d-flex align-items-center">{{asset.price | currency}}</div>

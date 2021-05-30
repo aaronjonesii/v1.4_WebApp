@@ -79,7 +79,7 @@ export class PublicStoryPageComponent implements OnInit, OnDestroy {
 
   complete() {
     this.storyLoaded = true;
-    setTimeout(() => this.checkIfAuthor(), 1100);
+    setTimeout(() => this.checkIfAuthor(), 2000);
   }
 
   checkIfAuthor() {
