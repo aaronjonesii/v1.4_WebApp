@@ -1,1 +1,54 @@
-<p>edit-crypto-wallet works!</p>
+<section class="top-section row">
+  <div class="left-column col-md-3">
+    <nb-card>
+      <nb-card-body>
+        <anon-loading class="container"></anon-loading>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="middle-column col-md-9">
+    <nb-card size="large">
+      <nb-card-body>
+        <div class="container wallet-form-container">
+          <form class="wallet-form row">
+            <ng-container *ngIf="!crypto_wallet_loaded; else WalletLoaded">
+              <anon-loading class="container"></anon-loading>
+            </ng-container>
+            <ng-template #WalletLoaded>
+              <div class="form-group col" *ngFor="let field of edit_wallet_fields">
+                <div class="">
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    [id]="field.id"
+                    [(ngModel)]="crypto_wallet[field.key]"
+                    [name]="field.key"
+                    [placeholder]="field.placeholder">
+                  <small class="form-text text-muted">{{field.hint}}</small>
+                </div>
+              </div>
+            </ng-template>
+          </form>
+        </div>
+      </nb-card-body>
+      <nb-card-footer class="wallet-form-card-footer">
+        <div class="row w-100 justify-content-between">
+          <div class="col d-flex justify-content-center">
+            <button
+              nbButton
+              status="danger"
+              (click)="go_back()"
+              outline>Cancel</button>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <button
+              nbButton
+              status="success"
+              (click)="save_crypto_wallet(crypto_wallet)"
+              outline>Update Wallet</button>
+          </div>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</section>

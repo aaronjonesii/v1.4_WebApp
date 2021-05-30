@@ -111,6 +111,13 @@ export class CryptoService {
     if (type_of_wallet === 'archived') url = url + `archived-wallets/`
     return this.http.get<CryptoWallet[]>(`${url}`, {headers: this.httpHeaders});
   }
+  /**
+   * Get one crypto wallet
+   * @returns dict(Wallet)
+   */
+  get_one_crypto_wallet(crypto_wallet_address: string): Observable<CryptoWallet> {
+    return this.http.get<CryptoWallet>(`${environment.apiURL}/crypto/wallet/${crypto_wallet_address}/`, {headers: this.httpHeaders});
+  }
   // Create crypto wallet
   /**
    * Create single crypto wallet
@@ -130,7 +137,7 @@ export class CryptoService {
    */
   update_crypto_wallet(crypto_wallet: CryptoWallet): Observable<CryptoWallet> {
     return this.http.put<CryptoWallet>(
-      `${environment.apiURL}/crypto/wallet/${crypto_wallet.id}/`,
+      `${environment.apiURL}/crypto/wallet/${crypto_wallet.address}/`,
       crypto_wallet,
       {headers: this.httpHeaders}
     );

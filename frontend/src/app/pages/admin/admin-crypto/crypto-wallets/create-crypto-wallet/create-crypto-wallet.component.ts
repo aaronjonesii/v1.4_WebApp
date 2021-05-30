@@ -5,6 +5,7 @@ import { CryptoService } from "../../../../../shared/utils/services/crypto.servi
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { create_wallet_fields } from "../crypto-wallet-fields";
 
 @Component({
   selector: 'anon-create-crypto-wallet',
@@ -19,17 +20,7 @@ export class CreateCryptoWalletComponent implements OnInit, OnDestroy {
     description: '',
     address: '',
   };
-  create_wallet_fields = [
-    { name: 'Wallet Name', id: 'wallet-name', key: 'name',
-      hint: 'Cryptocurrency Wallet Name.', placeholder: 'Wallet Name' },
-
-    { name: 'Wallet Description', id: 'wallet-description', key: 'description',
-      hint: 'Cryptocurrency Wallet Description, use this field to' +
-        'describe what kind of wallet it is and how it is used.', placeholder: 'Wallet Description' },
-
-    { name: 'Wallet Address', id: 'wallet-address', key: 'address',
-      hint: 'Cryptocurrency Wallet Address.', placeholder: 'Wallet Address' },
-  ];
+  create_wallet_fields = create_wallet_fields;
 
   constructor(
     private crypto: CryptoService,

@@ -5,10 +5,10 @@
   <div class="middle-column col-xxxl-9">
     <nb-card class="middle-column-card">
       <nb-card-body class="row">
-        <div class="col-lg-7 wallets-column">
+        <div class="col-12 col-xxxl-7 wallets-column">
           <anon-crypto-wallet-card [crypto_wallet]="crypto_wallet"></anon-crypto-wallet-card>
         </div>
-        <div class="col-lg-5 wallets-overview-column">
+        <div class="col-12 col-xxxl-5 wallets-overview-column">
           <ng-container *ngIf="!wallet_tokens_loaded; else showOverview">
             <anon-loading class="container"></anon-loading>
           </ng-container>

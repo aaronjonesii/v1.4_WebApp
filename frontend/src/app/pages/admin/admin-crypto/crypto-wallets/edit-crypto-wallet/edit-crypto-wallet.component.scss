@@ -1,3 +1,49 @@
 @import '../../../../../shared/styles/themes';
 
-@include nb-install-component() {}
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  nb-card {border-radius: 1rem;}
+  .left-column {
+    .create-wallet-nav {
+      display: flex;
+      flex-direction: column;
+      .nav-header {}
+      ul {
+        padding: 0;
+        list-style: none;
+        list-style-image: none;
+        .nav-item {
+          padding-bottom: 20px!important;
+          font-size: 18px;
+          color: rgba(0,0,0,.54)!important;
+          fill: rgba(0,0,0,.54)!important;
+        }
+      }
+    }
+  }
+  .wallet-form-container {
+    height: 100%;
+    .wallet-form {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      .form-group.col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+  }
+
+  // Medium Media Breakpoint
+  @include media-breakpoint-down(md) {
+    .top-section {
+      justify-content: center;
+      .left-column {display: none;}
+    }
+  }
+}
