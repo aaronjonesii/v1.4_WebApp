@@ -22,6 +22,7 @@ export class EditCryptoWalletComponent implements OnInit, OnDestroy {
   };
   crypto_wallet_loaded = false;
   edit_wallet_fields = create_wallet_fields;
+  wallet_snapshot: CryptoWallet = this.crypto_wallet;
 
 
   constructor(
@@ -41,6 +42,7 @@ export class EditCryptoWalletComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.get_crypto_wallet(this.crypto_wallet.address);
+    this.wallet_snapshot = this.crypto_wallet;
   }
   ngOnDestroy() {
     this.unsub$.next();
@@ -63,13 +65,13 @@ export class EditCryptoWalletComponent implements OnInit, OnDestroy {
     this.extras.goBack();
   }
 
-  save_crypto_wallet(crypto_wallet: CryptoWallet) {
-    this.crypto.update_crypto_wallet(crypto_wallet).pipe(
+  save_crypto_wallet(wallet_address: string, crypto_wallet: CryptoWallet) {
+    this.crypto.update_crypto_wallet(wallet_address, crypto_wallet).pipe(
       takeUntil(this.unsub$)
     ).subscribe(
       updated_wallet => {},
       error => this.extras.showToast(
-        `Sorry, we ran into a problem updating this wallet: ${JSON.stringify(error)}`,
+        `Sorry, we ran into a problem updating this wallet: ${JSON.stringify(error.error)}`,
         'Error Updating Wallet', 'danger', 0),
       () => {this.router.navigateByUrl('/admin/crypto/wallets');}
     );

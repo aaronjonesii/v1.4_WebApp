@@ -1,11 +1,5 @@
 from rest_framework import serializers
-from ..models import Anime, Movie, Show
-
-
-class AnimeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Anime
-        fields = '__all__'
+from ..models import Movie, Show
 
 
 class MovieSerializer(serializers.ModelSerializer):

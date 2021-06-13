@@ -6,11 +6,8 @@ class Movie(models.Model):
     imdb_id = models.CharField(max_length=10)
     title = models.CharField(max_length=255)
     year = models.CharField(max_length=4)
-    slug = models.CharField(max_length=150)
     synopsis = models.TextField()
     runtime = models.CharField(max_length=4)
-    country = models.CharField(max_length=4)
-    last_updated = models.FloatField(max_length=16)
     released = models.IntegerField()
     certification = models.CharField(max_length=255)
     torrents = models.TextField()
@@ -18,7 +15,6 @@ class Movie(models.Model):
     genres = models.CharField(max_length=255)
     images = models.TextField()
     rating = models.CharField(max_length=255)
-    _v = models.PositiveSmallIntegerField()
 
     class Meta:
         verbose_name = "Movie"

@@ -5,20 +5,28 @@
 <ng-template #loaded>
   <ng-container *ngIf="publicStories.length > 0; else noStories">
 
-    <div class="container">
+    <div class="container-sm">
       <div class="d-flex flex-column w-100 border-0 justify-content-between py-3">
         <nb-list >
           <nb-list-item *ngFor="let story of publicStories" class="d-flex justify-content-center mb-2">
-            <div class="d-flex w-75">
-              <a *ngIf="this.story.background_image == ''; else storyImage" class="row align-items-center" routerLink="public/{{story.id}}"> <img src="https://picsum.photos/3000/1500" class="d-flex mr-2 rounded float-left" style="max-width: 100px; max-height: 100px;" alt="..." /> </a>
+            <div class="d-flex row col-12">
+              <a *ngIf="this.story.background_image == ''; else storyImage" class="row justify-content-center align-items-center col-2" routerLink="public/{{story.id}}">
+                <img src="https://user-images.githubusercontent.com/18272237/70396289-73380100-19d5-11ea-9eb4-dd154aa6707c.JPG" class="rounded" style="width: 100%;" alt="..." /> </a>
               <ng-template #storyImage>
-                <a class="row align-items-center" routerLink="public/{{story.id}}"> <img [src]="story.background_image" class="d-flex mr-2 rounded float-left" style="max-width: 100px; max-height: 100px;" alt="..." /> </a>
+                <a class="row justify-content-center align-items-center col-2" routerLink="public/{{story.id}}">
+                  <img [src]="story.background_image" class="rounded" style="width: 100%;" alt="..." /> </a>
               </ng-template>
-              <nb-card class="card m-0 border-0">
+              <nb-card class="card m-0 border-0 col-11 col-sm-10">
                 <nb-card-body>
                   <h6 class="card-title"> <a class="text-decoration-none text-reset stretched-link" routerLink="public/{{story.id}}">{{ story.title }}</a> </h6>
+                  <div class="story-subtitle" *ngIf="story.byline"><span class="text-secondary">{{story.byline}}</span></div>
                   <p class="card-text m-0"> <small class="">{{ story.author_name }}</small> </p>
-                  <p class="card-text m-0"> <small class="text-muted">{{ story.created_on | dateAgo }} | {{ story.read_time }} min read</small> </p>
+                  <p class="card-text m-0 text-muted"> <small class="">{{ story.updated_on | dateAgo }} | {{ story.read_time }} min read</small>
+                    <span class="float-right story-category"><small>Category:
+                      <ng-container *ngIf="story.category; else noCategory">{{story.category}}</ng-container>
+                      <ng-template #noCategory>Uncategorized</ng-template>
+                    </small></span>
+                  </p>
                 </nb-card-body>
               </nb-card>
             </div>

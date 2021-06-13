@@ -13,7 +13,6 @@ from requests import get
 import mysql.connector
 import socket
 import json
-import sys
 
 
 def mysql_server_running(host, port):

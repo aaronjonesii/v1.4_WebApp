@@ -135,9 +135,9 @@ export class CryptoService {
    * Update single crypto wallet
    * @returns Updated_CryptoWallet
    */
-  update_crypto_wallet(crypto_wallet: CryptoWallet): Observable<CryptoWallet> {
+  update_crypto_wallet(wallet_address: string, crypto_wallet: CryptoWallet): Observable<CryptoWallet> {
     return this.http.put<CryptoWallet>(
-      `${environment.apiURL}/crypto/wallet/${crypto_wallet.address}/`,
+      `${environment.apiURL}/crypto/wallet/${wallet_address}/`,
       crypto_wallet,
       {headers: this.httpHeaders}
     );

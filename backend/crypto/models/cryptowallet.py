@@ -16,7 +16,7 @@ class CryptoWallet(models.Model):
                                 on_delete=models.PROTECT,
                                 help_text="User who created the Crypto Wallet.")
     name = models.CharField('wallet name', max_length=50, help_text='Name of Crypto Wallet')
-    description = models.CharField('wallet description', max_length=255, help_text='Crypto Wallet Description')
+    description = models.CharField('wallet description', max_length=255, help_text='Crypto Wallet Description', blank=True)
     address = models.CharField('wallet address', max_length=42, help_text='Crypto Wallet Address', primary_key=True)
     status = models.CharField(max_length=7, choices=WalletStatus.choices, default=WalletStatus.PRIVATE)
 

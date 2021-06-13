@@ -1,7 +1,6 @@
-from .films import AnimeSerializer, MovieSerializer, ShowSerializer
+from .films import MovieSerializer, ShowSerializer
 
 __all__ = [
-    'AnimeSerializer',
     'MovieSerializer',
     'ShowSerializer',
 ]

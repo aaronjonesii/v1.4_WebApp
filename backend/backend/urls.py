@@ -31,7 +31,6 @@ admin_post_detail = post.AdminPostViewSet.as_view({
     'delete': 'destroy',
 })
 
-admin_animes_list = films.AnimeViewSet.as_view({'get': 'list'})
 admin_movies_list = films.MovieViewSet.as_view({'get': 'list'})
 admin_shows_list = films.ShowViewSet.as_view({'get': 'list'})
 
@@ -99,7 +98,6 @@ urlpatterns = [
 
     path('frontend/admin/films/', films.admin_films_view, name='admin_films_list'),
     path('frontend/admin/films/update/', films.admin_update_films, name='admin_update_films'),
-    path('frontend/admin/films/animes/', admin_animes_list, name='admin_animes_list'),
     path('frontend/admin/films/movies/', admin_movies_list, name='admin_movies_list'),
     path('frontend/admin/films/shows/', admin_shows_list, name='admin_shows_list'),
 

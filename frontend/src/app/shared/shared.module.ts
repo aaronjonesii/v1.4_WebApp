@@ -52,6 +52,7 @@ import { FilmMovieLinkPipe } from "./utils/pipes/film-movie-link.pipe";
 import { BSCTokenSocialsPipe } from "./utils/pipes/bsctoken-socials.pipe";
 import { ClipboardModule } from "@angular/cdk/clipboard";
 import { CryptoTokenPricePipe } from "./utils/pipes/cryptotokenprice.pipe";
+import { SafeHTMLPipe } from "./utils/pipes/safehtml.pipe";
 
 
 const BASE_MODULES = [ CommonModule, RouterModule, HighlightModule, CKEditorModule ];
@@ -66,7 +67,7 @@ const NB_MODULES = [
 const MAT_MODULES = [ClipboardModule];
 const COMPONENTS = []!;
 const ENTRY_COMPONENTS = []!;
-const PIPES = [SlugifyPipe, DateAgoPipe, FilmImagePipe, FilmMovieLinkPipe, BSCTokenSocialsPipe, CryptoTokenPricePipe,];
+const PIPES = [SlugifyPipe, DateAgoPipe, FilmImagePipe, FilmMovieLinkPipe, BSCTokenSocialsPipe, CryptoTokenPricePipe, SafeHTMLPipe];
 const SERVICES = [
   UrlService, StoriesService, ProfileSettingsService,
   ExtrasService,

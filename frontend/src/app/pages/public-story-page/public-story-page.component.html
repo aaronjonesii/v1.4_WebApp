@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="public-story-page.component.scss">
 <div class="container" *ngIf="!storyLoaded; else Loaded">
   <anon-loading></anon-loading>
 </div>
@@ -37,7 +36,7 @@
         <div class="blog-content mx-auto row">
 
           <div class="w-100 story-content-container text-break">
-            <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkUp" tagName="story" class="w-100"></ckeditor>
+            <ckeditor [disabled]="true" [editor]="Editor" [(ngModel)]="storyMarkUp" tagName="story" class="w-100"></ckeditor>
           </div>
 
           <ng-container *ngIf="story.category">

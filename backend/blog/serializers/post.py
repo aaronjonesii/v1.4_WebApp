@@ -91,16 +91,14 @@ def update_category(update_category, post_instance):
 
 
 class PublicPostSerializer(serializers.ModelSerializer):
+    author = serializers.SlugRelatedField(slug_field='username', required=False, read_only=True)
     tags = TagNameSerializer(many=True, required=False)
     status = StatusSerializer
     category = CategorySerializer(required=False, allow_null=True)
 
     class Meta:
         model = Post
-        fields = ('id', 'tags', 'category', 'author_name', 'title',
-                  'byline', 'background_image', 'slug', 'content',
-                  'read_time', 'updated_on', 'created_on', 'public',
-                  'featured', 'status')
+        fields = '__all__'
 
 
 class PostSerializer(serializers.ModelSerializer):

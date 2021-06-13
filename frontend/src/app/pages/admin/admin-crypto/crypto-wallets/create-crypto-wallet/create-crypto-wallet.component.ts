@@ -44,7 +44,7 @@ export class CreateCryptoWalletComponent implements OnInit, OnDestroy {
           `Successfully created ${created_wallet.name}`, 'success', 5000)
       },
       error => this.extras.showToast(
-        `Sorry, we ran into a problem while trying to create this crypto wallet: ${error}`,
+        `Sorry, we ran into a problem while trying to create this crypto wallet: ${JSON.stringify(error.error)}`,
         `Failed to create ${crypto_wallet.name}`, 'danger', 0),
       () => {
         this.router.navigateByUrl(`/admin/crypto/wallet/${crypto_wallet.address}`);

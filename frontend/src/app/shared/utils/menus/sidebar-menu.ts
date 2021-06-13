@@ -41,7 +41,6 @@ export const SIDEBAR_MENU_ITEMS: NbMenuItem[] = [
     ] },
 
   { title: 'FILMS', group: true},
-  { title: 'Anime Shows', link: '/admin/films/animes', icon: {icon: 'video-camera', pack: 'font-awesome'} },
   { title: 'Movies', link: '/admin/films/movies', icon: {icon: 'film', pack: 'font-awesome'} },
   { title: 'TV Shows', link: '/admin/films/shows', icon: 'tv-outline' },
   { title: 'Films Overview', link: '/admin/films', icon: {icon: 'database', pack: 'font-awesome'} },

@@ -12,3 +12,4 @@ python-memcached
 channels
 daphne
 django-filter
+web3

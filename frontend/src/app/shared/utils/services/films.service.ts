@@ -20,9 +20,6 @@ export class FilmsService {
     return this.http.get<any>(`${environment.apiURL}/frontend/admin/films/update/`, {headers: this.httpHeaders});
   }
 
-  get_animes(): Observable<any> {
-    return this.http.get<any>(`${environment.apiURL}/frontend/admin/films/animes/`, {headers: this.httpHeaders});
-  }
   get_movies(): Observable<any> {
     return this.http.get<any>(`${environment.apiURL}/frontend/admin/films/movies/`, {headers: this.httpHeaders});
   }

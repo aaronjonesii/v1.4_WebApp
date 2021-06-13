@@ -6,7 +6,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { AdminStoriesComponent } from './admin-stories/admin-stories.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminFilmsComponent } from './admin-films/admin-films.component';
-import { AdminFilmsAnimesComponent } from './admin-films/admin-films-animes/admin-films-animes.component';
 import { AdminFilmsMoviesComponent } from './admin-films/admin-films-movies/admin-films-movies.component';
 import { AdminFilmsShowsComponent } from './admin-films/admin-films-shows/admin-films-shows.component';
 import { SearchMoviesComponent } from './admin-films/admin-films-movies/search-movies/search-movies.component';
@@ -21,7 +20,6 @@ import { CryptoWalletsComponent } from './admin-crypto/crypto-wallets/crypto-wal
 import { CryptoWalletComponent } from './admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet.component';
 import { CreateCryptoWalletComponent } from "./admin-crypto/crypto-wallets/create-crypto-wallet/create-crypto-wallet.component";
 import { EditCryptoWalletComponent } from "./admin-crypto/crypto-wallets/edit-crypto-wallet/edit-crypto-wallet.component";
-import { CryptoWalletCardComponent } from './admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet-card/crypto-wallet-card.component';
 
 
 const routes: Routes = [
@@ -45,7 +43,6 @@ const routes: Routes = [
       { path: 'stories', component: AdminStoriesComponent },
       { path: 'films', children: [
           { path: '', component: AdminFilmsComponent, pathMatch: 'full' },
-          { path: 'animes', component: AdminFilmsAnimesComponent },
           { path: 'movies', component: AdminFilmsMoviesComponent },
           { path: 'movies/search/:movie_query', component: SearchMoviesComponent },
           { path: 'shows', component: AdminFilmsShowsComponent },

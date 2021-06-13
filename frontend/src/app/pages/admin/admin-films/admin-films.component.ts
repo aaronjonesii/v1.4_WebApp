@@ -12,7 +12,6 @@ import { ExtrasService } from "../../../shared/utils/services/extras.service";
 export class AdminFilmsComponent implements OnInit, OnDestroy {
   private unsub$: Subject<any> = new Subject<any>();
   films_loaded = false;
-  animes_count = 0;
   shows_count = 0;
   movies_count = 0;
   database_last_updated = '';
@@ -34,7 +33,6 @@ export class AdminFilmsComponent implements OnInit, OnDestroy {
   get_films() {
     this.filmService.get_films().pipe(takeUntil(this.unsub$)).subscribe(
       films => {
-        this.animes_count = films.anime_count;
         this.shows_count = films.show_count;
         this.movies_count = films.movie_count;
         this.database_last_updated = films.last_updated;
@@ -51,7 +49,7 @@ export class AdminFilmsComponent implements OnInit, OnDestroy {
     this.filmService.update_films().pipe(takeUntil(this.unsub$)).subscribe(
       response => {
         this.extras.showToast(
-          `${response.new_anime_count} new anime shows\r\n${response.new_show_count} new tv shows\r\n${response.new_movie_count} new movies\r\n`,
+          `${response.new_show_count} new tv shows\r\n${response.new_movie_count} new movies\r\n`,
           `${response.new_anime_count+response.new_show_count+response.new_movie_count} Films Added`,
           'success', 0);
       },

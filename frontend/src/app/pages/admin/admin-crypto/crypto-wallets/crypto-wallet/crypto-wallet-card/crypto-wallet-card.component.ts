@@ -4,6 +4,7 @@ import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { CryptoService } from "../../../../../../shared/utils/services/crypto.service";
 import { ExtrasService } from "../../../../../../shared/utils/services/extras.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'anon-crypto-wallet-card',
@@ -22,6 +23,7 @@ export class CryptoWalletCardComponent implements OnInit, OnDestroy {
   constructor(
     private crypto: CryptoService,
     private extras: ExtrasService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {}
@@ -31,7 +33,7 @@ export class CryptoWalletCardComponent implements OnInit, OnDestroy {
   }
 
   trash_crypto_wallet(crypto_wallet: CryptoWallet) {
-    this.crypto.delete_crypto_wallet(<string>crypto_wallet.id).pipe(
+    this.crypto.delete_crypto_wallet(<string>crypto_wallet.address).pipe(
       takeUntil(this.unsub$)
     ).subscribe(
       response => {
@@ -44,7 +46,10 @@ export class CryptoWalletCardComponent implements OnInit, OnDestroy {
         `Sorry, we ran into a problem while trying to trash this wallet: ${crypto_wallet.address}`,
         `Failed to trash ${crypto_wallet.name}`,
         'danger', 0),
-      () => {}
+      () => {
+        let page_url = this.router.url;
+        this.router.navigateByUrl('/').then(() => this.router.navigateByUrl(page_url));
+      }
     );
   }
   edit_crypto_wallet() {}

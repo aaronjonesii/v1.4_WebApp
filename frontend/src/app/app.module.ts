@@ -53,7 +53,6 @@ import { AdminStoriesStatusListComponent } from "./pages/admin/admin-stories/adm
 import { AdminDashboardQuickLinksComponent } from "./pages/admin/admin-dashboard/admin-dashboard-quick-links/admin-dashboard-quick-links.component";
 import { AdminDashboardStoriesComponent } from "./pages/admin/admin-dashboard/admin-dashboard-stories/admin-dashboard-stories.component";
 import { AdminFilmsComponent } from "./pages/admin/admin-films/admin-films.component";
-import { AdminFilmsAnimesComponent } from "./pages/admin/admin-films/admin-films-animes/admin-films-animes.component";
 import { AdminFilmsMoviesComponent } from "./pages/admin/admin-films/admin-films-movies/admin-films-movies.component";
 import { AdminFilmsShowsComponent } from "./pages/admin/admin-films/admin-films-shows/admin-films-shows.component";
 import { SearchMoviesComponent } from "./pages/admin/admin-films/admin-films-movies/search-movies/search-movies.component";
@@ -66,7 +65,6 @@ import { CryptotokenSectionComponent } from "./pages/admin/admin-crypto/create-c
 import { CryptotokenSectionItemComponent } from "./pages/admin/admin-crypto/create-cryptotoken/create-token-step/cryptotoken-section/cryptotoken-section-item/cryptotoken-section-item.component";
 import { AdminCryptoTokenCardsComponent } from "./pages/admin/admin-crypto/admin-crypto-token-cards/admin-crypto-token-cards.component";
 import { AdminCryptoTokensComponent } from "./pages/admin/admin-crypto/admin-crypto-tokens/admin-crypto-tokens.component";
-import { ClipboardModule } from "@angular/cdk/clipboard";
 import { CreateTokenStepComponent } from "./pages/admin/admin-crypto/create-cryptotoken/create-token-step/create-token-step.component";
 import { CryptoTokenPageComponent } from "./pages/admin/admin-crypto/crypto-token-page/crypto-token-page.component";
 import { EditCryptoTokenComponent } from "./pages/admin/admin-crypto/edit-crypto-token/edit-crypto-token.component";
@@ -82,6 +80,7 @@ import { WalletsNavCardComponent } from "./pages/admin/admin-crypto/crypto-walle
 import { CreateCryptoWalletComponent } from "./pages/admin/admin-crypto/crypto-wallets/create-crypto-wallet/create-crypto-wallet.component";
 import { EditCryptoWalletComponent } from "./pages/admin/admin-crypto/crypto-wallets/edit-crypto-wallet/edit-crypto-wallet.component";
 import { CryptoWalletCardComponent } from "./pages/admin/admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet-card/crypto-wallet-card.component";
+import { ReadonlyStoryComponent } from './pages/readonly-story/readonly-story.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +123,6 @@ import { CryptoWalletCardComponent } from "./pages/admin/admin-crypto/crypto-wal
     AdminDashboardQuickLinksComponent,
     AdminDashboardStoriesComponent,
     AdminFilmsComponent,
-    AdminFilmsAnimesComponent,
     AdminFilmsMoviesComponent,
     AdminFilmsShowsComponent,
     SearchMoviesComponent,
@@ -152,6 +150,7 @@ import { CryptoWalletCardComponent } from "./pages/admin/admin-crypto/crypto-wal
     CreateCryptoWalletComponent,
     EditCryptoWalletComponent,
     CryptoWalletCardComponent,
+    ReadonlyStoryComponent,
   ],
   imports: [
     AppRoutingModule,
