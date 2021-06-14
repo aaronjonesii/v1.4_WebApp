@@ -17,7 +17,7 @@ def is_auth0_token_valid(token):
     """
     :return: boolean if Auth0 token is valid
     """
-    exp = jwt.decode(token, verify=False).get('exp')
+    exp = jwt.decode(token, verify=False, algorithms=["RS256"]).get('exp')
     if int(time.time()) >= exp:
         return False
     else: return True
