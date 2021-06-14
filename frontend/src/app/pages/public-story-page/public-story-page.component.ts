@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from "rxjs";
 import { Post } from "../../shared/utils/models/post";
-import * as BalloonEditor from "../../shared/utils/CustomBalloonEditor/ckeditor";
 import { ActivatedRoute } from "@angular/router";
 import { BlogService } from "../../shared/utils/services/blog.service";
 import { StoriesService } from "../../shared/utils/services/stories.service";
@@ -27,7 +26,6 @@ export class PublicStoryPageComponent implements OnInit, OnDestroy {
   };
   storyMarkUp = '';
   storyLoaded = false;
-  public Editor = BalloonEditor;
   menu_items: any = [{}];
   profile_json: any;
 

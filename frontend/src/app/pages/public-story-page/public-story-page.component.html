@@ -36,7 +36,10 @@
         <div class="blog-content mx-auto row">
 
           <div class="w-100 story-content-container text-break">
-            <ckeditor [disabled]="true" [editor]="Editor" [(ngModel)]="storyMarkUp" tagName="story" class="w-100"></ckeditor>
+            <anon-editor
+              class="w-100"
+              [disable_editing]="true"
+              [story]="storyMarkUp"></anon-editor>
           </div>
 
           <ng-container *ngIf="story.category">

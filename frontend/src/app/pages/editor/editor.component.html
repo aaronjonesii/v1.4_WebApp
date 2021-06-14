@@ -1,0 +1,8 @@
+<ckeditor
+  [disabled]="disable_editing"
+  [(ngModel)]="story"
+  [editor]="Editor"
+  (ready)="onReady($event)"
+  tagName="story"
+  class="w-100"
+  #ckeditor></ckeditor>
