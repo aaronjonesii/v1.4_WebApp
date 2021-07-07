@@ -1,0 +1,9 @@
+@import '../../shared/styles/themes';
+
+@include nb-install-component() {
+  // Removes focus lines from above and below editor
+  ::ng-deep .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+    border: none!important;
+    box-shadow: none!important;
+  }
+}

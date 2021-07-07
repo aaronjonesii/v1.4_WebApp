@@ -1,6 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Post } from "../../../shared/utils/models/post";
-import * as BalloonEditor from "../../../shared/utils/CustomBalloonEditor/ckeditor";
 import { AuthService } from "@auth0/auth0-angular";
 import { BlogService } from "../../../shared/utils/services/blog.service";
 import { SlugifyPipe } from "../../../shared/utils/pipes/slugify.pipe";
@@ -20,7 +19,6 @@ import { ExtrasService } from "../../../shared/utils/services/extras.service";
 })
 export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
   private unsub$: Subject<any> = new Subject<any>();
-  @ViewChild( '_editor' ) editor: CKEditorComponent | any;
   previousUrl!: string;
   storyLoaded = false;
   story: Post = {
@@ -36,7 +34,6 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
   lastSavedStory!: Post;
   storyCharacterCount: number = 0;
   storyWordCount: number = 0;
-  public Editor = BalloonEditor;
   editorConfig = {
     wordCount: {
       onUpdate: (stats:any) => {
@@ -158,7 +155,7 @@ export class EditStoryComponent implements OnInit, OnDestroy, ComponentCanDeacti
     return (current_time.getTime() - storylastSavedTimestamp) / 1000
   }
 
-  putEditorInFocus(editor: CKEditorComponent) {
+  putEditorInFocus(editor: CKEditorComponent | any) {
     setTimeout(() => {
       editor.editorInstance?.editing.view.focus();
       editor.editorInstance?.model.change(

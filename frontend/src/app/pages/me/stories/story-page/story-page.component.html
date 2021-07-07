@@ -33,7 +33,7 @@
 
         </div>
 
-        <div *ngIf="this.story.background_image == ''; else storyImage" class=""> </div>
+        <ng-container *ngIf="this.story.background_image == ''; else storyImage" class=""> </ng-container>
         <ng-template #storyImage>
           <div class="row w-100 m-0"> <img class="img-fluid mx-auto" [src]="story.background_image" /> </div>
         </ng-template>
@@ -41,7 +41,10 @@
         <div class="blog-content mx-auto row">
 
           <div class="w-100 story-content-container text-break">
-            <ckeditor [disabled]=true [editor]="Editor" [(ngModel)]="storyMarkup" tagName="story" class="w-100"></ckeditor>
+            <anon-editor
+              [disable_editing]="true"
+              [story]="storyMarkup"
+              class="w-100"></anon-editor>
           </div>
 
           <ng-container *ngIf="story.category">

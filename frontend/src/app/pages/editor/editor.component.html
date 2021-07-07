@@ -1,8 +1,24 @@
-<ckeditor
-  [disabled]="disable_editing"
-  [(ngModel)]="story"
-  [editor]="Editor"
-  (ready)="onReady($event)"
-  tagName="story"
-  class="w-100"
-  #ckeditor></ckeditor>
+<ng-container *ngIf="disable_editing; else editingStory">
+  <ckeditor
+    [disabled]="true"
+    [data]="story"
+    [editor]="ReadOnlyCustomEditor"
+    (ready)="onReady($event)"
+    tagName="story"
+    class="w-100"
+    #read_only_custom_editor></ckeditor>
+  <button nbButton (click)="inspectEditor('read-only-custom-editor', this.ReadOnlyCustomEditor)">Inspect Editor</button>
+</ng-container>
+<ng-template #editingStory>
+  <ckeditor
+    [disabled]="false"
+    [(ngModel)]="story"
+    [editor]="CustomEditor"
+    [config]="config"
+    (ready)="onReady($event)"
+    (change)="onChange($event)"
+    tagName="story"
+    class="w-100"
+    #custom_editor></ckeditor>
+  <button nbButton (click)="inspectEditor('custom-editor', this.CustomEditor)">Inspect Editor</button>
+</ng-template>

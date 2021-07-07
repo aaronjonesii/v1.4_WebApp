@@ -1,6 +1,6 @@
-<div class="container" *ngIf="!storyLoaded; else Loaded">
+<ng-container class="container" *ngIf="!storyLoaded; else Loaded">
   <anon-loading></anon-loading>
-</div>
+</ng-container>
 
 <ng-template #Loaded>
 
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div *ngIf="this.story.background_image == ''; else storyImage" class=""> </div>
+        <ng-container *ngIf="this.story.background_image == ''; else storyImage" class=""> </ng-container>
         <ng-template #storyImage>
           <div class="row w-100 m-0"> <img class="img-fluid mx-auto" [src]="story.background_image" /> </div>
         </ng-template>

@@ -80,7 +80,6 @@ import { WalletsNavCardComponent } from "./pages/admin/admin-crypto/crypto-walle
 import { CreateCryptoWalletComponent } from "./pages/admin/admin-crypto/crypto-wallets/create-crypto-wallet/create-crypto-wallet.component";
 import { EditCryptoWalletComponent } from "./pages/admin/admin-crypto/crypto-wallets/edit-crypto-wallet/edit-crypto-wallet.component";
 import { CryptoWalletCardComponent } from "./pages/admin/admin-crypto/crypto-wallets/crypto-wallet/crypto-wallet-card/crypto-wallet-card.component";
-import { ReadonlyStoryComponent } from './pages/readonly-story/readonly-story.component';
 import { EditorComponent } from './pages/editor/editor.component';
 
 @NgModule({
@@ -151,7 +150,6 @@ import { EditorComponent } from './pages/editor/editor.component';
     CreateCryptoWalletComponent,
     EditCryptoWalletComponent,
     CryptoWalletCardComponent,
-    ReadonlyStoryComponent,
     EditorComponent,
   ],
   imports: [

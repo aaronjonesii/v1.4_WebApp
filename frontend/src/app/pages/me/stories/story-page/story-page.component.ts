@@ -5,7 +5,6 @@ import { Location } from '@angular/common';
 import { Post } from "../../../../shared/utils/models/post";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import * as BalloonEditor from "../../../../shared/utils/CustomBalloonEditor/ckeditor";
 import { StoriesService } from "../../../../shared/utils/services/stories.service";
 import { NbDialogService, NbMenuService } from "@nebular/theme";
 import { ExtrasService } from "../../../../shared/utils/services/extras.service";
@@ -29,7 +28,6 @@ export class StoryPageComponent implements OnInit, OnDestroy {
   };
   storyMarkup = '';
   storyLoaded = false;
-  public Editor = BalloonEditor;
   menu_items: any = [ { title: 'Edit Blog Post' } ];
 
   constructor(

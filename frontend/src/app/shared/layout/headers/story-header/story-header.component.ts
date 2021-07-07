@@ -103,7 +103,7 @@ export class StoryHeaderComponent implements OnInit, OnDestroy {
         this.blogService.updateAutoSaveStatus('Saved @');
         this.router.navigateByUrl(`/me/${story.id}`);
         },
-    )
+    );
   }
 
   openWindowWithoutBackdrop() {

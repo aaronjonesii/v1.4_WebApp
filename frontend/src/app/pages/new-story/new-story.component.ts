@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import * as BalloonEditor from '../../shared/utils/CustomBalloonEditor/ckeditor';
 import { ChangeEvent } from "@ckeditor/ckeditor5-angular";
 import { BlogService } from "../../shared/utils/services/blog.service";
 import { Post } from "../../shared/utils/models/post";
@@ -29,7 +28,6 @@ export class NewStoryComponent implements OnInit, OnDestroy {
   storyLastSavedTimestamp!: number;
   changes = 0
   status = 'Not Saved';
-  public Editor = BalloonEditor;
   storyCharacterCount: number = 0;
   storyWordCount: number = 0;
   editorConfig = {
@@ -39,7 +37,9 @@ export class NewStoryComponent implements OnInit, OnDestroy {
       onUpdate: (stats:any) => {
         this.storyCharacterCount = stats.characters;
         this.storyWordCount = stats.words;
-      }
+      },
+      displayWords: false,
+      displayCharacters: false,
     },
   };
 

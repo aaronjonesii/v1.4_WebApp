@@ -1,6 +1,6 @@
-<div class="container" *ngIf="auth.isLoading$ | async; else loaded">
+<ng-container class="container" *ngIf="auth.isLoading$ | async; else loaded">
   <anon-loading></anon-loading>
-</div>
+</ng-container>
 
 <ng-template #loaded>
   <article class="">
@@ -8,19 +8,17 @@
 
       <div class="section-content w-100">
         <div class="section-inner">
-          <div class="container" *ngIf="!storyLoaded; else loaded2">
+          <ng-container class="container" *ngIf="!storyLoaded; else loaded2">
             <anon-loading></anon-loading>
-          </div>
+          </ng-container>
 
           <ng-template #loaded2>
-            <ckeditor
-              #_editor
-              [editor]="Editor"
+            <anon-editor
               [config]="editorConfig"
-              (change)="onChange($event)"
-              [(ngModel)]="this.story.content"
-              (ready)="putEditorInFocus(_editor)"
-            ></ckeditor>
+              (editorChange)="onChange($event)"
+              (readyChange)="putEditorInFocus($event)"
+              [story]="this.story.content"
+              [disable_editing]="false"></anon-editor>
           </ng-template>
         </div>
       </div>
