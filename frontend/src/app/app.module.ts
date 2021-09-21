@@ -11,7 +11,7 @@ import { HomeModule } from './pages/home/home.module';
 // Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthHttpInterceptor, AuthModule, HttpMethod } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common";
 import { LoadingComponent } from "./shared/layout/loading/loading.component";
 import { NewStoryModule } from "./pages/new-story/new-story.module";
 import { NewStoryComponent } from "./pages/new-story/new-story.component";

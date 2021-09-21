@@ -3,7 +3,7 @@ import { async, Subject } from "rxjs";
 import { AuthService } from "@auth0/auth0-angular";
 import { NbMenuService } from "@nebular/theme";
 import { takeUntil } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common";
 import { environment } from "../../../../../environments/environment";
 import { AdminService } from "../../../utils/services/admin.service";
 

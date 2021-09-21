@@ -1,6 +1,6 @@
 import { Injectable, Injector } from "@angular/core";
 import { AuthClientConfig, AuthHttpInterceptor, AuthService } from "@auth0/auth0-angular";
-import {  HttpEvent, HttpHandler, HttpRequest } from "@angular/common/http";
+import {  HttpEvent, HttpHandler, HttpRequest } from "@angular/common";
 import { catchError, mergeMap, retry } from "rxjs/operators";
 import { Observable, of, throwError } from "rxjs";
 import { ExtrasService } from "./services/extras.service";

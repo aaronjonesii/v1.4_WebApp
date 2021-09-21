@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { CryptoToken, CryptoWallet, SwapTransaction } from "../models/crypto";
